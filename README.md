@@ -49,3 +49,12 @@ If you want to learn more about building native executables, please consult http
 
 ## Related Guides
 
+- RESTEasy Reactive ([guide](https://quarkus.io/guides/resteasy-reactive)): A JAX-RS implementation utilizing build time processing and Vert.x. This extension is not compatible with the quarkus-resteasy extension, or any of the extensions that depend on it.
+
+## Provided Code
+
+### RESTEasy Reactive
+
+Easily start your Reactive RESTful Web Services
+
+[Related guide section...](https://quarkus.io/guides/getting-started-reactive#reactive-jax-rs-resources)
