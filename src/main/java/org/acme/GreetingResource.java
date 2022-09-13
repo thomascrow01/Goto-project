@@ -9,8 +9,9 @@ import javax.ws.rs.core.MediaType;
 public class GreetingResource {
 
     @GET
-    @Produces(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.TEXT_HTML)
     public String hello() {
-        return "Hello from RESTEasy Reactive";
+
+        return "<h1>Hello</h1> from RESTEasy Reactive";
     }
 }
