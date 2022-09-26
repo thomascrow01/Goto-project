@@ -73,6 +73,9 @@ public class MemberEntityResource {
         }
 
         entity.name = member.name;
+        entity.email = member.email;
+        entity.mobile = member.mobile;
+        entity.address = member.address;
 
         return entity;
     }

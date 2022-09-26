@@ -1,7 +1,6 @@
 package org.acme.hibernate.orm.panache.entity;
 
 import javax.persistence.Cacheable;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
@@ -10,7 +9,6 @@ import io.quarkus.hibernate.orm.panache.PanacheEntity;
 @Cacheable
 public class MemberEntity extends PanacheEntity {
 
-    @Column(length = 40, unique = true)
     public String name;
     public String email;
     public String mobile;
