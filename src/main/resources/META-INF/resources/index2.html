@@ -46,12 +46,12 @@
           if ($scope.form.id == -1) {
             //Id is absent so add members - POST operation
             method = "POST";
-            url = '/entity/members';
+            url = '/entity/member';
             data.name = $scope.form.name;
           } else {
             //If Id is present, it's edit operation - PUT operation
             method = "PUT";
-            url = '/entity/members/' + $scope.form.id;
+            url = '/entity/member/' + $scope.form.id;
             data.name = $scope.form.name;
           }
 
@@ -69,7 +69,7 @@
         $scope.remove = function (member) {
           $http({
             method: 'DELETE',
-            url: '/entity/members/' + member.id
+            url: '/entity/member/' + member.id
           }).then(_success, _error);
         };
 
@@ -84,7 +84,7 @@
         function _refreshPageData() {
           $http({
             method: 'GET',
-            url: '/entity/members'
+            url: '/entity/member/'
           }).then(function successCallback(response) {
             $scope.members = response.data;
           }, function errorCallback(response) {
