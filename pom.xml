@@ -60,8 +60,14 @@
     <!-- JDBC driver dependencies -->
     <dependency>
       <groupId>io.quarkus</groupId>
-      <artifactId>quarkus-jdbc-postgresql</artifactId>
+      <artifactId>quarkus-jdbc-mysql</artifactId>
     </dependency>
+
+    <dependency>
+     <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-resteasy-reactive-jackson</artifactId>
+    </dependency>
+    
 
   </dependencies>
   <build>
