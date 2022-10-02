@@ -48,6 +48,9 @@
             method = "POST";
             url = '/entity/member';
             data.name = $scope.form.name;
+            data.email = $scope.form.email;
+            data.mobile = $scope.form.mobile;
+            data.address = $scope.form.address;
           } else {
             //If Id is present, it's edit operation - PUT operation
             method = "PUT";

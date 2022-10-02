@@ -50,6 +50,7 @@ public class MemberEntityResource {
     @POST
     @Transactional
     public Response create(MemberEntity member) {
+
         if (member.id != null) {
             throw new WebApplicationException("Id was invalidly set on request.", 422);
         }

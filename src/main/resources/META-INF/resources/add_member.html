@@ -12,89 +12,94 @@
             <link href='http://fonts.googleapis.com/css?family=Love+Ya+Like+A+Sister' rel='stylesheet'/>
       </head>
       <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-    <script type="text/javascript">
-      var app = angular.module("MemberManagement", []);
-
-      //Controller Part
-      app.controller("MemberManagementController", function ($scope, $http) {
-
-        //Initialize page with default data which is blank in this example
-        $scope.members = [];
-
-        $scope.form = {
-          id: -1,
-          name: "",
-          address: "",
-          mobile: "",
-          email: ""
-        };
-
-        //Now load the data from server
-        _refreshPageData();
-
-        //HTTP POST methods for add/edit members
-        $scope.update = function () {
-          var method = "";
-          var url = "";
-          var data = {};
-          if ($scope.form.id == -1) {
-            //Id is absent so add members - POST operation
-            method = "POST";
-            url = '/entity/member';
-            data.name = $scope.form.name;
-            data.address = $scope.form.address;
-            data.mobile = $scope.form.mobile;
-            data.email = $scope.form.email;
-          } else {
-            //If Id is present, it's edit operation - PUT operation
-            method = "PUT";
-            url = '/entity/member/' + $scope.form.id;
-            data.name = $scope.form.name;
-          }
-
-          $http({
-            method: method,
-            url: url,
-            data: angular.toJson(data),
-            headers: {
-              'Content-Type': 'application/json'
-            }
-          }).then(_success, _error);
-        };
-
-          /* Private Methods */
-        //HTTP GET- get all members collection
-        function _refreshPageData() {
-          $http({
-            method: 'GET',
-            url: '/entity/member/'
-          }).then(function successCallback(response) {
-            $scope.members = response.data;
-          }, function errorCallback(response) {
-            console.log(response.statusText);
-          });
-        }
-
-        function _success(response) {
+      <script type="text/javascript">
+        var app = angular.module("MemberManagement", []);
+  
+        //Controller Part
+        app.controller("MemberManagementController", function ($scope, $http) {
+  
+          //Initialize page with default data which is blank in this example
+          $scope.members = [];
+  
+          $scope.form = {
+            id: -1,
+            name: ""
+          };
+  
+          //Now load the data from server
           _refreshPageData();
-          _clearForm()
-        }
-
-        function _error(response) {
-          alert(response.data.message || response.statusText);
-        }
-
-        //Clear the form
-        function _clearForm() {
-          $scope.form.name = "";
-          $scope.form.address = "";
-          $scope.form.mobile = "";
-          $scope.form.email = "";
-          $scope.form.id = -1;
-        }
-      });
-    </script>
-      <body>
+  
+          //HTTP POST/PUT methods for add/edit members
+          $scope.update = function () {
+            var method = "";
+            var url = "";
+            var data = {};
+            if ($scope.form.id == -1) {
+              //Id is absent so add members - POST operation
+              method = "POST";
+              url = '/entity/member';
+              data.name = $scope.form.name;
+            } else {
+              //If Id is present, it's edit operation - PUT operation
+              method = "PUT";
+              url = '/entity/member/' + $scope.form.id;
+              data.name = $scope.form.name;
+            }
+  
+            $http({
+              method: method,
+              url: url,
+              data: angular.toJson(data),
+              headers: {
+                'Content-Type': 'application/json'
+              }
+            }).then(_success, _error);
+          };
+  
+          //HTTP DELETE- delete member by id
+          $scope.remove = function (member) {
+            $http({
+              method: 'DELETE',
+              url: '/entity/member/' + member.id
+            }).then(_success, _error);
+          };
+  
+          //In case of edit members, populate form with member data
+          $scope.edit = function (member) {
+            $scope.form.name = member.name;
+            $scope.form.id = member.id;
+          };
+  
+            /* Private Methods */
+          //HTTP GET- get all members collection
+          function _refreshPageData() {
+            $http({
+              method: 'GET',
+              url: '/entity/member/'
+            }).then(function successCallback(response) {
+              $scope.members = response.data;
+            }, function errorCallback(response) {
+              console.log(response.statusText);
+            });
+          }
+  
+          function _success(response) {
+            _refreshPageData();
+            _clearForm()
+          }
+  
+          function _error(response) {
+            alert(response.data.message || response.statusText);
+          }
+  
+          //Clear the form
+          function _clearForm() {
+            $scope.form.name = "";
+            $scope.form.id = -1;
+          }
+        });
+      </script>
+      <body ng-app="MemberManagement" ng-controller="MemberManagementController">
                 <article>
             <header>
                <h1>Welcome to GoTo Grocery Online</h1>
@@ -111,55 +116,56 @@
                </ul>
             </nav>
 
+            
             <form ng-submit="update()">
-            <section id="section1">
-               <h3>General Details</h3>
-               <div class="row">
-                  <fieldset id="general">
-                     <div class="row">
-                        <div class="col-25"><label for="fname">Full Name <label for="street_address_id"> <label for="fname"><span style="color: #ff0000;">*</span></label>:</label></label></div>
-                        <div class="col-75"><input id="fname" ng-model="form.name" maxlength="25" pattern="[a-zA-Z ]{1,25}" required="required" size="10" type="text" /></div>
-                     </div> 
-                  </fieldset>
-                  <br>
-		     <fieldset id="address">
-                     <div class="row">
-                        <div class="col-25"><label for="street_address_id">Home Address <label for="fname"><span style="color: #ff0000;">*</span></label>:</label></div>
-                        <div class="col-75"><input id="street_address_id" ng-model="form.address" maxlength="40" name="address" required="required" size="10" type="text" placeholder="1 John Street, Oakley, Victoria 3166" /></div>
-                     </div>
-            </fieldset>
-            <br>
-             
-               </div>
-            </section>
-
-<section id="section1">
-               <h3>Contact Details</h3>
-               <div class="row">
-                  <fieldset id="general">
-                     <div class="row">
-                        <div class="col-25"><label for="phone_id">Phone Number<label for="street_address_id"> <label for="fname"><span style="color: #ff0000;">*</span></label>:</label></label></div>
-                        <div class="col-75"><input id="phone_id" ng-model="form.mobile" maxlength="12" name="mobile" pattern="[0-9]{4}-[0-9]{3}-[0-9]{3}" required="required" size="10" type="text" placeholder="04xx-xxx-xxx" /></div>
-                     </div>
-                     <div class="row">                     
-                     <div class="col-75">
-                        <div class="col-25"><label for="email_id">Email <label for="street_address_id"> <label for="email"><span style="color: #ff0000;">*</span></label>:</label></label></div>
-                        <div class="col-75"><input id="email_id" ng-model="form.email" maxlength="25" name="email_id" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required="required" size="30" type="text" /></div>
-                     </div>
-                  </div>
-                  
-               </fieldset>
-               <br>
-               <fieldset>
-                  <div class="col-75"><input id="btnSubmit" type="submit" value="Submit" /></div>
-            </fieldset>
-            </section>
-            <section id="section3">
-               <img src="images/image10.png" alt="healthy foods"/> <br />
-               <h3></h3>
-              <p>Please enter all mandatory information marked with a star in the spaces provided</p>
-            </section>
-            </form>
+              <section id="section1">
+                 <h3>General Details</h3>
+                 <div class="row">
+                    <fieldset id="general">
+                       <div class="row">
+                          <div class="col-25"><label for="fname">Full Name <label for="street_address_id"> <label for="fname"><span style="color: #ff0000;">*</span></label>:</label></label></div>
+                          <div class="col-75"><input id="fname" ng-model="form.name" maxlength="25" pattern="[a-zA-Z ]{1,25}" required="required" size="10" type="text" /></div>
+                       </div> 
+                    </fieldset>
+                    <br>
+           <fieldset id="address">
+                       <div class="row">
+                          <div class="col-25"><label for="street_address_id">Home Address <label for="fname"></label>:</label></div>
+                          <div class="col-75"><input id="street_address_id" ng-model="form.address" maxlength="40" name="address" size="10" type="text" placeholder="1 John Street, Oakley, Victoria 3166" /></div>
+                       </div>
+              </fieldset>
+              <br>
+               
+                 </div>
+              </section>
+  
+  <section id="section1">
+                 <h3>Contact Details</h3>
+                 <div class="row">
+                    <fieldset id="general">
+                       <div class="row">
+                          <div class="col-25"><label for="phone_id">Phone Number<label for="street_address_id"> <label for="fname"></label>:</label></label></div>
+                          <div class="col-75"><input id="phone_id" ng-model="form.mobile" maxlength="12" name="mobile" size="10" type="text" placeholder="04xx-xxx-xxx" /></div>
+                       </div>
+                       <div class="row">                     
+                       <div class="col-75">
+                          <div class="col-25"><label for="email_id">Email <label for="street_address_id"> <label for="email"></label>:</label></label></div>
+                          <div class="col-75"><input id="email_id" ng-model="form.email" maxlength="25" name="email_id" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" size="30" type="text" /></div>
+                       </div>
+                    </div>
+                    
+                 </fieldset>
+                 <br>
+                 <fieldset>
+                    <div class="col-75"><input id="btnSubmit" type="submit" value="Submit" /></div>
+              </fieldset>
+              </section>
+              <section id="section3">
+                 <img src="images/image10.png" alt="healthy foods"/> <br />
+                 <h3></h3>
+                <p>Please enter all mandatory information marked with a star in the spaces provided</p>
+              </section>
+              </form>
 
             <footer>
                <h3>Add New Member</h3>

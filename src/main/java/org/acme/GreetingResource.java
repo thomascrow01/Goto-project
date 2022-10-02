@@ -5,6 +5,10 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import org.acme.hibernate.orm.panache.entity.MemberEntity;
+
+import io.quarkus.panache.common.Sort;
+
 @Path("/hello")
 public class GreetingResource {
 
@@ -12,6 +16,8 @@ public class GreetingResource {
     @Produces(MediaType.TEXT_HTML)
     public String hello() {
 
-        return "<h1>Hello</h1> from RESTEasy Reactive";
+        MemberEntity.listAll(Sort.by("name"));
+
+        return "<h1>Hello</h1> from RESTEasy Reactive"  ;
     }
 }
