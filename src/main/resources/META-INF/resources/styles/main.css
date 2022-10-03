@@ -24,10 +24,10 @@ nav ul li{ list-style:none; float: left;font-size:93%;}
 nav ul li a { display: block;
 font-weight:bold;
 padding:0.325em 3.5em;/*10px 15px*/
-text-decoration: none; color: #000; border_right:1px solid #bababa;}
+text-decoration: none; color: #000; border-right:1px solid #bababa;}
 
 img { max-width:100%}
-#section1, #section2, #section3  { float: left; width: 30%;text-alighn:justify; margin: 1em 1em 1em }
+#section1, #section2, #section3  { float: left; width: 30%;text-align:justify; margin: 1em 1em 1em }
 footer{ clear:both;}
 footer h3{ font-family:'Love Ya Like A Sister', arial;background-color: #adebad ; padding: 0.5em 0.5em 0.5em;
 background-repeat:repeat-x;background-position:bottom;}
@@ -58,16 +58,18 @@ input[type=submit]:hover {
   background-color: #990099;
 }
 
+
 .col-25 {
-  float: left;
-  width: 40%;
-  margin-top: 1px;
-  
-  }
+      float: left;
+      width: 40%;
+      margin-top: 1px;
+      
+      }
+
 
 .col-75 {
   float: left;
-  width: 60%;
+  width: 50%;
   margin-top: 1px;
   }
 
