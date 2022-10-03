@@ -28,7 +28,10 @@
 
         $scope.form = {
           id: -1,
-          name: ""
+          name: "",
+          address: "",
+          mobile: "",
+          email: ""
         };
 
         //Now load the data from server
@@ -44,11 +47,15 @@
             method = "POST";
             url = '/entity/member';
             data.name = $scope.form.name;
+            
           } else {
             //If Id is present, it's edit operation - PUT operation
             method = "PUT";
             url = '/entity/member/' + $scope.form.id;
             data.name = $scope.form.name;
+            data.address = $scope.form.address;
+            data.mobile = $scope.form.mobile;
+            data.email = $scope.form.email;
           }
 
           $http({
@@ -71,8 +78,11 @@
 
         //In case of edit members, populate form with member data
         $scope.edit = function (member) {
-          $scope.form.name = member.name;
           $scope.form.id = member.id;
+          $scope.form.name = member.name;
+          $scope.form.address = member.address;
+          $scope.form.mobile = member.mobile;
+          $scope.form.email = member.email;
         };
 
           /* Private Methods */
@@ -127,7 +137,7 @@
 
   <div class="row" ng-repeat="member in members">
     <div class="col-2">{{ member.name }}</div>
-    <div class="col-8"><a ng-click="edit( member )" class="btn">Edit</a> <a ng-click="remove( member )" class="btn">Remove</a>
+    <div class="col-8"><a href="edit_member.html?id={{ member.id }}" class="btn">Edit</a> <a ng-click="remove( member )" class="btn">Remove</a>
     </div>
 </div>
 
