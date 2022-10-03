@@ -23,7 +23,10 @@
   
           $scope.form = {
             id: -1,
-            name: ""
+            name: "",
+            address: "",
+            mobile: "",
+            email: ""
           };
   
           //Now load the data from server
@@ -39,11 +42,17 @@
               method = "POST";
               url = '/entity/member';
               data.name = $scope.form.name;
+
+              data.address = $scope.form.address;
+              data.mobile = $scope.form.mobile;
+              data.email = $scope.form.email;
             } else {
               //If Id is present, it's edit operation - PUT operation
               method = "PUT";
               url = '/entity/member/' + $scope.form.id;
               data.name = $scope.form.name;
+
+              
             }
   
             $http({
