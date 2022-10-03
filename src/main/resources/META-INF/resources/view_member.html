@@ -118,32 +118,30 @@
     </head>
 
 <body ng-app="MemberManagement" ng-controller="MemberManagementController">
-<article>
-<header>
-<h1>Welcome to GoTo Grocery Online</h1></header>
-<nav>
-			<ul>
-			<li><a class="active" href="introduction.html">Home</a></li>
-			<li><a href="add_member.html">Add Member</a></li>
-                  	<li><a href="edit_member.html">Edit Member</a></li>
-                  	<li><a href="view_member.html">View Member</a></li>
-                  	<li><a href="add_product.html">Add Product</a></li>
-                  	<li><a href="edit_product.html">Edit Product</a></li>
-                  	</ul>
-</nav>
+  <article>
+    <header>
+      <h1>Welcome to GoTo Grocery Online</h1>
+    </header>
+    <nav>
+        <ul>
+          <li><a href="introduction.html">Home</a></li>
+          <li><a href="add_member.html">Add Member</a></li>
+          <li><a class="active" href="view_member.html">View Member</a></li>
+          <li><a href="add_product.html">Add Product</a></li>
+        </ul>
+    </nav>
 
 
- <h3>
-
-  <div class="row" ng-repeat="member in members">
-    <div class="col-2">{{ member.name }}</div>
-    <div class="col-8"><a href="edit_member.html?id={{ member.id }}" class="btn">Edit</a> <a ng-click="remove( member )" class="btn">Remove</a>
+    <h3>
+      <div class="row" ng-repeat="member in members">
+        <div class="col-2">{{ member.name }}</div>
+        <div class="col-8"><a href="edit_member.html?id={{ member.id }}" class="btn">Edit</a> <a ng-click="remove( member )" class="btn">Remove</a>
+      </div>
     </div>
-</div>
 
-<footer>
-  <h3>View Member</h3>
-</footer>
-</article>
+    <footer>
+      <h3>View Member</h3>
+    </footer>
+  </article>
 </body>
 </html>
