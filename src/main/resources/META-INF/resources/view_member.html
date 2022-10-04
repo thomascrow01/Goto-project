@@ -134,7 +134,7 @@
     </nav>
 
 
-    <h3>
+    <!--<h3>
       
       <div class="row" ng-repeat="member in members">
         <div class="col-25">Name : {{ member.name }}</div>
@@ -146,7 +146,29 @@
         <div class="col-25"><a href="edit_member.html?id={{ member.id }}" class="btn"><button style="background-color: lightgreen; text-decoration-color: aliceblue; font-family: 'Times New Roman', Times, serif;border-radius: 5px; font-size: 20px;" type="button">Edit</button></a> 
           <a ng-click="remove( member )" class="buttons"><button style="background-color: rgb(133, 157, 133); text-decoration-color: aliceblue; font-family: 'Times New Roman', Times, serif;border-radius: 5px; font-size: 20px;" type="button">Remove</button></a>
       </div>
-    </div>
+    </div>-->
+
+    <br>
+    <h3>Member List</h3>
+    <table>
+      <tr>
+        <th>Full Name</th>
+        <th>Home Address</th>
+        <th>Mobile</th>
+        <th>Email</th>
+        <th>Remove</th>
+        <th>Edit</th>
+      </tr>
+      <tr ng-repeat="member in members">
+        <td>{{ member.name }}</td>
+        <td>{{ member.address }}</td>
+        <td>{{ member.mobile }}</td>
+        <td>{{ member.email }}</td>
+
+        <td><input id="btnRemoveEdit" type="button" ng-click="remove (member)" value="Remove" /></td>
+        <td><a href="edit_member.html"><input id="btnRemoveEdit" type="button" value="Edit" /></a></td>
+      </tr>
+    </table>
 
 
     <footer>
