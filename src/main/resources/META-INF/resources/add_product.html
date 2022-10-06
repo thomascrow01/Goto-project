@@ -13,85 +13,95 @@
          <!-- References to external font 'Love Ya Like A Sister' -->
          <link href='http://fonts.googleapis.com/css?family=Love+Ya+Like+A+Sister' rel='stylesheet'/>
          <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-      <script type="text/javascript">
-        var app = angular.module("MemberManagement", []);
-  
-        //Controller Part
-        app.controller("MemberManagementController", function ($scope, $http) {
-  
-          //Initialize page with default data which is blank in this example
-          $scope.members = [];
-  
-          $scope.form = {
-            id: -1,
-            name: "",
-            description: ""
-          };
-  
-          //Now load the data from server
-          _refreshPageData();
-  
-          //HTTP POST/PUT methods for add/edit members
-          $scope.update = function () {
-            var method = "";
-            var url = "";
-            var data = {};
-            if ($scope.form.id == -1) {
-               //Id is absent so add members - POST operation
-               method = "POST";
-               url = '/entity/product';
-               data.name = $scope.form.productName;
-               data.description = $scope.form.productDesc;
-            }
 
-            $http({
-              method: method,
-              url: url,
-              data: angular.toJson(data),
-              headers: {
-                'Content-Type': 'application/json'
-              }
-            }).then(_success, _error);
-          };
-  
-          //In case of edit members, populate form with member data
-          $scope.edit = function (member) {
-            $scope.form.name = member.name;
-            $scope.form.id = member.id;
-          };
-  
-            /* Private Methods */
-          //HTTP GET- get all members collection
-          function _refreshPageData() {
-            $http({
-              method: 'GET',
-              url: '/entity/product/'
-            }).then(function successCallback(response) {
-              $scope.members = response.data;
-            }, function errorCallback(response) {
-              console.log(response.statusText);
+         <script type="text/javascript">
+            var app = angular.module("ProductManagement", []);
+   
+            //Controller Part
+            app.controller("ProductManagementController", function ($scope, $http) {
+   
+               //Initialize page with default data which is blank in this example
+               $scope.products = [];
+   
+               $scope.form = {
+                  id: -1,
+                  productName: "",
+                  productDesc: ""
+               };
+   
+               //Now load the data from server
+               _refreshPageData();
+      
+               //HTTP POST/PUT methods for add/edit products
+               $scope.update = function () {
+                  var method = "";
+                  var url = "";
+                  var data = {};
+                  if ($scope.form.id == -1) {
+                     //Id is absent so add products - POST operation
+                     method = "POST";
+                     url = '/entity/product';
+                     data.name = $scope.form.productName;
+                     data.description = $scope.form.productDesc;
+                  }
+
+                  $http({
+                  method: method,
+                  url: url,
+                  data: angular.toJson(data),
+                  headers: {
+                     'Content-Type': 'application/json'
+                  }
+                  }).then(_success, _error);
+               };
+
+               //HTTP DELETE- delete product by id
+               $scope.remove = function (product) {
+                  $http({
+                  method: 'DELETE',
+                  url: '/entity/product/' + product.id
+                  }).then(_success, _error);
+               };
+      
+               //In case of edit products, populate form with product data
+               $scope.edit = function (product) {
+                  $scope.form.productDesc = product.description;
+                  $scope.form.productName = product.name;
+                  $scope.form.id = product.id;
+               };
+   
+               /* Private Methods */
+               //HTTP GET- get all products collection
+               function _refreshPageData() {
+                  $http({
+                  method: 'GET',
+                  url: '/entity/product/'
+                  }).then(function successCallback(response) {
+                  $scope.products = response.data;
+                  }, function errorCallback(response) {
+                  console.log(response.statusText);
+                  });
+               }
+      
+               function _success(response) {
+                  _refreshPageData();
+                  _clearForm()
+               }
+      
+               //Clear the form
+               function _clearForm() {
+                  $scope.form.productName = "";
+                  $scope.form.productDesc = "";
+                  $scope.form.id = "";
+               }
+
+               function _error(response) {
+                  alert(response.data.message || response.statusText);
+               }
             });
-          }
-  
-          function _success(response) {
-            _refreshPageData();
-            _clearForm()
-          }
-  
-          //Clear the form
-          function _clearForm() {
-            $scope.form.productName = "";
-            $scope.form.productDesc = "";
-          }
-
-          function _error(response) {
-            alert(response.data.message || response.statusText);
-          }
-
-        });
-      </script>
+         </script>
       </head>
-      <body ng-app="MemberManagement" ng-controller="MemberManagementController">
+      <body ng-app="ProductManagement" ng-controller="ProductManagementController">
          <article>
             <header>
                <h1>Welcome to GoTo Grocery Online</h1>
@@ -99,10 +109,11 @@
             <nav>
                <ul>
                   <li><a href="index.html">Home</a></li>
-		            <li><a href="add_member.html">Add Member</a></li>
-                  <li><a href="view_member.html">View Member</a></li>
+                  <li><a href="add_member.html">Add Member</a></li>
+                  <li><a href="view_member.html">View Members</a></li>
                   <li><a class="active" href="add_product.html">Add Product</a></li>
-               </ul>
+                  <li><a href="view_product.html">View Products</a></li>
+                </ul>
             </nav>
             <form ng-submit="update()">
                <section id="section1">
@@ -112,11 +123,11 @@
                         <legend></legend>
                         <div class="row">
                            <div class="col-25"><label for="pname">Product Name  <label for="pname"><span style="color: #ff0000;">*</span></label>:</label></label></div>
-                           <div class="col-75"><input ng-model="form.productName" id="productName" maxlength="25" name="productName" pattern="[a-z]{1,25}" required="required" size="10" type="text" /></div>
+                           <div class="col-75"><input ng-model="form.productName" id="productName" maxlength="25" name="productName" pattern="[A-Z][a-z]{1,25}" required="required" size="10" type="text" /></div>
                         </div>
                         <div class="row">
                            <div class="col-25"><label for="pname">Product Description  <label for="pname"><span style="color: #ff0000;">*</span></label>:</label></label></div>
-                           <div class="col-75"><input ng-model="form.productDesc" id="productDesc" maxlength="25" name="productDesc" pattern="[a-z]{1,25}" required="required" size="10" type="text" /></div>
+                           <div class="col-75"><input ng-model="form.productDesc" id="productDesc" maxlength="25" name="productDesc" pattern="[A-Z][a-z]{1,25}" required="required" size="10" type="text" /></div>
                         </div>
                         <!--
                         <div class="row">

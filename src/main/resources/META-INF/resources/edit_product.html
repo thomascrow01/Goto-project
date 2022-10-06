@@ -1,19 +1,103 @@
 <!DOCTYPE html>
 <html lang="en">
    <html>
-             <head>
-            <title>GoTo Grocery Online</title>
-            <meta charset="utf-8" />
-            <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-            <!--<link href="File:///Volumes/SOFIA USB/2.SWINBURNE/Uni/2022 - SEMESTER 2/SWE20001/Front-End/styles/main.css" rel="stylesheet"/>
-               <link href="File:///Volumes/SOFIA USB/2.SWINBURNE/Uni/2022 - SEMESTER 2/SWE20001/Front-End/styles/responsive.css" rel="stylesheet" media="screen and (max-width:1024px)"/>
-               -->
-            <link href="styles/main.css" rel="stylesheet"/>
-            <link href="styles/responsive.css" rel="stylesheet" media="screen and (max-width:1024px)"/>
-            <!-- References to external font 'Love Ya Like A Sister' -->
-            <link href='http://fonts.googleapis.com/css?family=Love+Ya+Like+A+Sister' rel='stylesheet'/>
+      <head>
+         <title>GoTo Grocery Online</title>
+         <meta charset="utf-8" />
+         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+         <!--<link href="File:///Volumes/SOFIA USB/2.SWINBURNE/Uni/2022 - SEMESTER 2/SWE20001/Front-End/styles/main.css" rel="stylesheet"/>
+            <link href="File:///Volumes/SOFIA USB/2.SWINBURNE/Uni/2022 - SEMESTER 2/SWE20001/Front-End/styles/responsive.css" rel="stylesheet" media="screen and (max-width:1024px)"/>
+            -->
+         <link href="styles/main.css" rel="stylesheet"/>
+         <link href="styles/responsive.css" rel="stylesheet" media="screen and (max-width:1024px)"/>
+         <!-- References to external font 'Love Ya Like A Sister' -->
+         <link href='http://fonts.googleapis.com/css?family=Love+Ya+Like+A+Sister' rel='stylesheet'/>
+    
+         <!-- Load AngularJS -->
+         <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+         <script type="text/javascript">
+            var app = angular.module("ProductManagement", []);
+
+            //Controller Part
+            app.controller("ProductManagementController", function ($scope, $http) {
+
+               const queryString = window.location.search;
+               const urlParams = new URLSearchParams(queryString);
+
+               //Initialize page with default data which is blank in this example
+               $scope.products = [];
+
+               $scope.form = {
+                  id: -1,
+                  productName: "",
+                  productDesc: ""
+               };
+
+               //Now load the data from server
+               _refreshPageData();
+
+               //HTTP POST/PUT methods for add/edit Products
+               $scope.update = function () {
+                  var method = "";
+                  var url = "";
+                  var data = {};
+                  //If Id is present, it's edit operation - PUT operation
+                  method = "PUT";
+                  url = '/entity/product/' + urlParams.get('id');
+                  data.name = $scope.form.productName;
+                  data.description = $scope.form.productDesc;
+
+                  $http({
+                     method: method,
+                     url: url,
+                     data: angular.toJson(data),
+                     headers: {
+                     'Content-Type': 'application/json'
+                     }
+                     }).then(_success, _error);
+                  };
+
+               //HTTP DELETE- delete product by id
+               $scope.remove = function (Product) {
+                  $http({
+                     method: 'DELETE',
+                     url: '/entity/product/' + product.id
+                  }).then(_success, _error);
+               };
+
+               /* Private Methods */
+               //HTTP GET- get all products collection
+               function _refreshPageData() {
+                  $http({
+                     method: 'GET',
+                     url: '/entity/product/'
+                  }).then(function successCallback(response) {
+                     $scope.form.productDesc = response.data[0].description;
+                     $scope.form.productName = response.data[0].name;
+                  }, function errorCallback(response) {
+                     console.log(response.statusText);
+                  });
+               }
+
+               function _success(response) {
+                  _refreshPageData();
+                  _clearForm();
+               }
+
+               function _error(response) {
+                  alert(response.data.message || response.statusText);
+               }
+
+               //Clear the form
+               function _clearForm() {
+                  $scope.form.productDesc = "";
+                  $scope.form.productName = "";
+                  $scope.form.id = -1;
+               }
+            });
+         </script>
       </head>
-      <body>
+      <body ng-app="ProductManagement" ng-controller="ProductManagementController">
          <article>
             <header>
                <h1>Welcome to GoTo Grocery Online</h1>
@@ -22,116 +106,40 @@
                <ul>
                   <li><a href="index.html">Home</a></li>
                   <li><a href="add_member.html">Add Member</a></li>
-                  <li><a href="view_member.html">View Member</a></li>
+                  <li><a href="view_member.html">View Members</a></li>
                   <li><a href="add_product.html">Add Product</a></li>
-               </ul>
+                  <li><a href="view_product.html">View Products</a></li>
+                </ul>
             </nav>
-            <section id="section1">
-               <h3>Product Details</h3>
-               <div class="row">
-                  <fieldset id="general">
-                     <legend></legend>
-		     <div class="row">
-                        <div class="col-25"><label for="pcategory">SKU #<label for="sku"><span style="color: #ff0000;">*</span></label>:</label></label></div>
-                        <div class="col-75"><span id="p_id"></span></div>
-                    	 </div>
-
-                     <div class="row">
-                        <div class="col-25"><label for="pname">Product Name  <label for="pname"><span style="color: #ff0000;">*</span></label>:</label></label></div>
-                        <div class="col-75"><input id="fname" maxlength="25" name="firstname" pattern="[a-z]{1,25}" required="required" size="10" type="text" /></div>
-                     </div>
-                     <div class="row">
-                        <div class="col-25"><label for="pcategory">Category<label for="fname"><span style="color: #ff0000;">*</span></label>:</label></label></div>
-                        <div class="col-75"><input id="lname" maxlength="25" name="lastname" pattern="[a-z]{1,25}" required="required" size="10" type="text" /></div>
-                     </div>
-		    <div class="row">
-                        <div class="col-25"><label for="packaging">Packaging <span style="color: #ff0000;">*</span></label>:</label></label></div>
-                        <div class="col-75"><input id="bag" name="pkcg" required="required" type="radio" value="Bag" />Bag/kg <input id="bag" name="pkcg" required="required" type="radio" value="pallet" />Pallet <input id="each" name="pkcg" required="required" type="radio" value="each" />Each</div>
-                	</div>
-			<div class="row">
-                       <div class="col-25"><label for="qty">Qty <span style="color: #ff0000;">*</span></label>:</label></label></div>
-                        <div class="col-75"><input id="qqty" maxlength="25" size="10" type="text" /></div>
-                     </div>
-			<div class="row">
-                        <div class="col-25"><label for="price">Price <label for="price"> <label for="fname"><span style="color: #ff0000;">*</span></label>:</label></label></div>
-                        <div class="col-75"><input id="price" maxlength="10" name="price_id" pattern="[0-9]{4}-[0-9]{3}-[0-9]{3}" required="required" size="10" type="text" /></div>
-                     </div>
-		     <div class="row">
-                        <div class="col-25"><label for="picture">Image </label>:</label></label></div>
-                       <div class="col-75"><input type="file" accept="image/*" name="image" id="file" onchange="loadFile(event)">
-  			<p><img id="output" width="200" /></p></div>
-                     </div>
-
-			<script type="text/javascript">
- 			 var loadFile = function(event) {
- 			   var image = document.getElementById('output');
-  			  image.src = URL.createObjectURL(event.target.files[0]);
-  			};
-			</script>
-                  </fieldset>
-                  <br>
-		  <br>
-		<div class="col-75"><input type="submit" value="Submit" /></div>
-               </div>
-            </section>
-
-	    <section id="section1">
-               <h3>Supplier Details</h3>
-               <div class="row">
-			<fieldset id="address">
-                     <legend></legend>
-                     <div class="row">
-                        <div class="col-25"><label for="street_address_id">Street Address <label for="fname"><span style="color: #ff0000;">*</span></label>:</label></div>
-                        <div class="col-75"><input id="street_address_id" maxlength="40" name="street_address_id" pattern="[a-z]{1,40}" required="required" size="10" type="text" /></div>
-                     </div>
-                     <div class="row">
-                        <div class="col-25"><label for="suburb_id">Suburb/town<label for="street_address_id"> <label for="fname"><span style="color: #ff0000;">*</span></label>:</label></label></div>
-                        <div class="col-75"><input id="suburb_id" maxlength="20" name="suburb_id" pattern="[a-z]{1,20}" required="required" size="10" type="text" /></div>
-                     </div>
-                     <div class="row">
-                        <div class="col-25"><label for="state">State<label for="street_address_id"> <label for="fname"><span style="color: #ff0000;">*</span></label>:</label></label></div>
-                        <div class="col-75">
-                           <input id="state" list="states" name="state" required="" type="text" />
-                           <datalist id="states">
-                              <option value="VIC"></option>
-                              <option value="NSW"></option>
-                              <option value="QLD"></option>
-                              <option value="NT"></option>
-                              <option value="WA"></option>
-                              <option value="SA"></option>
-                              <option value="TAS"></option>
-                              <option value="ACT"></option>
-                           </datalist>
+            <form ng-submit="update()">
+               <section id="section1">
+                  <h3>Product Details</h3>
+                  <div class="row">
+                     <fieldset id="general">
+                        <legend></legend>
+                        <div class="row">
+                           <div class="col-25"><label for="pname">Product Name  <label for="pname"><span style="color: #ff0000;">*</span></label>:</label></label></div>
+                           <div class="col-75"><input ng-model="form.productName" id="productName" maxlength="25" name="productName" pattern="[A-Z][a-z]{1,25}" required="required" size="10" type="text" /></div>
                         </div>
-                     </div>
-                     <div class="row">
-                        <div class="col-25"><label for="postcode_id">Postcode<label for="street_address_id"> <label for="fname"><span style="color: #ff0000;">*</span></label>:</label></label></div>
-                        <div class="col-75"><input id="postcode_id" maxlength="4" name="postcode_id" pattern="[1-9]{4}" required="required" size="10" type="text" /></div>
-                     </div>
-                  
-                     <legend></legend>
-                     <div class="row">
-                        <div class="col-25"><label for="phone_id">Phone Number<label for="street_address_id"> <label for="fname"><span style="color: #ff0000;">*</span></label>:</label></label></div>
-                        <div class="col-75"><input id="phone_id" maxlength="10" name="phone_id" pattern="[0-9]{4}-[0-9]{3}-[0-9]{3}" required="required" size="10" type="text" placeholder="04xx-xxx-xxx" /></div>
-                     </div>
-                     <div class="row">                     
-                     <div class="col-75">
-                        <div class="col-25"><label for="email_id">Email <label for="street_address_id"> <label for="email"><span style="color: #ff0000;">*</span></label>:</label></label></div>
-                        <div class="col-75"><input id="email_id" maxlength="25" name="email_id" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required="required" size="30" type="email" /></div>
-                     </div>
+                        <div class="row">
+                           <div class="col-25"><label for="pname">Product Description  <label for="pname"><span style="color: #ff0000;">*</span></label>:</label></label></div>
+                           <div class="col-75"><input ng-model="form.productDesc" id="productDesc" maxlength="25" name="productDesc" pattern="[A-Z][a-z]{1,25}" required="required" size="10" type="text" /></div>
+                        </div>
+                        <script type="text/javascript">
+                           var loadFile = function(event) {
+                           var image = document.getElementById('output');
+                           image.src = URL.createObjectURL(event.target.files[0]);
+                           };
+                        </script>
+                     </fieldset>
+                     <br>
+                     <br>
+                     <div class="col-75"><input type="submit" value="Submit" /></div>
                   </div>
-                  
-                  <div class="row">&nbsp;</div>
-                  <div class="row">
-                     <div class="col-75">Comments</div>
-                  </div>
-                  <div class="row">
-                     <div class="col-75"><textarea id="comments" style="height: 100px;" name="comments" placeholder="Please enter your comments here.."></textarea></div>
-                  </div>
-               </fieldset>
-            </section>
+               </section>
+            </form>
             <section id="section3">
-               <img src="images/image4.png" alt="healthy foods"/> <br />
+               <img src="images/image7.png" alt="healthy foods"/> <br />
                <h3></h3>
                <p>Please enter all mandatory information marked with a star in the space provided</p>
             </section>
@@ -139,5 +147,5 @@
                <h3>Edit Product</h3>
             </footer>
          </article>
-       </body>
+      </body>
    </html>

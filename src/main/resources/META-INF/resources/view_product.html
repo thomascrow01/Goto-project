@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<html>
+    <head>
+
+        <title>GoTo Grocery Online</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <!--<link href="File:///Volumes/SOFIA USB/2.SWINBURNE/Uni/2022 - SEMESTER 2/SWE20001/Front-End/styles/main.css" rel="stylesheet"/>
+        <link href="File:///Volumes/SOFIA USB/2.SWINBURNE/Uni/2022 - SEMESTER 2/SWE20001/Front-End/styles/responsive.css" rel="stylesheet" media="screen and (max-width:1024px)"/>
+        -->
+        <link href="styles/main.css" rel="stylesheet"/>
+
+        <link href="styles/responsive.css" rel="stylesheet" media="screen and (max-width:1024px)"/>
+
+        <!-- References to external font 'Love Ya Like A Sister' -->
+        <link href='http://fonts.googleapis.com/css?family=Love+Ya+Like+A+Sister' rel='stylesheet'/>
+    
+            <!-- Load AngularJS -->
+        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+        <script type="text/javascript">
+            var app = angular.module("ProductManagement", []);
+
+            //Controller Part
+            app.controller("ProductManagementController", function ($scope, $http) {
+
+                //Initialize page with default data which is blank in this example
+                $scope.products = [];
+
+                $scope.form = {
+                id: -1,
+                ProductName: "",
+                ProductDesc: ""
+                };
+
+                //Now load the data from server
+                _refreshPageData();
+
+                //HTTP POST/PUT methods for add/edit products
+                $scope.update = function () {
+                    var method = "";
+                    var url = "";
+                    var data = {};
+                    if ($scope.form.id == -1) {
+                        //Id is absent so add products - POST operation
+                        method = "POST";
+                        url = '/entity/product';
+                        data.name = $scope.form.ProductName;
+                        data.description = $scope.form.ProductDesc;
+                        
+                    } else {
+                        //If Id is present, it's edit operation - PUT operation
+                        method = "PUT";
+                        url = '/entity/product/' + $scope.form.id;
+                        data.name = $scope.form.ProductName;
+                        data.description = $scope.form.ProductDesc;
+                    }
+
+                    $http({
+                        method: method,
+                        url: url,
+                        data: angular.toJson(data),
+                        headers: {
+                        'Content-Type': 'application/json'
+                        }
+                    }).then(_success, _error);
+                };
+
+                //HTTP DELETE- delete product by id
+                $scope.remove = function (product) {
+                    $http({
+                        method: 'DELETE',
+                        url: '/entity/product/' + product.id
+                    }).then(_success, _error);
+                };
+
+                //In case of edit products, populate form with product data
+                $scope.edit = function (product) {
+                    $scope.form.id = product.id;
+                    $scope.form.ProductName = product.name;
+                    $scope.form.ProductDesc = product.description
+                };
+
+                /* Private Methods */
+                //HTTP GET- get all products collection
+                function _refreshPageData() {
+                    $http({
+                        method: 'GET',
+                        url: '/entity/product/'
+                    }).then(function successCallback(response) {
+                        $scope.products = response.data;
+                    }, function errorCallback(response) {
+                        console.log(response.statusText);
+                    });
+                }
+
+                function _success(response) {
+                    _refreshPageData();
+                    _clearForm()
+                }
+
+                function _error(response) {
+                    alert(response.data.message || response.statusText);
+                }
+
+                //Clear the form
+                function _clearForm() {
+                    $scope.form.ProductDesc = "";
+                    $scope.form.ProductName = "";
+                    $scope.form.id = -1;
+                }
+            });
+        </script>
+    </head>
+
+    <body ng-app="ProductManagement" ng-controller="ProductManagementController">
+        <article>
+            <header>
+            <h1>Welcome to GoTo Grocery Online</h1>
+            </header>
+            <nav>
+                <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="add_member.html">Add Member</a></li>
+                <li><a href="view_member.html">View Members</a></li>
+                <li><a href="add_product.html">Add Product</a></li>
+                <li><a class="active" href="view_product.html">View Products</a></li>
+                </ul>
+            </nav>
+
+            <br>
+            <h3>Product List</h3>
+            <table>
+            <tr>
+                <th>Product Name</th>
+                <th>Description</th>
+                <th>Remove</th>
+                <th>Edit</th>
+            </tr>
+            <tr ng-repeat="product in products">
+                <td>{{ product.name }}</td>
+                <td>{{ product.description }}</td>
+
+                <td><input id="btnRemoveEdit" type="button" ng-click="remove (product)" value="Remove" /></td>
+                <td><a href="edit_product.html?id={{ product.id }}"><input id="btnRemoveEdit" type="button" value="Edit" /></a></td>
+            </tr>
+            </table>
+
+
+            <footer>
+            <h3>View Products</h3>
+            </footer>
+        </article>
+    </body>
+</html>

@@ -2,104 +2,108 @@
 <html lang="en">
    <html>
       <head>
-         <head>
-            <title>GoTo Grocery Online</title>
-            <meta charset="utf-8" />
-            <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-            <!--<link href="File:///Volumes/SOFIA USB/2.SWINBURNE/Uni/2022 - SEMESTER 2/SWE20001/Front-End/styles/main.css" rel="stylesheet"/>
-               <link href="File:///Volumes/SOFIA USB/2.SWINBURNE/Uni/2022 - SEMESTER 2/SWE20001/Front-End/styles/responsive.css" rel="stylesheet" media="screen and (max-width:1024px)"/>
-               -->
-            <link href="styles/main.css" rel="stylesheet"/>
-            <link href="styles/responsive.css" rel="stylesheet" media="screen and (max-width:1024px)"/>
-            <!-- References to external font 'Love Ya Like A Sister' -->
-            <link href='http://fonts.googleapis.com/css?family=Love+Ya+Like+A+Sister' rel='stylesheet'/>
-    
-                <!-- Load AngularJS -->
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-    <script type="text/javascript">
-      var app = angular.module("MemberManagement", []);
+         <title>GoTo Grocery Online</title>
+         <meta charset="utf-8" />
+         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+         <!--<link href="File:///Volumes/SOFIA USB/2.SWINBURNE/Uni/2022 - SEMESTER 2/SWE20001/Front-End/styles/main.css" rel="stylesheet"/>
+            <link href="File:///Volumes/SOFIA USB/2.SWINBURNE/Uni/2022 - SEMESTER 2/SWE20001/Front-End/styles/responsive.css" rel="stylesheet" media="screen and (max-width:1024px)"/>
+            -->
+         <link href="styles/main.css" rel="stylesheet"/>
+         <link href="styles/responsive.css" rel="stylesheet" media="screen and (max-width:1024px)"/>
+         <!-- References to external font 'Love Ya Like A Sister' -->
+         <link href='http://fonts.googleapis.com/css?family=Love+Ya+Like+A+Sister' rel='stylesheet'/>
+   
+               <!-- Load AngularJS -->
+         <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+         <script type="text/javascript">
+            var app = angular.module("MemberManagement", []);
 
-      //Controller Part
-      app.controller("MemberManagementController", function ($scope, $http) {
+            //Controller Part
+            app.controller("MemberManagementController", function ($scope, $http) {
 
-         const queryString = window.location.search;
-         const urlParams = new URLSearchParams(queryString);
+               const queryString = window.location.search;
+               const urlParams = new URLSearchParams(queryString);
 
-         //Initialize page with default data which is blank in this example
-         $scope.members = [];
+               //Initialize page with default data which is blank in this example
+               $scope.members = [];
 
-         $scope.form = {
-            id: -1,
-            name: ""
-         };
+               $scope.form = {
+                  id: -1,
+                  name: "",
+                  address: "",
+                  mobile: "",
+                  email: ""
+               };
 
-         //Now load the data from server
-         _refreshPageData();
+               //Now load the data from server
+               _refreshPageData();
 
-        //HTTP POST/PUT methods for add/edit members
-        $scope.update = function () {
-         var method = "";
-         var url = "";
-         var data = {};
-         //If Id is present, it's edit operation - PUT operation
-         method = "PUT";
-         url = '/entity/member/' + urlParams.get('id');
-         data.name = $scope.form.name;
-         data.address = $scope.form.address;
-         data.mobile = $scope.form.mobile;
-         data.email = $scope.form.email;
+               //HTTP POST/PUT methods for add/edit members
+               $scope.update = function () {
+                  var method = "";
+                  var url = "";
+                  var data = {};
+                  //If Id is present, it's edit operation - PUT operation
+                  method = "PUT";
+                  url = '/entity/member/' + urlParams.get('id');
+                  data.name = $scope.form.name;
+                  data.address = $scope.form.address;
+                  data.mobile = $scope.form.mobile;
+                  data.email = $scope.form.email;
 
-         $http({
-            method: method,
-            url: url,
-            data: angular.toJson(data),
-            headers: {
-              'Content-Type': 'application/json'
-            }
-            }).then(_success, _error);
-         };
+                  $http({
+                     method: method,
+                     url: url,
+                     data: angular.toJson(data),
+                     headers: {
+                     'Content-Type': 'application/json'
+                     }
+                  }).then(_success, _error);
+               };
 
-         //HTTP DELETE- delete member by id
-         $scope.remove = function (member) {
-            $http({
-               method: 'DELETE',
-               url: '/entity/member/' + member.id
-            }).then(_success, _error);
-         };
+               //HTTP DELETE- delete member by id
+               $scope.remove = function (member) {
+                  $http({
+                     method: 'DELETE',
+                     url: '/entity/member/' + member.id
+                  }).then(_success, _error);
+               };
 
-         /* Private Methods */
-         //HTTP GET- get all members collection
-         function _refreshPageData() {
-            $http({
-               method: 'GET',
-               url: '/entity/member/'
-            }).then(function successCallback(response) {
-               $scope.form.mobile = response.data[0].mobile;
-               $scope.form.email = response.data[0].email;
-               $scope.form.name = response.data[0].name;
-               $scope.form.address = response.data[0].address;
-            }, function errorCallback(response) {
-               console.log(response.statusText);
+               /* Private Methods */
+               //HTTP GET- get all members collection
+               function _refreshPageData() {
+                  $http({
+                     method: 'GET',
+                     url: '/entity/member/'
+                  }).then(function successCallback(response) {
+                     $scope.form.mobile = response.data[0].mobile;
+                     $scope.form.email = response.data[0].email;
+                     $scope.form.name = response.data[0].name;
+                     $scope.form.address = response.data[0].address;
+                  }, function errorCallback(response) {
+                     console.log(response.statusText);
+                  });
+               }
+
+               function _success(response) {
+                  _refreshPageData();
+                  _clearForm();
+               }
+
+               function _error(response) {
+                  alert(response.data.message || response.statusText);
+               }
+
+               //Clear the form
+               function _clearForm() {
+                  $scope.form.email = "";
+                  $scope.form.mobile = "";
+                  $scope.form.address = "";
+                  $scope.form.name = "";
+                  $scope.form.id = -1;
+               }
             });
-         }
-
-         function _success(response) {
-            _refreshPageData();
-            _clearForm();
-         }
-
-        function _error(response) {
-          alert(response.data.message || response.statusText);
-        }
-
-        //Clear the form
-        function _clearForm() {
-          $scope.form.name = "";
-          $scope.form.id = -1;
-        }
-      });
-    </script>
-      
+         </script>
       </head>
       <body ng-app="MemberManagement" ng-controller="MemberManagementController">
          <article>
@@ -109,10 +113,11 @@
             <nav>
                <ul>
                   <li><a href="index.html">Home</a></li>
-		            <li><a href="add_member.html">Add Member</a></li>
-                  <li><a href="view_member.html">View Member</a></li>
+                  <li><a href="add_member.html">Add Member</a></li>
+                  <li><a href="view_member.html">View Members</a></li>
                   <li><a href="add_product.html">Add Product</a></li>
-               </ul>
+                  <li><a href="view_product.html">View Products</a></li>
+                </ul>
             </nav>
             <form ng-submit="update()">
                <section id="section1">
@@ -163,6 +168,9 @@
                   <p>Please enter all mandatory information marked with a star in the spaces provided</p>
                </section>
             </form>
+            <footer>
+               <h3>Edit Member</h3>
+            </footer>
          </article>
       </body>
    </html>
