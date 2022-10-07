@@ -49,28 +49,28 @@ public class InvoiceEntityResource {
 
     @POST
     @Transactional
-    public Response create(InvoiceEntity Invoice) {
-        if (Invoice.id != null) {
+    public Response create(InvoiceEntity invoice) {
+        if (invoice.id != null) {
             throw new WebApplicationException("Id was invalidly set on request.", 422);
         }
 
-        Invoice.persist();
-        return Response.ok(Invoice).status(201).build();
+        invoice.persist();
+        return Response.ok(invoice).status(201).build();
     }
 
     @PUT
     @Path("{id}")
     @Transactional
-    public InvoiceEntity update(Long id, InvoiceEntity Invoice) {
+    public InvoiceEntity update(Long id, InvoiceEntity invoice) {
         InvoiceEntity entity = InvoiceEntity.findById(id);
 
         if (entity == null) {
             throw new WebApplicationException("Invoice with id of " + id + " does not exist.", 404);
         }
 
-        entity.date = Invoice.Date;
-        entity.MemberID = Invoice.MemberID;
-        entity.ProductID = Invoice.ProductID;
+        entity.date = invoice.date;
+        entity.memberID = invoice.memberID;
+        entity.productID = invoice.productID;
 
         return entity;
     }
