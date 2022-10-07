@@ -55,6 +55,8 @@ public class MemberEntityResource {
             throw new WebApplicationException("Id was invalidly set on request.", 422);
         }
 
+        
+
         member.persist();
         return Response.ok(member).status(201).build();
     }
