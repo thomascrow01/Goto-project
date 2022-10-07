@@ -67,9 +67,6 @@ footer h3{
   background-position:bottom;
 }
 
-/*styling add_member.html*/
-
-
 input[type=text], select, textarea {
   width: 100%;
   padding: 3px 2px 1px 0;
@@ -124,7 +121,7 @@ input[type=submit]:hover {
 #btnRemoveEdit {
   background-color: #4CAF50;
   color: black;
-   font-weight: bold;
+  font-weight: bold;
   padding: 12px 20px;
   border: none;
   border-radius: 4px;
@@ -136,6 +133,8 @@ input[type=submit]:hover {
 table, th, td {
   border: 1px solid black;
   border-collapse: collapse;
+  min-width: 45%;
+  text-align: center;
 }
 
 th {

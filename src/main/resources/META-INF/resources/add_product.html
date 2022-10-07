@@ -5,9 +5,7 @@
          <title>GoTo Grocery Online</title>
          <meta charset="utf-8" />
          <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-         <!--<link href="File:///Volumes/SOFIA USB/2.SWINBURNE/Uni/2022 - SEMESTER 2/SWE20001/Front-End/styles/main.css" rel="stylesheet"/>
-            <link href="File:///Volumes/SOFIA USB/2.SWINBURNE/Uni/2022 - SEMESTER 2/SWE20001/Front-End/styles/responsive.css" rel="stylesheet" media="screen and (max-width:1024px)"/>
-            -->
+   
          <link href="styles/main.css" rel="stylesheet"/>
          <link href="styles/responsive.css" rel="stylesheet" media="screen and (max-width:1024px)"/>
          <!-- References to external font 'Love Ya Like A Sister' -->
@@ -123,11 +121,11 @@
                         <legend></legend>
                         <div class="row">
                            <div class="col-25"><label for="pname">Product Name  <label for="pname"><span style="color: #ff0000;">*</span></label>:</label></label></div>
-                           <div class="col-75"><input ng-model="form.productName" id="productName" maxlength="25" name="productName" pattern="[A-Za-z]{1,25}" required="required" size="10" type="text" /></div>
+                           <div class="col-75"><input ng-model="form.productName" id="productName" maxlength="25" name="productName" pattern="[A-Z][a-z]{1,25}" required="required" size="10" type="text" /></div>
                         </div>
                         <div class="row">
                            <div class="col-25"><label for="pname">Product Description  <label for="pname"><span style="color: #ff0000;">*</span></label>:</label></label></div>
-                           <div class="col-75"><input ng-model="form.productDesc" id="productDesc" maxlength="25" name="productDesc" pattern="[A-Za-z]{1,25}" required="required" size="10" type="text" /></div>
+                           <div class="col-75"><input ng-model="form.productDesc" id="productDesc" maxlength="25" name="productDesc" pattern="[A-Z][a-z]{1,25}" required="required" size="10" type="text" /></div>
                         </div>
                         <!--
                         <div class="row">
