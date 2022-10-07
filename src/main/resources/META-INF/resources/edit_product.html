@@ -68,10 +68,10 @@
                function _refreshPageData() {
                   $http({
                      method: 'GET',
-                     url: '/entity/product/'
+                     url: '/entity/product/' + urlParams.get("id")
                   }).then(function successCallback(response) {
-                     $scope.form.productDesc = response.data[0].description;
-                     $scope.form.productName = response.data[0].name;
+                     $scope.form.productDesc = response.data.description;
+                     $scope.form.productName = response.data.name;
                   }, function errorCallback(response) {
                      console.log(response.statusText);
                   });
