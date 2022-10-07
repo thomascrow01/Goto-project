@@ -1,5 +1,7 @@
 package org.acme.hibernate.orm.panache.entity;
 
+import java.sql.Date;
+
 import javax.persistence.Cacheable;
 import javax.persistence.Entity;
 
@@ -9,6 +11,7 @@ import io.quarkus.hibernate.orm.panache.PanacheEntity;
 @Cacheable
 public class InvoiceEntity extends PanacheEntity {
 
+    public Date date;
     public int memberID;
     public int productID;
 
