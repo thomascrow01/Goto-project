@@ -74,12 +74,12 @@
                function _refreshPageData() {
                   $http({
                      method: 'GET',
-                     url: '/entity/member/'
+                     url: '/entity/member/' + urlParams.get('id')
                   }).then(function successCallback(response) {
-                     $scope.form.mobile = response.data[0].mobile;
-                     $scope.form.email = response.data[0].email;
-                     $scope.form.name = response.data[0].name;
-                     $scope.form.address = response.data[0].address;
+                     $scope.form.mobile = response.data.mobile;
+                     $scope.form.email = response.data.email;
+                     $scope.form.name = response.data.name;
+                     $scope.form.address = response.data.address;
                   }, function errorCallback(response) {
                      console.log(response.statusText);
                   });
