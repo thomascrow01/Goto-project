@@ -46,6 +46,7 @@ public class MemberEntityResource {
         }
         return entity;
     }
+ 
 
     @POST
     @Transactional
