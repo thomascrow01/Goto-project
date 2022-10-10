@@ -11,8 +11,15 @@ public class ProductEntity extends PanacheEntity {
 
     public String name;
     public String description;
+    public float price;
 
     public ProductEntity() {
+    }
+
+    public ProductEntity(String name, String description, float price) {
+        this.name = name;
+        this.description = description;
+        this.price = price;
     }
 
     public ProductEntity(String name, String description) {

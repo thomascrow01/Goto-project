@@ -17,18 +17,20 @@
             <!-- Load AngularJS -->
         <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
         <script type="text/javascript">
-            var app = angular.module("ProductManagement", []);
+            var app = angular.module("InvoiceManagement", []);
 
             //Controller Part
-            app.controller("ProductManagementController", function ($scope, $http) {
+            app.controller("InvoiceManagementController", function ($scope, $http) {
 
                 //Initialize page with default data which is blank in this example
-                $scope.products = [];
+                $scope.invoice = [];
 
                 $scope.form = {
-                id: -1,
-                ProductName: "",
-                ProductDesc: ""
+                    id: -1,
+                    memberID,
+                    productID,
+                    date,
+                    quantity
                 };
 
                 //Now load the data from server
@@ -122,9 +124,9 @@
                     <li><a href="add_member.html">Add Member</a></li>
                     <li><a href="view_member.html">View Members</a></li>
                     <li><a href="add_product.html">Add Product</a></li>
-                    <li><a class="active" href="view_product.html">View Products</a></li>
+                    <li><a href="view_product.html">View Products</a></li>
                     <li><a href="add_invoice.html">Add Invoice</a></li>
-                    <li><a href="view_invoice.html">View Invoice</a></li>
+                    <li><a class="active" href="view_invoice.html">View Invoice</a></li>
                 </ul>
             </nav>
 
@@ -134,14 +136,12 @@
             <tr>
                 <th>Product Name</th>
                 <th>Description</th>
-                <th>Price</th>
                 <th>Remove</th>
                 <th>Edit</th>
             </tr>
             <tr ng-repeat="product in products">
                 <td>{{ product.name }}</td>
                 <td>{{ product.description }}</td>
-                <td>{{ product.price }}</td>
 
                 <td><input id="btnRemoveEdit" type="button" ng-click="remove (product)" value="Remove" /></td>
                 <td><a href="edit_product.html?id={{ product.id }}"><input id="btnRemoveEdit" type="button" value="Edit" /></a></td>

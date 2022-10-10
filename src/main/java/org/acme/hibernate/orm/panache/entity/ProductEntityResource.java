@@ -74,6 +74,7 @@ public class ProductEntityResource {
 
         entity.name = Product.name;
         entity.description = Product.description;
+        entity.price = Product.price;
 
         return entity;
     }
