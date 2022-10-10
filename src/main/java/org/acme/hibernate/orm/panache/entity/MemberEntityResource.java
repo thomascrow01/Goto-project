@@ -1,9 +1,11 @@
 package org.acme.hibernate.orm.panache.entity;
 
 import java.util.List;
+import java.util.regex.Pattern;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.swing.JOptionPane;
 import javax.transaction.Transactional;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -21,6 +23,7 @@ import org.jboss.logging.Logger;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.mysql.cj.protocol.Message;
 
 import io.quarkus.panache.common.Sort;
 
@@ -46,15 +49,31 @@ public class MemberEntityResource {
         }
         return entity;
     }
+    public static boolean isName(String in){
+        return Pattern.matches("[a-zA-Z]+", in);
+    }
  
 
     @POST
     @Transactional
     public Response create(MemberEntity member) {
 
+
+
         if (member.id != null) {
             throw new WebApplicationException("Id was invalidly set on request.", 422);
         }
+        String input = member.name;
+
+        if (isName(input)){
+             JOptionPane.showMessageDialog(null, "Valid");
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Invalid");
+        }
+
+       
+
 
         member.persist();
         return Response.ok(member).status(201).build();
