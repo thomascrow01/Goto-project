@@ -141,3 +141,8 @@ th {
   background-color: #96D4D4;
   padding: 2%;
 }
+
+#home {
+  text-decoration: none;
+  color: #000;
+}
