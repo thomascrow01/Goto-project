@@ -93,6 +93,17 @@ public class MemberEntityResource {
             throw new WebApplicationException("Member with id of " + id + " does not exist.", 404);
         }
 
+        if (!Pattern.matches("[a-zA-Z]+", member.name)){
+            throw new WebApplicationException("Invalid name.", 422);
+        }
+
+        if (member.email.length() > 0 && !Pattern.matches("[a-z0-9._%+-]+@[a-z0-9.-]+[a-z]{2,}$", member.email)){
+
+            throw new WebApplicationException("Invalid email.", 422);
+        }
+       
+
+
         entity.name = member.name;
         entity.email = member.email;
         entity.mobile = member.mobile;
