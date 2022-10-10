@@ -5,7 +5,6 @@ import java.util.regex.Pattern;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.swing.JOptionPane;
 import javax.transaction.Transactional;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -62,15 +61,15 @@ public class MemberEntityResource {
         if (member.id != null) {
             throw new WebApplicationException("Id was invalidly set on request.", 422);
         }
-        String input = member.name;
 
-        if (isName(input)){
-             JOptionPane.showMessageDialog(null, "Valid");
-        }
-        else{
-            JOptionPane.showMessageDialog(null, "Invalid");
+        if (!Pattern.matches("[a-zA-Z]+", member.name)){
+            throw new WebApplicationException("Invalid name.", 422);
         }
 
+        if (member.email.length() > 0 && !Pattern.matches("[a-z0-9._%+-]+@[a-z0-9.-]+[a-z]{2,}$", member.email)){
+
+            throw new WebApplicationException("Invalid email.", 422);
+        }
        
 
 
