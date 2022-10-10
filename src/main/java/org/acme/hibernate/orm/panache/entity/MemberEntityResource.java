@@ -74,6 +74,8 @@ public class MemberEntityResource {
        
 
 
+        
+
         member.persist();
         return Response.ok(member).status(201).build();
     }

@@ -1,157 +1,183 @@
 <!DOCTYPE html>
 <html lang="en">
-<html>
-<head>
-<head>
+  <html>
+    <head>
 
-  <title>GoTo Grocery Online</title>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <!--<link href="File:///Volumes/SOFIA USB/2.SWINBURNE/Uni/2022 - SEMESTER 2/SWE20001/Front-End/styles/main.css" rel="stylesheet"/>
-  <link href="File:///Volumes/SOFIA USB/2.SWINBURNE/Uni/2022 - SEMESTER 2/SWE20001/Front-End/styles/responsive.css" rel="stylesheet" media="screen and (max-width:1024px)"/>
--->
-<link href="styles/main.css" rel="stylesheet"/>
+      <title>GoTo Grocery Online</title>
+      <meta charset="utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+      
+      <link href="styles/main.css" rel="stylesheet"/>
 
-<link href="styles/responsive.css" rel="stylesheet" media="screen and (max-width:1024px)"/>
+      <link href="styles/responsive.css" rel="stylesheet" media="screen and (max-width:1024px)"/>
 
-  <!-- References to external font 'Love Ya Like A Sister' -->
-     <link href='http://fonts.googleapis.com/css?family=Love+Ya+Like+A+Sister' rel='stylesheet'/>
- 
-         <!-- Load AngularJS -->
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-    <script type="text/javascript">
-      var app = angular.module("MemberManagement", []);
+      <!-- References to external font 'Love Ya Like A Sister' -->
+      <link href='http://fonts.googleapis.com/css?family=Love+Ya+Like+A+Sister' rel='stylesheet'/>
+    
+      <!-- Load AngularJS -->
+      <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+      <script type="text/javascript">
+        var app = angular.module("MemberManagement", []);
 
-      //Controller Part
-      app.controller("MemberManagementController", function ($scope, $http) {
+          //Controller Part
+          app.controller("MemberManagementController", function ($scope, $http) {
 
-        //Initialize page with default data which is blank in this example
-        $scope.members = [];
+            //Initialize page with default data which is blank in this example
+            $scope.members = [];
 
-        $scope.form = {
-          id: -1,
-          name: "",
-          address: "",
-          mobile: "",
-          email: ""
-        };
+            $scope.form = {
+              id: -1,
+              name: "",
+              address: "",
+              mobile: "",
+              email: ""
+            };
 
-        //Now load the data from server
-        _refreshPageData();
+            //Now load the data from server
+            _refreshPageData();
 
-        //HTTP POST/PUT methods for add/edit members
-        $scope.update = function () {
-          var method = "";
-          var url = "";
-          var data = {};
-          if ($scope.form.id == -1) {
-            //Id is absent so add members - POST operation
-            method = "POST";
-            url = '/entity/member';
-            data.name = $scope.form.name;
-            
-          } else {
-            //If Id is present, it's edit operation - PUT operation
-            method = "PUT";
-            url = '/entity/member/' + $scope.form.id;
-            data.name = $scope.form.name;
-            data.address = $scope.form.address;
-            data.mobile = $scope.form.mobile;
-            data.email = $scope.form.email;
-          }
+            //HTTP POST/PUT methods for add/edit members
+            $scope.update = function () {
+              var method = "";
+              var url = "";
+              var data = {};
+              if ($scope.form.id == -1) {
+                //Id is absent so add members - POST operation
+                method = "POST";
+                url = '/entity/member';
+                data.name = $scope.form.name;
+                data.address = $scope.form.address;
+                data.mobile = $scope.form.mobile;
+                data.email = $scope.form.email;
+                
+              } else {
+                //If Id is present, it's edit operation - PUT operation
+                method = "PUT";
+                url = '/entity/member/' + $scope.form.id;
+                data.name = $scope.form.name;
+                data.address = $scope.form.address;
+                data.mobile = $scope.form.mobile;
+                data.email = $scope.form.email;
+              }
 
-          $http({
-            method: method,
-            url: url,
-            data: angular.toJson(data),
-            headers: {
-              'Content-Type': 'application/json'
+              $http({
+                method: method,
+                url: url,
+                data: angular.toJson(data),
+                headers: {
+                  'Content-Type': 'application/json'
+                }
+              }).then(_success, _error);
+            };
+
+            //HTTP DELETE- delete member by id
+            $scope.remove = function (member) {
+              $http({
+                method: 'DELETE',
+                url: '/entity/member/' + member.id
+              }).then(_success, _error);
+            };
+
+            //In case of edit members, populate form with member data
+            $scope.edit = function (member) {
+              $scope.form.id = member.id;
+              $scope.form.name = member.name;
+              $scope.form.address = member.address;
+              $scope.form.mobile = member.mobile;
+              $scope.form.email = member.email;
+            };
+
+              /* Private Methods */
+            //HTTP GET- get all members collection
+            function _refreshPageData() {
+              $http({
+                method: 'GET',
+                url: '/entity/member/'
+              }).then(function successCallback(response) {
+                $scope.members = response.data;
+              }, function errorCallback(response) {
+                console.log(response.statusText);
+              });
             }
-          }).then(_success, _error);
-        };
 
-        //HTTP DELETE- delete member by id
-        $scope.remove = function (member) {
-          $http({
-            method: 'DELETE',
-            url: '/entity/member/' + member.id
-          }).then(_success, _error);
-        };
+            function _success(response) {
+              _refreshPageData();
+              _clearForm()
+            }
 
-        //In case of edit members, populate form with member data
-        $scope.edit = function (member) {
-          $scope.form.id = member.id;
-          $scope.form.name = member.name;
-          $scope.form.address = member.address;
-          $scope.form.mobile = member.mobile;
-          $scope.form.email = member.email;
-        };
+            function _error(response) {
+              alert(response.data.message || response.statusText);
+            }
 
-          /* Private Methods */
-        //HTTP GET- get all members collection
-        function _refreshPageData() {
-          $http({
-            method: 'GET',
-            url: '/entity/member/'
-          }).then(function successCallback(response) {
-            $scope.members = response.data;
-          }, function errorCallback(response) {
-            console.log(response.statusText);
+            //Clear the form
+            function _clearForm() {
+              $scope.form.email = "";
+              $scope.form.mobile = "";
+              $scope.form.address = "";
+              $scope.form.name = "";
+              $scope.form.id = -1;
+            }
           });
-        }
-
-        function _success(response) {
-          _refreshPageData();
-          _clearForm()
-        }
-
-        function _error(response) {
-          alert(response.data.message || response.statusText);
-        }
-
-        //Clear the form
-        function _clearForm() {
-          $scope.form.name = "";
-          $scope.form.id = -1;
-        }
-      });
-    </script>
- 
+        </script>
+    
     </head>
 
-<body ng-app="MemberManagement" ng-controller="MemberManagementController">
-  <article>
-    <header>
-      <h1>Welcome to GoTo Grocery Online</h1>
-    </header>
-    <nav>
+  <body ng-app="MemberManagement" ng-controller="MemberManagementController">
+    <article>
+      <header>
+        <h1>Welcome to GoTo Grocery Online</h1>
+      </header>
+      <nav>
         <ul>
-          <li><a href="introduction.html">Home</a></li>
+          <li><a href="index.html">Home</a></li>
           <li><a href="add_member.html">Add Member</a></li>
-          <li><a class="active" href="view_member.html">View Member</a></li>
+          <li><a class="active" href="view_member.html">View Members</a></li>
           <li><a href="add_product.html">Add Product</a></li>
+          <li><a href="view_product.html">View Products</a></li>
         </ul>
-    </nav>
+      </nav>
 
 
-    <h3>
-      
-      <div class="row" ng-repeat="member in members">
-        <div class="col-25">Name : {{ member.name }}</div>
-        <div class="col-25">Address : {{ member.address}}</div>
-        <div class="col-25">Email : {{ member.email}}</div>
-        <div class="col-25">Mobile : {{ member.mobile}}</div>
+      <!--<h3>
         
-     
-        <div class="col-25"><a href="edit_member.html?id={{ member.id }}" class="btn"><button style="background-color: lightgreen; text-decoration-color: aliceblue; font-family: 'Times New Roman', Times, serif;border-radius: 5px; font-size: 20px;" type="button">Edit</button></a> 
-          <a ng-click="remove( member )" class="buttons"><button style="background-color: rgb(133, 157, 133); text-decoration-color: aliceblue; font-family: 'Times New Roman', Times, serif;border-radius: 5px; font-size: 20px;" type="button">Remove</button></a>
-      </div>
-    </div>
+        <div class="row" ng-repeat="member in members">
+          <div class="col-25">Name : {{ member.name }}</div>
+          <div class="col-25">Address : {{ member.address}}</div>
+          <div class="col-25">Email : {{ member.email}}</div>
+          <div class="col-25">Mobile : {{ member.mobile}}</div>
+          
+      
+          <div class="col-25"><a href="edit_member.html?id={{ member.id }}" class="btn"><button style="background-color: lightgreen; text-decoration-color: aliceblue; font-family: 'Times New Roman', Times, serif;border-radius: 5px; font-size: 20px;" type="button">Edit</button></a> 
+            <a ng-click="remove( member )" class="buttons"><button style="background-color: rgb(133, 157, 133); text-decoration-color: aliceblue; font-family: 'Times New Roman', Times, serif;border-radius: 5px; font-size: 20px;" type="button">Remove</button></a>
+        </div>
+      </div>-->
+
+      <br>
+      <h3>Member List</h3>
+      <table>
+        <tr>
+          <th>Full Name</th>
+          <th>Home Address</th>
+          <th>Mobile</th>
+          <th>Email</th>
+          <th>Remove</th>
+          <th>Edit</th>
+        </tr>
+        <tr ng-repeat="member in members">
+          <td>{{ member.name }}</td>
+          <td>{{ member.address }}</td>
+          <td>{{ member.mobile }}</td>
+          <td>{{ member.email }}</td>
+
+          <td><input id="btnRemoveEdit" type="button" ng-click="remove (member)" value="Remove" /></td>
+          <td><a href="edit_member.html?id={{ member.id }}"><input id="btnRemoveEdit" type="button" value="Edit" /></a></td>
+        </tr>
+      </table>
 
 
-    <footer>
-      <h3>View Member</h3>
-    </footer>
-  </article>
-</body>
-</html>
+      <footer>
+        <h3>View Member</h3>
+      </footer>
+    </article>
+  </body>
+  </html>
