@@ -146,3 +146,11 @@ th {
   text-decoration: none;
   color: #000;
 }
+
+#overallTotal {
+  font-weight: bold;
+}
+
+#overallTotalRow {
+  border: none;
+}
