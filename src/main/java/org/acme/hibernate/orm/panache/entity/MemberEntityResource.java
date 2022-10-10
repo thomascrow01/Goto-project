@@ -23,7 +23,6 @@ import org.jboss.logging.Logger;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.mysql.cj.protocol.Message;
 
 import io.quarkus.panache.common.Sort;
 
