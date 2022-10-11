@@ -39,7 +39,7 @@ public class MemberEntityResource {
     }
 
     @GET
-    @Path("{id}")
+    @Path("id={id}")
     public MemberEntity getSingle(Long id) {
         MemberEntity entity = MemberEntity.findById(id);
         if (entity == null) {
@@ -51,6 +51,27 @@ public class MemberEntityResource {
         return Pattern.matches("[a-zA-Z]+", in);
     }
  
+    @GET
+    @Path("email={input}")
+    public List<MemberEntity> filterEmail(String input){
+        
+        return MemberEntity.list("email", Sort.by("name").and("id"), input);
+    }
+
+    @GET
+    @Path("name={input}")
+    public List<MemberEntity> filterName(String input){
+        
+        return MemberEntity.list("name", Sort.by("name").and("id"), input);
+    }
+
+    @GET
+    @Path("mobile={input}")
+    public List<MemberEntity> filterMobile(String input){
+        
+        return MemberEntity.list("mobile", Sort.by("name").and("id"), input);
+    }
+
 
     @POST
     @Transactional

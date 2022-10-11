@@ -47,6 +47,13 @@ public class ProductEntityResource {
         return entity;
     }
 
+    @GET
+    @Path("name={input}")
+    public List<MemberEntity> filterName(String input){
+        
+        return MemberEntity.list("name", Sort.by("name").and("id"), input);
+    }
+
     @POST
     @Transactional
     public Response create(ProductEntity Product) {

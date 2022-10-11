@@ -17,25 +17,5 @@ public class MemberEntity extends PanacheEntity {
     public MemberEntity() {
     }
 
-    public MemberEntity(String name, String email, String mobile, String address) {
-        this.name = name;
-        this.email = email;
-        this.mobile = mobile;
-        this.address = address;
-    }
-
-    public MemberEntity(String name, String email, String mobile) {
-        this.name = name;
-        this.email = email;
-        this.mobile = mobile;
-    }
-
-    public MemberEntity(String name, String email) {
-        this.name = name;
-        this.email = email;
-    }
-
-    public MemberEntity(String name) {
-        this.name = name;
-    }
+    
 }

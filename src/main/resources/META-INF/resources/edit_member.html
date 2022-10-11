@@ -72,7 +72,7 @@
                function _refreshPageData() {
                   $http({
                      method: 'GET',
-                     url: '/entity/member/' + urlParams.get('id')
+                     url: '/entity/member/id=' + urlParams.get('id')
                   }).then(function successCallback(response) {
                      $scope.form.mobile = response.data.mobile;
                      $scope.form.email = response.data.email;
