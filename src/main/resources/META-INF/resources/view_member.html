@@ -76,10 +76,12 @@
 
             //HTTP DELETE- delete member by id
             $scope.remove = function (member) {
+              if(window.confirm("Are you sure you want to delete " + member.name + "?")){
               $http({
                 method: 'DELETE',
                 url: '/entity/member/' + member.id
               }).then(_success, _error);
+            }
             };
 
             //In case of edit members, populate form with member data
@@ -153,6 +155,8 @@
         </ul>
       </nav>
 
+
+      
 
       <!--<h3>
         

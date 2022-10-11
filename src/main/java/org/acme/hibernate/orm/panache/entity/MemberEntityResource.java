@@ -83,11 +83,11 @@ public class MemberEntityResource {
             throw new WebApplicationException("Id was invalidly set on request.", 422);
         }
 
-        if (!Pattern.matches("[a-zA-Z]+", member.name)){
+        if (!Pattern.matches("[a-zA-Z\\s]+", member.name)){
             throw new WebApplicationException("Invalid name.", 422);
         }
 
-        if (member.email.length() > 0 && !Pattern.matches("[a-z0-9._%+-]+@[a-z0-9.-]+[a-z]{2,}$", member.email)){
+        if (member.email.length() > 0 && !Pattern.matches("[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$", member.email)){
 
             throw new WebApplicationException("Invalid email.", 422);
         }
