@@ -27,24 +27,23 @@
 
                 $scope.form = {
                     id: -1,
-                    memberID,
-                    productID,
-                    date,
-                    quantity
+                    memberid,
+                    membername,
+                    orderdate
                 };
 
                 //Now load the data from server
                 _refreshPageData();
 
-                //HTTP POST/PUT methods for add/edit products
+                //HTTP POST/PUT methods for add/edit invoices
                 $scope.update = function () {
                     var method = "";
                     var url = "";
                     var data = {};
                     if ($scope.form.id == -1) {
-                        //Id is absent so add products - POST operation
+                        //Id is absent so add invoices - POST operation
                         method = "POST";
-                        url = '/entity/product';
+                        url = '/entity/invoice';
                         data.name = $scope.form.ProductName;
                         data.description = $scope.form.ProductDesc;
                         
@@ -133,8 +132,10 @@
             <h3>Product List</h3>
             <table>
             <tr>
-                <th>Product Name</th>
-                <th>Description</th>
+                <th>Invoice ID</th>
+                <th>Member ID</th>
+                <th>Member Name</th>
+                <th>Order Date</th>
                 <th>Remove</th>
                 <th>Edit</th>
             </tr>
