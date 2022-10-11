@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <html>
+    <head>
+      <title>GoTo Grocery Online</title>
+      <meta charset="utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+      <link href="styles/main.css" rel="stylesheet"/>
+      <link href="styles/responsive.css" rel="stylesheet" media="screen and (max-width:1024px)"/>
+      <!-- References to external font 'Love Ya Like A Sister' -->
+      <link href='http://fonts.googleapis.com/css?family=Love+Ya+Like+A+Sister' rel='stylesheet'/>
+    
+      <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+      <script type="text/javascript">
+        var app = angular.module("ExportReport", []);
+  
+        //Controller Part
+        app.controller("ExportReportController", function ($scope, $http) {
+  
+          //Initialize page with default data which is blank in this example
+          $scope.members = [];
+  
+          $scope.form = {
+            id: -1,
+            dataType: ""
+          };
+  
+          //HTTP POST/PUT methods for add/edit members
+          $scope.update = function () {
+            var method = "GET";
+            var url = "";
+            
+            if ($scope.form.dataType == "product" || $scope.form.dataType == "member" || $scope.form.dataType == "invoice") { 
+              url = "/entity/" + $scope.form.dataType;
+
+              $http({
+                method: 'GET',
+                url: url
+              }).then(function successCallback(response) {
+                $scope.members = response.data;
+                console.log(response.data[0]);
+
+                var responseCSV = "";
+
+                for (var key in response.data[0]) {
+                  responseCSV += key + ","
+                }
+
+                var i = 0;
+                for (const element of response.data) {
+                  for (var key in response.data[i]) {
+                    responseCSV += response.data[i][key] + ","
+                  }
+                  i++;
+                }
+                
+                download("report-" + new Date().toLocaleDateString().padStart(10, '0') + ".csv", responseCSV);
+
+              }, function errorCallback(response) {
+                console.log(response.statusText);
+              });
+            }
+
+          };
+
+          //In case of edit members, populate form with member data
+          $scope.edit = function (exportData) {
+            $scope.form.dataType = exportData.dataType;
+            $scope.form.id = exportData.id;
+          };
+  
+          //Clear the form
+          function _clearForm() {
+            $scope.form.dataType = "";
+            $scope.form.id = -1;
+          }
+
+          function download(filename, text) {
+            var element = document.createElement('a');
+            element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+            element.setAttribute('download', filename);
+
+            element.style.display = 'none';
+            document.body.appendChild(element);
+
+            element.click();
+
+            document.body.removeChild(element);
+          }
+        });
+      </script>
+    </head>
+    <body ng-app="ExportReport" ng-controller="ExportReportController">
+      <article>
+        
+          <header><h1><a href="index.html" id="home">Welcome to GoTo Grocery Online</a></h1></header>
+        
+        <nav>
+          <ul>
+            <li><a class="active" href="add_member.html">Add Member</a></li>
+            <li><a href="view_member.html">View Members</a></li>
+            <li><a href="add_product.html">Add Product</a></li>
+            <li><a href="view_product.html">View Products</a></li>
+            <li><a href="add_invoice.html">Add Invoice</a></li>
+            <li><a href="view_invoice.html">View Invoice</a></li>
+          </ul>
+        </nav>
+
+        <form ng-submit="update()">
+          <section>
+              <h3>Select data to export to CSV</h3>
+              <div class="row">
+                <fieldset id="general">
+                    <div class="row">
+                      <div class="col-25"><label for="fname">Data to export <label for="street_address_id"></label></label></div>
+                      <div class="col-75">
+                        <select ng-model="form.dataType" name="dataType" id="dataType">
+                          <option value="member">Members</option>
+                          <option value="product">Products</option>
+                          <option value="invoice">Invoices</option>
+                        </select>
+                      <div class="col-75">
+                        <input id="btnSubmit" type="submit" value="Export" />
+                      </div>
+                      </div>
+                    </div> 
+                </fieldset>
+                <br>
+              </div>
+          </section>
+
+        <footer>
+            <h3>Export data</h3>
+        </footer>
+      </article>
+    </body>
+  </html>
