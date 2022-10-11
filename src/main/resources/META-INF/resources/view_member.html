@@ -22,6 +22,10 @@
           //Controller Part
           app.controller("MemberManagementController", function ($scope, $http) {
 
+
+            const queryString = window.location.search;
+            const urlParams = new URLSearchParams(queryString);
+
             //Initialize page with default data which is blank in this example
             $scope.members = [];
 
@@ -90,9 +94,21 @@
               /* Private Methods */
             //HTTP GET- get all members collection
             function _refreshPageData() {
+
+              var endpointValue = '/entity/member/';
+              if( urlParams.get('email') !== null ){
+                endpointValue = '/entity/member/email=' + urlParams.get('email');
+              }
+              if( urlParams.get('mobile') !== null ){
+                endpointValue = '/entity/member/mobile=' + urlParams.get('mobile');
+              }
+              if( urlParams.get('name') !== null ){
+                endpointValue = '/entity/member/name=' + urlParams.get('name');
+              }
+
               $http({
                 method: 'GET',
-                url: '/entity/member/'
+                url: endpointValue
               }).then(function successCallback(response) {
                 $scope.members = response.data;
               }, function errorCallback(response) {

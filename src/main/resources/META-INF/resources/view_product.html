@@ -22,6 +22,9 @@
             //Controller Part
             app.controller("ProductManagementController", function ($scope, $http) {
 
+                const queryString = window.location.search;
+                const urlParams = new URLSearchParams(queryString);
+
                 //Initialize page with default data which is blank in this example
                 $scope.products = [];
 
@@ -82,9 +85,15 @@
                 /* Private Methods */
                 //HTTP GET- get all products collection
                 function _refreshPageData() {
+
+                    var endpointValue = '/entity/product/';
+                    if( urlParams.get('email') !== null ){
+                        endpointValue = '/entity/product/name=' + urlParams.get('name');
+                    }
+
                     $http({
                         method: 'GET',
-                        url: '/entity/product/'
+                        url: endpointValue
                     }).then(function successCallback(response) {
                         $scope.products = response.data;
                     }, function errorCallback(response) {
