@@ -38,7 +38,6 @@
                 url: url
               }).then(function successCallback(response) {
                 $scope.members = response.data;
-                console.log(response.data[0]);
 
                 var responseCSV = "";
 
@@ -66,13 +65,11 @@
           //In case of edit members, populate form with member data
           $scope.edit = function (exportData) {
             $scope.form.dataType = exportData.dataType;
-            $scope.form.id = exportData.id;
           };
   
           //Clear the form
           function _clearForm() {
             $scope.form.dataType = "";
-            $scope.form.id = -1;
           }
 
           function download(filename, text) {
