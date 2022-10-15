@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+   <html>
+      <head>
+         <head>
+            <title>GoTo Grocery Online</title>
+            <meta charset="utf-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+            <!--<link href="File:///Volumes/SOFIA USB/2.SWINBURNE/Uni/2022 - SEMESTER 2/SWE20001/Front-End/styles/main.css" rel="stylesheet"/>
+               <link href="File:///Volumes/SOFIA USB/2.SWINBURNE/Uni/2022 - SEMESTER 2/SWE20001/Front-End/styles/responsive.css" rel="stylesheet" media="screen and (max-width:1024px)"/>
+               -->
+            <link href="J:/2.SWINBURNE/Uni/2022%20-%20SEMESTER%202/SWE20001/Front-End/styles/main.css" rel="stylesheet"/>
+            <link href="J:/2.SWINBURNE/Uni/2022%20-%20SEMESTER%202/SWE20001/Front-End/styles/responsive.css" rel="stylesheet" media="screen and (max-width:1024px)"/>
+            <!-- References to external font 'Love Ya Like A Sister' -->
+            <link href='http://fonts.googleapis.com/css?family=Love+Ya+Like+A+Sister' rel='stylesheet'/>
+      </head>
+      <body>
+                <article>
+            <header>
+               <h1>Welcome to GoTo Grocery Online</h1>
+            </header>
+            <nav>
+            <!--   <ul>
+                  <li><a class="active" href="add_member.html">Add Member</a></li>
+                  <li><a href="edit_member.html">Edit Member</a></li>
+                  <li><a href="view_member.html">View Member</a></li>
+                  <li><a href="add_product.html">Add Product</a></li>
+                  <li><a href="edit_product.html">Edit Product</a></li>
+                  <li><a href="introduction.html">Home</a></li>
+               </ul>
+            </nav>-->
+						<style>
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.navbar {
+  overflow: hidden;
+  font-weight: bold;
+ }
+
+.navbar a {
+  float: left;
+  font-size: 16px;
+  color: black;
+  text-align: center;
+  padding: 14px 96px;
+  text-decoration: none;
+}
+
+.dropdown {
+  float: left;
+  overflow: hidden;
+}
+
+.dropdown .dropbtn {
+  font-size: 16px;  
+  border: none;
+  outline: none;
+  color: black;
+  font-weight: bold;
+  padding: 14px 96px;
+  background-color: inherit;
+  font-family: inherit;
+  margin: 0;
+}
+.edit_dropdown .edit_dropbtn {
+  font-size: 16px;  
+  border: none;
+  outline: none;
+  color: black;
+  font-weight: bold;
+  padding: 14px 96px;
+  background-color: inherit;
+  font-family: inherit;
+  margin: 0;
+}
+
+.navbar a:hover, .dropdown:hover .dropbtn {
+  background-color: #fefefe;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  float: none;
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+</style>
+</head>
+<body>
+
+<div class="navbar">
+  <a href="introduction.html">Home</a>
+  <!--<a href="#news">News</a>-->
+  <div class="dropdown">
+    <button class="dropbtn">Create 
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="add_member.html">Member</a>
+      <a href="add_product.html">Product</a>
+      <a href="add_invoice.html">Invoice</a>
+    </div>
+  </div> 
+  
+  <div class="dropdown">
+  <button class="dropbtn">Edit 
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="edit_member.html">Member</a>
+      <a href="edit_product.html">Product</a>
+      <a href="edit_invoice.html">Invoice</a>
+    </div>
+  </div> 
+  
+<div class="dropdown">
+  <button class="dropbtn">View 
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="view_member.html">Member</a>
+      <a href="view_product.html">Product</a>
+      <a href="view_invoice.html">Invoice</a>
+    </div>
+  </div> 
+  
+  <div class="dropdown">
+  <button class="dropbtn">Reports 
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="introduction.html">TBA</a>
+    </div>
+  </div> 
+  
+</div>
+</nav>
+
+            <section id="section1">
+               <h3>General Details</h3>
+               <div class="row">
+                  <fieldset id="general">
+                     <legend></legend>
+                     <div class="row">
+                        <div class="col-25"><label for="fname">First Name <label for="street_address_id"> <label for="fname"><span style="color: #ff0000;">*</span></label>:</label></label></div>
+                        <div class="col-75"><input id="fname" maxlength="25" name="firstname" pattern="[a-z]{1,25}" required="required" size="10" type="text" /></div>
+                     </div>
+                     <div class="row">
+                        <div class="col-25"><label for="lname">Last Name<label for="street_address_id"> <label for="fname"><span style="color: #ff0000;">*</span></label>:</label></label></div>
+                        <div class="col-75"><input id="lname" maxlength="25" name="lastname" pattern="[a-z]{1,25}" required="required" size="10" type="text" /></div>
+                     </div>
+                  </fieldset>
+                  <br>
+		     <fieldset id="address">
+                     <legend>Address</legend>
+                     <div class="row">
+                        <div class="col-25"><label for="street_address_id">Street Address <label for="fname"><span style="color: #ff0000;">*</span></label>:</label></div>
+                        <div class="col-75"><input id="street_address_id" maxlength="40" name="street_address_id" pattern="[a-z]{1,40}" required="required" size="10" type="text" /></div>
+                     </div>
+                     <div class="row">
+                        <div class="col-25"><label for="suburb_id">Suburb/town<label for="street_address_id"> <label for="fname"><span style="color: #ff0000;">*</span></label>:</label></label></div>
+                        <div class="col-75"><input id="suburb_id" maxlength="20" name="suburb_id" pattern="[a-z]{1,20}" required="required" size="10" type="text" /></div>
+                     </div>
+                     <div class="row">
+                        <div class="col-25"><label for="state">State<label for="street_address_id"> <label for="fname"><span style="color: #ff0000;">*</span></label>:</label></label></div>
+                        <div class="col-75">
+                           <input id="state" list="states" name="state" required="" type="text" />
+                           <datalist id="states">
+                              <option value="VIC"></option>
+                              <option value="NSW"></option>
+                              <option value="QLD"></option>
+                              <option value="NT"></option>
+                              <option value="WA"></option>
+                              <option value="SA"></option>
+                              <option value="TAS"></option>
+                              <option value="ACT"></option>
+                           </datalist>
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="col-25"><label for="postcode_id">Postcode<label for="street_address_id"> <label for="fname"><span style="color: #ff0000;">*</span></label>:</label></label></div>
+                        <div class="col-75"><input id="postcode_id" maxlength="4" name="postcode_id" pattern="[1-9]{4}" required="required" size="10" type="text" /></div>
+                     </div>
+                  </fieldset>
+                  <!--<br><div class="col-75"><input type="submit" value="Submit" /></div>-->
+				  <!--Thank you for submitting the form-->
+<input type="submit" id="myThankYou" value="Submit">
+
+<div id="myThankYouModal" class="thank_modal">
+
+  <div class="thank_modal-content">
+    <span class="thank_close">&times;</span>
+    <div class="bgc_modal-content">
+      <p><h2>New Member has been successfully added.</h2></p>
+    </div>
+    <p><h1>Please close this window to go back to the Home Page</h1></p>
+    <p><h1>Thank you</h1></p>
+  </div>
+
+</div>
+<style>
+
+/* The Modal (background) */
+.thank_modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 70%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+.bgc_modal-content{background-color: #adebad; font-family:'Love Ya Like A Sister', arial;}
+/* Modal Content */
+.thank_modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+
+}
+
+/* The Close Button */
+.thank_close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.thank_close:hover,
+.thank_close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+</style>
+<script>
+// Get the modal
+var thankModal = document.getElementById('myThankYouModal');
+
+// Get the button that opens the modal
+var thankBtn = document.getElementById("myThankYou");
+
+// Get the <span> element that closes the modal
+var thankSpan = document.getElementsByClassName("thank_close")[0];
+
+// When the user clicks the button, open the modal
+thankBtn.onclick = function() {
+    thankModal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+thankSpan.onclick = function() {
+    thankModal.style.display = "none";
+    window.open ('introduction.html','_self',false)
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == thankModal) {
+        thankModal.style.display = "none";
+        window.open ('introduction.html','_self',false)
+    }
+}
+</script>
+<!--END Thank you for submitting the form-->
+
+               </div>
+            </section>
+
+<section id="section1">
+               <h3>Contact Preferences</h3>
+               <div class="row">
+                  <fieldset id="general">
+                     <legend></legend>
+                     <div class="row">
+                        <div class="col-25"><label for="phone_id">Phone Number<label for="street_address_id"> <label for="fname"><span style="color: #ff0000;">*</span></label>:</label></label></div>
+                        <div class="col-75"><input id="phone_id" maxlength="10" name="phone_id" pattern="[0-9]{4}-[0-9]{3}-[0-9]{3}" required="required" size="10" type="text" placeholder="04xx-xxx-xxx" /></div>
+                     </div>
+                     <div class="row">                     
+                     <div class="col-75">
+                        <div class="col-25"><label for="email_id">Email <label for="street_address_id"> <label for="email"><span style="color: #ff0000;">*</span></label>:</label></label></div>
+                        <div class="col-75"><input id="email_id" maxlength="25" name="email_id" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required="required" size="30" type="email" /></div>
+                     </div>
+                  </div>
+                  <div class="row"><br>
+                     <div class="col-25"><label>Preferred Contact<label for="street_address_id"> <label for="fname"><span style="color: #ff0000;"></span></label></label></label></div>
+                     <div class="col-75"><input id="email" name="contact" required="required" type="radio" value="Email" />Email <input id="post" name="contact" required="required" type="radio" value="Post" />Post <input id="phone" name="contact" required="required" type="radio" value="Phone" />Phone</div>
+                  </div>
+                  <div class="row">&nbsp;</div>
+                  <div class="row">
+                     <div class="col-75">Comments</div>
+                  </div>
+                  <div class="row">
+                     <div class="col-75"><textarea id="comments" style="height: 100px;" name="comments" placeholder="Please enter your comments here.."></textarea></div>
+                  </div>
+               </fieldset>
+            </section>
+            <section id="section3">
+               <img src="images/image10.png" alt="healthy foods"/> <br />
+               <h3></h3>
+              <p>Please enter all mandatory information marked with a star in the space provided</p>
+            </section>
+            <footer>
+               <h3>Create New Member</h3>
+            </footer>
+         </article>
+       
+      </body>
+   </html>
