@@ -14,130 +14,41 @@
   <!-- Load AngularJS -->
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
   <script type="text/javascript">
-      var app = angular.module("ProductManagement", []);
-
-      //Controller Part
-      app.controller("ProductManagementController", function ($scope, $http) {
-
-          const queryString = window.location.search;
-          const urlParams = new URLSearchParams(queryString);
-
-          //Initialize page with default data which is blank in this example
-          $scope.products = [];
-
-          $scope.form = {
-          id: -1,
-          ProductName: "",
-          ProductDesc: ""
-          };
-
-          //Now load the data from server
-          _refreshPageData();
-
-          //HTTP POST/PUT methods for add/edit products
-          $scope.update = function () {
-              var method = "";
-              var url = "";
-              var data = {};
-              if ($scope.form.id == -1) {
-                  //Id is absent so add products - POST operation
-                  method = "POST";
-                  url = '/entity/product';
-                  data.name = $scope.form.ProductName;
-                  data.description = $scope.form.ProductDesc;
-                  
-              } else {
-                  //If Id is present, it's edit operation - PUT operation
-                  method = "PUT";
-                  url = '/entity/product/' + $scope.form.id;
-                  data.name = $scope.form.ProductName;
-                  data.description = $scope.form.ProductDesc;
-              }
-
-              $http({
-                  method: method,
-                  url: url,
-                  data: angular.toJson(data),
-                  headers: {
-                  'Content-Type': 'application/json'
-                  }
-              }).then(_success, _error);
-          };
-
-          //HTTP DELETE- delete product by id
-          $scope.remove = function (product) {
-              $http({
-                  method: 'DELETE',
-                  url: '/entity/product/' + product.id
-              }).then(_success, _error);
-          };
-
-          //In case of edit products, populate form with product data
-          $scope.edit = function (product) {
-              $scope.form.id = product.id;
-              $scope.form.ProductName = product.name;
-              $scope.form.ProductDesc = product.description
-          };
-
-          /* Private Methods */
-          //HTTP GET- get all products collection
-          function _refreshPageData() {
-
-              var endpointValue = '/entity/product/';
-              if( urlParams.get('email') !== null ){
-                  endpointValue = '/entity/product/name=' + urlParams.get('name');
-              }
-
-              $http({
-                  method: 'GET',
-                  url: endpointValue
-              }).then(function successCallback(response) {
-                  $scope.products = response.data;
-              }, function errorCallback(response) {
-                  console.log(response.statusText);
-              });
-          }
-
-          function _success(response) {
-              _refreshPageData();
-              _clearForm()
-          }
-
-          function _error(response) {
-              alert(response.data.message || response.statusText);
-          }
-
-          //Clear the form
-          function _clearForm() {
-              $scope.form.ProductDesc = "";
-              $scope.form.ProductName = "";
-              $scope.form.id = -1;
-          }
-      });
-  </script>
-
-  <!-- Load AngularJS -->
-  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-  <script type="text/javascript">
     var app = angular.module("MemberManagement", []);
 
       //Controller Part
       app.controller("MemberManagementController", function ($scope, $http) {
 
-
         const queryString = window.location.search;
         const urlParams = new URLSearchParams(queryString);
 
         //Initialize page with default data which is blank in this example
+        $scope.invoices = [];
         $scope.members = [];
+        $scope.products = [];
 
         $scope.form = {
           id: -1,
-          name: "",
-          address: "",
-          mobile: "",
-          email: ""
+          date: "",
+          member: "",
+          product: [],
+          qty: []
         };
+
+        $scope.member = {
+            id: -1,
+            name: "",
+            address: "",
+            mobile: "",
+            email: ""
+          };
+
+        $scope.product = {
+            id: -1,
+            productName: "",
+            productDesc: "",
+            productPrice: 0.0
+         };
 
         //Now load the data from server
         _refreshPageData();
@@ -218,6 +129,17 @@
           }, function errorCallback(response) {
             console.log(response.statusText);
           });
+
+          $http({
+            method: 'GET',
+            url: 'entity/product/'
+          }).then(function successCallback(response) {
+            $scope.products = response.data;
+          }, function errorCallback(response) {
+            console.log(response.statusText);
+          });
+
+          
         }
 
         function _success(response) {
@@ -243,7 +165,7 @@
         
 </head>
 
-<body>
+<body ng-app="MemberManagement" ng-controller="MemberManagementController">
 <article>
 <header><h1><a href="index.html" id="home">Welcome to GoTo Grocery Online</a></h1></header>
 <nav>
@@ -269,7 +191,7 @@
   <div class="row">
     <div class="col-25"><label for="membername">Member (ID)<label for="memberename"> <label for="membername"><span style="color: #ff0000;">*</span></label>:</label></label></div>
     <div class="col-75">
-     <select id="memberename" ng-app="MemberManagement" ng-controller="MemberManagementController">
+     <select id="memberename">
        <option ng-repeat="member in members">{{ member.name }} ( ID: {{ member.id }} )</option>
      </select>
     </div>
@@ -314,7 +236,7 @@
 
     <td nowrap="nowrap" style="width: 143px; height: 21px;">
       <span style="white-space: normal;">
-        <select id="memberename" ng-app="ProductManagement" ng-controller="ProductManagementController">
+        <select id="memberename">
           <option ng-repeat="product in products">{{ product.name }}</option>
         </select>
       </span>

@@ -15,6 +15,7 @@ public class InvoiceEntity extends PanacheEntity {
     @Column(length = 40, unique = true)
     public int memberID;
     public Date date;
+    public int productID;
 
     public InvoiceEntity(){
         
