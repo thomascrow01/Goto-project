@@ -15,7 +15,7 @@
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
   <script type="text/javascript">
     var app = angular.module("MemberManagement", []);
-
+    
       //Controller Part
       app.controller("MemberManagementController", function ($scope, $http) {
 
@@ -160,6 +160,8 @@
           $scope.form.id = -1;
         }
       });
+
+        
     </script>
 
         
@@ -196,10 +198,6 @@
      </select>
     </div>
  </div>
-  <!-- <div class="row">
-     <div class="col-25"><label for="memberid">Member ID <label for="memberid"> <label for="memberid"><span style="color: #ff0000;">*</span></label>:</label></label></div>
-     <div class="col-75"><input id="memberid" maxlength="25" name="memberid" pattern="[a-z]{1,25}" required="required" size="10" type="text" disabled /></div>
-  </div> -->
   
 <br><div class="col-75"><input type="submit" value="Submit" /></div>
 </section>
@@ -236,14 +234,14 @@
 
     <td nowrap="nowrap" style="width: 143px; height: 21px;">
       <span style="white-space: normal;">
-        <select id="memberename">
-          <option ng-repeat="product in products">{{ product.name }}</option>
+        <select name="product" ng-options="product.name for product in products" ng-model="productSelected">
+          <option value="">--Select Product--</option>
         </select>
       </span>
     </td>
 
     <td nowrap="nowrap" style="width: 64px; height: 21px;"><span style="white-space: normal;"><input name="Qty1" size="6" type="text" /></span></td>
-    <td nowrap="nowrap" style="width: 64px; height: 21px;"><span style="white-space: normal;">$0.00</span></td>
+    <td nowrap="nowrap" style="width: 64px; height: 21px;"><span id="price1" style="white-space: normal;">${{ productSelected.price }}</span></td>
     
     <td nowrap="nowrap" style="width: 64px; height: 21px;">
     <p><span style="white-space: normal;">$0.00</span></p>
@@ -256,9 +254,13 @@
     <p><span style="white-space: normal;">2</span></p>
     </td>
     <td nowrap="nowrap" style="width: 76px; height: 21px;">0</td>
-    <td nowrap="nowrap" style="width: 143px; height: 21px;"><span style="white-space: normal;"><input name="ItemDescr2" size="50" type="text" /></span></td>
+    <td nowrap="nowrap" style="width: 143px; height: 21px;"><span style="white-space: normal;">
+      <select name="product2" ng-options="product.name for product in products" ng-model="productSelected2">
+        <option value="">--Select Product--</option>
+      </select>
+    </span></td>
     <td nowrap="nowrap" style="width: 64px; height: 21px;"><span style="white-space: normal;"><input name="Qty2" size="6" type="text" /></span></td>
-    <td nowrap="nowrap" style="width: 64px; height: 21px;">$0.00</span></td>
+    <td nowrap="nowrap" style="width: 64px; height: 21px;">${{ productSelected2.price }}</span></td>
     
     <td nowrap="nowrap" style="width: 64px; height: 21px;">
     <p><span style="white-space: normal;">$0.00</span></p>
@@ -271,9 +273,13 @@
     <p><span style="white-space: normal;">3</span></p>
     </td>
     <td nowrap="nowrap" style="width: 76px; height: 21px;">0</td>
-    <td nowrap="nowrap" style="width: 143px; height: 21px;"><span style="white-space: normal;"><input name="ItemDescr3" size="50" type="text" /></span></td>
+    <td nowrap="nowrap" style="width: 143px; height: 21px;"><span style="white-space: normal;">
+      <select name="product2" ng-options="product.name for product in products" ng-model="productSelected3">
+        <option value="">--Select Product--</option>
+      </select>
+    </span></td>
     <td nowrap="nowrap" style="width: 64px; height: 21px;"><span style="white-space: normal;"><input name="Qty3" size="6" type="text" /></span></td>
-    <td nowrap="nowrap" style="width: 64px; height: 21px;"><span style="white-space: normal;">$0.00</span></td>
+    <td nowrap="nowrap" style="width: 64px; height: 21px;"><span style="white-space: normal;">${{ productSelected3.price }}</span></td>
     
     <td nowrap="nowrap" style="width: 64px; height: 21px;">
     <p><span style="white-space: normal;">$0.00</span></p>
@@ -286,9 +292,13 @@
     <p><span style="white-space: normal;">4</span></p>
     </td>
     <td nowrap="nowrap" style="width: 76px; height: 21px;">0</td>
-    <td nowrap="nowrap" style="width: 143px; height: 21px;"><span style="white-space: normal;"><input name="ItemDescr4" size="50" type="text" /></span></td>
+    <td nowrap="nowrap" style="width: 143px; height: 21px;"><span style="white-space: normal;">
+      <select name="product2" ng-options="product.name for product in products" ng-model="productSelected4">
+        <option value="">--Select Product--</option>
+      </select>
+    </span></td>
     <td nowrap="nowrap" style="width: 64px; height: 21px;"><span style="white-space: normal;"><input name="Qty4" size="6" type="text" /></span></td>
-    <td nowrap="nowrap" style="width: 64px; height: 21px;"><span style="white-space: normal;">$0.00</span></td>
+    <td nowrap="nowrap" style="width: 64px; height: 21px;"><span style="white-space: normal;">${{ productSelected4.price }}</span></td>
    
     <td nowrap="nowrap" style="width: 64px; height: 21px;">
     <p><span style="white-space: normal;">$0.00</span></p>
@@ -301,9 +311,13 @@
     <p><span style="white-space: normal;">5</span></p>
     </td>
     <td nowrap="nowrap" style="width: 76px; height: 21px;">0</td>
-    <td nowrap="nowrap" style="width: 143px; height: 21px;"><span style="white-space: normal;"><input name="ItemDescr5" size="50" type="text" /></span></td>
+    <td nowrap="nowrap" style="width: 143px; height: 21px;"><span style="white-space: normal;">
+      <select name="product2" ng-options="product.name for product in products" ng-model="productSelected5">
+        <option value="">--Select Product--</option>
+      </select>
+    </span></td>
     <td nowrap="nowrap" style="width: 64px; height: 21px;"><span style="white-space: normal;"><input name="Qty5" size="6" type="text" /></span></td>
-    <td nowrap="nowrap" style="width: 64px; height: 21px;"><span style="white-space: normal;">$0.00</span></td>
+    <td nowrap="nowrap" style="width: 64px; height: 21px;"><span style="white-space: normal;">${{ productSelected5.price }}</span></td>
     
     <td nowrap="nowrap" style="width: 64px; height: 21px;">
     <p><span style="white-space: normal;">$0.00</span></p>
@@ -316,9 +330,13 @@
     <p><span style="white-space: normal;">6</span></p>
     </td>
     <td nowrap="nowrap" style="width: 76px; height: 21px;">0</td>
-    <td nowrap="nowrap" style="width: 143px; height: 21px;"><span style="white-space: normal;"><input name="ItemDescr6" size="50" type="text" /></span></td>
+    <td nowrap="nowrap" style="width: 143px; height: 21px;"><span style="white-space: normal;">
+      <select name="product2" ng-options="product.name for product in products" ng-model="productSelected6">
+        <option value="">--Select Product--</option>
+      </select>
+    </span></td>
     <td nowrap="nowrap" style="width: 64px; height: 21px;"><span style="white-space: normal;"><input name="Qty6" size="6" type="text" /></span></td>
-    <td nowrap="nowrap" style="width: 64px; height: 21px;"><span style="white-space: normal;">$0.00</span></td>
+    <td nowrap="nowrap" style="width: 64px; height: 21px;"><span style="white-space: normal;">${{ productSelected6.price }}</span></td>
     
     <td nowrap="nowrap" style="width: 64px; height: 21px;">
     <p><span style="white-space: normal;">$0.00</span></p>
@@ -331,9 +349,13 @@
     <p><span style="white-space: normal;">7</span></p>
     </td>
     <td nowrap="nowrap" style="width: 76px; height: 21px;">0</td>
-    <td nowrap="nowrap" style="width: 143px; height: 21px;"><span style="white-space: normal;"><input name="ItemDescr7" size="50" type="text" /></span></td>
+    <td nowrap="nowrap" style="width: 143px; height: 21px;"><span style="white-space: normal;">
+      <select name="product2" ng-options="product.name for product in products" ng-model="productSelected7">
+        <option value="">--Select Product--</option>
+      </select>
+    </span></td>
     <td nowrap="nowrap" style="width: 64px; height: 21px;"><span style="white-space: normal;"><input name="Qty8" size="6" type="text" /></span></td>
-    <td nowrap="nowrap" style="width: 64px; height: 21px;">$0.00</span></td>
+    <td nowrap="nowrap" style="width: 64px; height: 21px;">${{ productSelected7.price }}</span></td>
     
     <td nowrap="nowrap" style="width: 64px; height: 21px;">
     <p><span style="white-space: normal;">$0.00</span></p>
@@ -346,9 +368,13 @@
     <p><span style="white-space: normal;">8</span></p>
     </td>
     <td nowrap="nowrap" style="width: 76px; height: 21px;">0</td>
-    <td nowrap="nowrap" style="width: 143px; height: 21px;"><span style="white-space: normal;"><input name="ItemDescr8" size="50" type="text" /></span></td>
+    <td nowrap="nowrap" style="width: 143px; height: 21px;"><span style="white-space: normal;">
+      <select name="product2" ng-options="product.name for product in products" ng-model="productSelected8">
+        <option value="">--Select Product--</option>
+      </select>
+    </span></td>
     <td nowrap="nowrap" style="width: 64px; height: 21px;"><span style="white-space: normal;"><input name="Qty9" size="6" type="text" /></span></td>
-    <td nowrap="nowrap" style="width: 64px; height: 21px;">$0.00</span></td>
+    <td nowrap="nowrap" style="width: 64px; height: 21px;">${{ productSelected8.price }}</span></td>
     
     <td nowrap="nowrap" style="width: 64px; height: 21px;">
     <p><span style="white-space: normal;">$0.00</span></p>
@@ -361,9 +387,13 @@
     <p><span style="white-space: normal;">9</span></p>
     </td>
     <td nowrap="nowrap" style="width: 76px; height: 21px;">0</td>
-    <td nowrap="nowrap" style="width: 143px; height: 21px;"><span style="white-space: normal;"><input name="ItemDescr9" size="50" type="text" /></span></td>
+    <td nowrap="nowrap" style="width: 143px; height: 21px;"><span style="white-space: normal;">
+      <select name="product2" ng-options="product.name for product in products" ng-model="productSelected9">
+        <option value="">--Select Product--</option>
+      </select>
+    </span></td>
     <td nowrap="nowrap" style="width: 64px; height: 21px;"><span style="white-space: normal;"><input name="Qty9" size="6" type="text" /></span></td>
-    <td nowrap="nowrap" style="width: 64px; height: 21px;">$0.00</span></td>
+    <td nowrap="nowrap" style="width: 64px; height: 21px;">${{ productSelected9.price }}</span></td>
     
     <td nowrap="nowrap" style="width: 64px; height: 21px;">
     <p><span style="white-space: normal;">$0.00</span></p>
@@ -378,14 +408,16 @@
     <td nowrap="nowrap" style="width: 76px; height: 21px;">
     <p>0</p>
     </td>
-    <td nowrap="nowrap" style="width: 143px; height: 21px;">
-    <p><span style="white-space: normal;"><input name="ItemDescr10" size="50" type="text" /></span></p>
-    </td>
+    <td nowrap="nowrap" style="width: 143px; height: 21px;"><span style="white-space: normal;">
+      <select name="product2" ng-options="product.name for product in products" ng-model="productSelected10">
+        <option value="">--Select Product--</option>
+      </select>
+    </span></td>
     <td nowrap="nowrap" style="width: 64px; height: 21px;">
     <p><span style="white-space: normal;"><input name="Qty10" size="6" type="text" /></span></p>
     </td>
     <td nowrap="nowrap" style="width: 64px; height: 21px;">
-    <p><span style="white-space: normal;">$0.00</span></p>
+    <p><span style="white-space: normal;">${{ productSelected10.price }}</span></p>
     </td>
     
     <td nowrap="nowrap" style="width: 64px; height: 21px;">
