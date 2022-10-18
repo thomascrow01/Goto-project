@@ -70,7 +70,6 @@ public class InvoiceEntityResource {
 
         entity.date = invoice.date;
         entity.memberID = invoice.memberID;
-        entity.productID = invoice.productID;
 
         return entity;
     }
