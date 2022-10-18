@@ -69,10 +69,12 @@
 
                 //HTTP DELETE- delete product by id
                 $scope.remove = function (product) {
+                    if(window.confirm("Are you sure you want to delete " + product.name + "?")){
                     $http({
                         method: 'DELETE',
                         url: '/entity/product/' + product.id
                     }).then(_success, _error);
+                }
                 };
 
                 //In case of edit products, populate form with product data
