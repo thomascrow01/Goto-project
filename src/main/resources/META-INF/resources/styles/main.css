@@ -154,3 +154,27 @@ th {
 #overallTotalRow {
   border: none;
 }
+
+.input-wrapper {
+  display: inline-block;
+  background: #4CAF50;
+  padding: 1rem;
+  border-radius: 0.7rem;
+  color: white;
+  box-shadow: 0.25rem 0.25rem 0rem #f0b2a8;
+}
+
+input {
+  margin: 0 1rem 0 1rem;
+  width: 100%;
+  
+  border: none;
+  outline: none;
+  background: #4CAF50;
+  color: black;
+}
+
+::placeholder {
+  color: black;
+  text-decoration: solid;
+}
