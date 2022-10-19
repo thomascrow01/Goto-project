@@ -13,7 +13,6 @@ public class InvoiceEntity extends PanacheEntity {
 
     public int memberID;
     public Date date;
-    public int productID;
 
     public InvoiceEntity(){
         

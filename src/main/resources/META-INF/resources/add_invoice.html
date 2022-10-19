@@ -30,7 +30,7 @@
         $scope.form = {
           id: -1,
           date: "",
-          member: "",
+          memberid: "",
           product: [],
           qty: []
         };
@@ -65,15 +65,15 @@
             data.date = $scope.form.date;
             data.memberID = $scope.form.memberid;
             
-          } else {
-            //If Id is present, it's edit operation - PUT operation
-            method = "PUT";
-            url = '/entity/member/' + $scope.form.id;
-            data.name = $scope.form.name;
-            data.address = $scope.form.address;
-            data.mobile = $scope.form.mobile;
-            data.email = $scope.form.email;
-          }
+          }// else {
+          //   //If Id is present, it's edit operation - PUT operation
+          //   method = "PUT";
+          //   url = '/entity/member/' + $scope.form.id;
+          //   data.name = $scope.form.name;
+          //   data.address = $scope.form.address;
+          //   data.mobile = $scope.form.mobile;
+          //   data.email = $scope.form.email;
+          // }
 
           $http({
             method: method,
@@ -151,10 +151,8 @@
 
         //Clear the form
         function _clearForm() {
-          $scope.form.email = "";
-          $scope.form.mobile = "";
-          $scope.form.address = "";
-          $scope.form.name = "";
+          $scope.form.date = "";
+          $scope.form.memberid = "";
           $scope.form.id = -1;
         }
       });
@@ -180,19 +178,19 @@
     </ul>
   </nav>
 </nav>
-<form ng-submit="update()"></form>
+<form ng-submit="update()">
 <section id="section1">
   <img src="images/invoice.png" alt="order now"/> <br />
   
   <div class="row">
-     <div class="col-25"><label for="orderdate">Invoice Date <label for="order_date"> <label for="orderdate"><span style="color: #ff0000;">*</span></label>:</label></label></div>
-     <div class="col-75"><input id="orderdate" maxlength="25" name="orderdate" pattern="[a-z]{1,25}" required="required" size="10" type="date" /></div>
+     <div class="col-25"><label for="date">Invoice Date <label for="date"> <label for="date"><span style="color: #ff0000;">*</span></label>:</label></label></div>
+     <div class="col-75"><input id="date" maxlength="25" name="date" pattern="[a-z]{1,25}" required="required" size="10" type="date" /></div>
   </div>
   <div class="row">
-    <div class="col-25"><label for="membername">Member (ID)<label for="memberename"> <label for="membername"><span style="color: #ff0000;">*</span></label>:</label></label></div>
+    <div class="col-25"><label for="memberid">Member (ID)<label for="membername"> <label for="membername"><span style="color: #ff0000;">*</span></label>:</label></label></div>
     <div class="col-75">
-     <select id="memberename">
-       <option ng-repeat="member in members" value="{{ member.id }}">{{ member.name }} ( ID: {{ member.id }} )</option>
+     <select id="memberid">
+       <option ng-repeat="member in members" name="memberid" value="{{ member.id }}">{{ member.name }} ( ID: {{ member.id }} )</option>
      </select>
     </div>
  </div>
