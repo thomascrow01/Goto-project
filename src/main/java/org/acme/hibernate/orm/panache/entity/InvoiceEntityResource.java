@@ -54,6 +54,8 @@ public class InvoiceEntityResource {
             throw new WebApplicationException("Id was invalidly set on request.", 422);
         }
 
+        
+
         invoice.persist();
         return Response.ok(invoice).status(201).build();
     }

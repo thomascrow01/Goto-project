@@ -31,7 +31,7 @@
           id: -1,
           date: "",
           memberid: "",
-          product: [],
+          products: [],
           qty: []
         };
 
@@ -55,34 +55,43 @@
 
         //HTTP POST/PUT methods for add/edit members
         $scope.update = function () {
-          var method = "";
-          var url = "";
+          var method = "POST";
           var data = {};
-          if ($scope.form.id == -1) {
-            //Id is absent so add members - POST operation
-            method = "POST";
-            url = '/entity/invoice';
-            data.date = $scope.form.date;
-            data.memberID = $scope.form.memberid;
-            
-          }// else {
-          //   //If Id is present, it's edit operation - PUT operation
-          //   method = "PUT";
-          //   url = '/entity/member/' + $scope.form.id;
-          //   data.name = $scope.form.name;
-          //   data.address = $scope.form.address;
-          //   data.mobile = $scope.form.mobile;
-          //   data.email = $scope.form.email;
-          // }
+
+          data.date = $scope.form.date;
+          data.memberID = $scope.form.memberid;
 
           $http({
             method: method,
-            url: url,
+            url: '/entity/invoice',
+            data: angular.toJson(data),
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          });
+
+          
+
+          for(let i = 0; i < products.length; i++){
+            data = {};
+
+            
+
+            data.productID = products[i];
+            data.quantity = qty[i];
+
+            $http({
+            method: method,
+            url: '/entity/invoiceproduct',
             data: angular.toJson(data),
             headers: {
               'Content-Type': 'application/json'
             }
           }).then(_success, _error);
+
+          }
+
+
         };
 
         //HTTP DELETE- delete member by id
@@ -238,13 +247,13 @@
 
     <td nowrap="nowrap" style="width: 143px; height: 21px;">
       <span style="white-space: normal;">
-        <select name="product" ng-options="product.name for product in products" ng-model="productSelected">
+        <select name="products[0]" ng-options="product.name for product in products" ng-model="productSelected">
           <option value="">--Select Product--</option>
         </select>
       </span>
     </td>
 
-    <td nowrap="nowrap" style="width: 64px; height: 21px;"><span style="white-space: normal;"><input name="Qty1" size="6" type="text" ng-model="productQty" /></span></td>
+    <td nowrap="nowrap" style="width: 64px; height: 21px;"><span style="white-space: normal;"><input name="qty[0]" size="6" type="text" ng-model="productQty" /></span></td>
     <td nowrap="nowrap" style="width: 64px; height: 21px;"><span id="price1" style="white-space: normal;">${{ productSelected.price }}</span></td>
     
     <td nowrap="nowrap" style="width: 64px; height: 21px;">
