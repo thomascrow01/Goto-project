@@ -66,6 +66,7 @@ public class InvoiceProductEntityResource {
     }
 
     @POST
+    @Path("array")
     @Transactional
     public Response createArray(InvoiceProductEntity[] invoices) {
         

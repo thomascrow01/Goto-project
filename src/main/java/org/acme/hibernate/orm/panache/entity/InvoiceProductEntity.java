@@ -10,7 +10,6 @@ import io.quarkus.hibernate.orm.panache.PanacheEntity;
 @Cacheable
 public class InvoiceProductEntity extends PanacheEntity {
 
-    @Column(length = 40, unique = true)
     public int invoiceID;
     public int productID;
     public int quantity;

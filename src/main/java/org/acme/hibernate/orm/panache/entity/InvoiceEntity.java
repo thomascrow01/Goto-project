@@ -12,18 +12,18 @@ import io.quarkus.hibernate.orm.panache.PanacheEntity;
 public class InvoiceEntity extends PanacheEntity {
 
     public int memberID;
-    public Date date;
+    public String date;
 
     public InvoiceEntity(){
         
     }
 
-    public InvoiceEntity(Date date, int memberID) {
+    public InvoiceEntity(String date, int memberID) {
         this.date = date;
         this.memberID = memberID;
     }
 
-    public InvoiceEntity(Date date){
+    public InvoiceEntity(String date){
         this.date = date;
     }
 
