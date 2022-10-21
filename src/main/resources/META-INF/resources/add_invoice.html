@@ -87,7 +87,7 @@
 
             
             data.invoiceID = $scope.invoice.id;
-            data.productID = $scope.form.products[i];
+            data.productID = $scope.form.products[i].id;
             data.quantity = $scope.form.qty[i];
 
             $http({
@@ -253,21 +253,21 @@
     <td nowrap="nowrap" style="width: 64px; height: 21px;">
     <p><span style="white-space: normal;">1</span></p>
     </td>
-    <td nowrap="nowrap" style="width: 76px; height: 21px;">{{ productSelected.id }}</td>
+    <td nowrap="nowrap" style="width: 76px; height: 21px;">{{ form.products[0].id }}</td>
 
     <td nowrap="nowrap" style="width: 143px; height: 21px;">
       <span style="white-space: normal;">
-        <select name="products[0]" ng-options="product.name for product in products" ng-model="productSelected">
+        <select name="products[0]" ng-options="product.name for product in products" ng-model="form.products[0]">
           <option value="">--Select Product--</option>
         </select>
       </span>
     </td>
 
-    <td nowrap="nowrap" style="width: 64px; height: 21px;"><span style="white-space: normal;"><input name="qty[0]" size="6" type="text" ng-model="productQty" /></span></td>
-    <td nowrap="nowrap" style="width: 64px; height: 21px;"><span id="price1" style="white-space: normal;">${{ productSelected.price }}</span></td>
+    <td nowrap="nowrap" style="width: 64px; height: 21px;"><span style="white-space: normal;"><input name="qty[0]" size="6" type="text" ng-model="form.qty[0]" /></span></td>
+    <td nowrap="nowrap" style="width: 64px; height: 21px;"><span id="price1" style="white-space: normal;">${{ form.products[0].price }}</span></td>
     
     <td nowrap="nowrap" style="width: 64px; height: 21px;">
-    <p><span style="white-space: normal;">${{ productTotal = calculate(productSelected.price, productQty) }}</span></p>
+    <p><span style="white-space: normal;">${{ productTotal = calculate(form.products[0].price, form.qty[0]) }}</span></p>
     </td>
     
   </tr>
