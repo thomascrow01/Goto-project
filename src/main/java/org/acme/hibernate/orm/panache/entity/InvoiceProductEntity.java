@@ -1,7 +1,6 @@
 package org.acme.hibernate.orm.panache.entity;
 
 import javax.persistence.Cacheable;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
@@ -15,7 +14,7 @@ public class InvoiceProductEntity extends PanacheEntity {
     public int quantity;
 
     public InvoiceProductEntity(){
-        
+
     }
 
     public InvoiceProductEntity(int quantity, int productID, int invoiceID) {

@@ -49,7 +49,7 @@ public class InvoiceEntityResource {
 
     @POST
     @Transactional
-    public Response create(InvoiceEntity invoice) {
+    public InvoiceEntity create(InvoiceEntity invoice) {
         if (invoice.id != null) {
             throw new WebApplicationException("Id was invalidly set on request.", 422);
         }
@@ -57,7 +57,7 @@ public class InvoiceEntityResource {
         
 
         invoice.persist();
-        return Response.ok(invoice).status(201).build();
+        return invoice;
     }
 
     @PUT

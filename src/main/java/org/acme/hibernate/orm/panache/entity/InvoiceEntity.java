@@ -1,7 +1,5 @@
 package org.acme.hibernate.orm.panache.entity;
 
-import java.sql.Date;
-
 import javax.persistence.Cacheable;
 import javax.persistence.Entity;
 

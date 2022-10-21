@@ -35,6 +35,12 @@
           qty: []
         };
 
+        $scope.invoice = {
+          id: -1,
+          date: "",
+          memberID: -1
+        }
+
         $scope.member = {
             id: -1,
             name: "",
@@ -68,17 +74,21 @@
             headers: {
               'Content-Type': 'application/json'
             }
+          }).then(function successCallback(response) {
+            $scope.invoice = response.data;
+          }, function errorCallback(response) {
+            console.log(response.statusText);
           });
 
           
 
-          for(let i = 0; i < products.length; i++){
+          for(let i = 0; i < $scope.form.products.length; i++){
             data = {};
 
             
-
-            data.productID = products[i];
-            data.quantity = qty[i];
+            data.invoiceID = $scope.invoice.id;
+            data.productID = $scope.form.products[i];
+            data.quantity = $scope.form.qty[i];
 
             $http({
             method: method,
