@@ -47,6 +47,13 @@ public class InvoiceProductEntityResource {
         return entity;
     }
 
+    @GET
+    @Path("invoiceID={id}")
+    public List<InvoiceProductEntity> getInvoice(Long id) {
+
+        return InvoiceProductEntity.list("invoiceID", Sort.by("id").and("quantity"), id);
+    }
+
     @POST
     @Transactional
     public Response create(InvoiceProductEntity invoice) {
@@ -56,6 +63,23 @@ public class InvoiceProductEntityResource {
 
         invoice.persist();
         return Response.ok(invoice).status(201).build();
+    }
+
+    @POST
+    @Transactional
+    public Response createArray(InvoiceProductEntity[] invoices) {
+        
+        for(InvoiceProductEntity invoice : invoices){
+
+            if (invoice.id != null) {
+                throw new WebApplicationException("Id was invalidly set on request.", 422);
+            }
+
+            invoice.persist();
+            
+        }
+        
+        return Response.ok(invoices[0]).status(201).build();
     }
 
     @PUT
