@@ -35,27 +35,6 @@
           qty: []
         };
 
-        $scope.invoice = {
-          id: -1,
-          date: "",
-          memberID: -1
-        }
-
-        $scope.member = {
-            id: -1,
-            name: "",
-            address: "",
-            mobile: "",
-            email: ""
-          };
-
-        $scope.product = {
-            id: -1,
-            productName: "",
-            productDesc: "",
-            productPrice: 0.0
-         };
-
         //Now load the data from server
         _refreshPageData();
 
@@ -75,7 +54,7 @@
               'Content-Type': 'application/json'
             }
           }).then(function successCallback(response) {
-            $scope.invoice = response.data;
+            $scope.invoices = response.data;
           }, function errorCallback(response) {
             console.log(response.statusText);
           });
@@ -86,7 +65,7 @@
             data = {};
 
             
-            data.invoiceID = $scope.invoice.id;
+            data.invoiceID = $scope.invoices.id;
             data.productID = $scope.form.products[i].id;
             data.quantity = $scope.form.qty[i];
 
