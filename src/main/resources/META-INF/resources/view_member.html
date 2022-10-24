@@ -84,6 +84,43 @@
             }
             };
 
+            $scope.export = function (member){
+
+              var method = "GET";
+              var url = "";
+            
+
+              url = "/analyse/" + member.id;
+
+              $http({
+                method: 'GET',
+                url: url
+              }).then(function successCallback(response) {
+                $scope.members = response.data;
+
+                var responseCSV = "";
+
+                for (var key in response.data[0]) {
+                  responseCSV += key + ","
+                }
+
+                var i = 0;
+                for (const element of response.data) {
+                  for (var key in response.data[i]) {
+                    responseCSV += response.data[i][key] + ","
+                  }
+                  i++;
+                }
+                
+                download("report-" + new Date().toLocaleDateString().padStart(10, '0') + ".csv", responseCSV);
+
+              }, function errorCallback(response) {
+                console.log(response.statusText);
+              });
+            
+
+            };
+
             //In case of edit members, populate form with member data
             $scope.edit = function (member) {
               $scope.form.id = member.id;
@@ -135,7 +172,13 @@
               $scope.form.name = "";
               $scope.form.id = -1;
             }
+
+            
+
           });
+
+          
+
         </script>
     
     </head>
@@ -198,6 +241,7 @@
 
           <td><input id="btnRemoveEdit" type="button" ng-click="remove (member)" value="Remove" /></td>
           <td><a href="edit_member.html?id={{ member.id }}"><input id="btnRemoveEdit" type="button" value="Edit" /></a></td>
+          <td><input id="btnExport" type="button" ng-click="export (member)" value="Export" /></td>
         </tr>
       </table>
 

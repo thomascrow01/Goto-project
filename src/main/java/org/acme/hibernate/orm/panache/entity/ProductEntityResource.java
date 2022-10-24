@@ -49,9 +49,9 @@ public class ProductEntityResource {
 
     @GET
     @Path("name={input}")
-    public List<MemberEntity> filterName(String input){
+    public List<ProductEntity> filterName(String input){
         
-        return MemberEntity.list("name", Sort.by("name").and("id"), input);
+        return ProductEntity.list("name", Sort.by("name").and("id"), input);
     }
 
     @POST
