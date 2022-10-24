@@ -1,0 +1,42 @@
+/*
+filename: lab03
+author: Daniel Roisman
+created: 19/3/2021
+last modified: 19/3/2021
+description:text1 lab 3 .html*/
+
+p {
+  color: #2F4F4F;
+  font-family: calibri;
+  font-size: 160%;
+}
+aside, footer{font-style: italic;}
+
+h1 {  color: purple;font-size: 2em;font-weight:boild;}
+h2 {  color: green;}
+h3 {  color: red;}
+
+
+a {
+  display: line;
+  color: black;
+  text-align: left;
+  'padding: 50px 16px;
+  'text-decoration: none;
+}
+
+tables, th, td {
+  border: 1px solid black;
+}
+#images {text-align: center;}
+.specia{color;darkorange;font-wight:bold;}
+
+nav a{text-decoration:none;
+padding: 0.2em 0.6em;
+border: 4px solid # ccc;}
+
+
+ol {list-style-type:lower-roman;}
+ul {list-style-type:square;}
+
+aside:hover {display: none;}

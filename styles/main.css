@@ -1,0 +1,79 @@
+/*
+author: Daniel Roisman
+created: 19/3/2021
+last modified: 20/9/2022
+description:SWE20001*/
+
+body{font-family:arial;}
+article{max-width:1220px; margin:0 auto;}
+header{ background: url("image/background.jpg");
+background-repeat:repeat-x;
+background-position:bottom;
+height:118px;
+width:100%}
+
+header h1{
+  font-family:'Love Ya Like A Sister', arial;
+  letter spacing: 4px;
+  font-size:72px;
+  padding-top: 0.0em;
+  padding-left:0.5em;}
+
+nav ul{ margin:0;padding:0;}
+nav ul li{ list-style:none; float: left;font-size:93%;}
+nav ul li a { display: block;
+font-weight:bold;
+padding:0.325em 3.5em;/*10px 15px*/
+text-decoration: none; color: #000; border_right:1px solid #bababa;}
+
+img { max-width:100%}
+#section1, #section2, #section3  { float: left; width: 30%;text-alighn:justify; margin: 1em 1em 1em }
+footer{ clear:both;}
+footer h3{ font-family:'Love Ya Like A Sister', arial;background-color: #adebad ; padding: 0.5em 0.5em 0.5em;
+background-repeat:repeat-x;background-position:bottom;}
+
+/*styling add_member.html*/
+
+
+input[type=text], select, textarea {
+  width: 100%;
+  padding: 3px 2px 1px 0;
+  box-sizing: border-box;
+ }
+
+
+input[type=submit] {
+  background-color: #4CAF50;
+  color: black;
+   font-weight: bold;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+input[type=submit]:hover {
+  background-color: #990099;
+}
+
+.col-25 {
+  float: left;
+  width: 40%;
+  margin-top: 1px;
+  
+  }
+
+.col-75 {
+  float: left;
+  width: 60%;
+  margin-top: 1px;
+  }
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}

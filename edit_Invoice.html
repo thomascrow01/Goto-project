@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<html>
+<head>
+<head>
+  <title>GoTo Grocery Online</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+ <!--<link href="File:///Volumes/SOFIA USB/2.SWINBURNE/Uni/2022 - SEMESTER 2/SWE20001/Front-End/styles/main.css" rel="stylesheet"/>
+  <link href="File:///Volumes/SOFIA USB/2.SWINBURNE/Uni/2022 - SEMESTER 2/SWE20001/Front-End/styles/responsive.css" rel="stylesheet" media="screen and (max-width:1024px)"/>
+-->
+ <link href="J:/2.SWINBURNE/Uni/2022%20-%20SEMESTER%202/SWE20001/Front-End/styles/main.css" rel="stylesheet"/>
+<link href="J:/2.SWINBURNE/Uni/2022%20-%20SEMESTER%202/SWE20001/Front-End/styles/responsive.css" rel="stylesheet" media="screen and (max-width:1024px)"/>
+
+  <!-- References to external font 'Love Ya Like A Sister' -->
+  <link href='http://fonts.googleapis.com/css?family=Love+Ya+Like+A+Sister' rel='stylesheet'/>
+  </head>
+
+<body>
+<article>
+<header><h1>Welcome to GoTo Grocery Online</h1></header>
+<nav>
+			<!--<ul>
+		            <li><a href="add_member.html">Add Member</a></li>
+                  	<li><a href="edit_member.html">Edit Member</a></li>
+                  	<li><a href="view_member.html">View Member</a></li>
+                    <li><a class="active" href="add_invoice.html">New Invoice</a></li>
+                  	<li><a href="add_product.html">Add Product</a></li>
+                  	<li><a href="edit_product.html">Edit Product</a></li>
+                  <!--	<li><a href="introduction.html">Home</a></li>
+			</ul>-->
+					<style>
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.navbar {
+  overflow: hidden;
+  font-weight: bold;
+ }
+
+.navbar a {
+  float: left;
+  font-size: 16px;
+  color: black;
+  text-align: center;
+  padding: 14px 96px;
+  text-decoration: none;
+}
+
+.dropdown {
+  float: left;
+  overflow: hidden;
+}
+
+.dropdown .dropbtn {
+  font-size: 16px;
+  border: none;
+  outline: none;
+  color: black;
+  font-weight: bold;
+  padding: 14px 96px;
+  background-color: inherit;
+  font-family: inherit;
+  margin: 0;
+}
+.edit_dropdown .edit_dropbtn {
+  font-size: 16px;
+  border: none;
+  outline: none;
+  color: black;
+  font-weight: bold;
+  padding: 14px 96px;
+  background-color: inherit;
+  font-family: inherit;
+  margin: 0;
+}
+
+.navbar a:hover, .dropdown:hover .dropbtn {
+  background-color: #fefefe;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  float: none;
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+</style>
+</head>
+<body>
+
+<div class="navbar">
+  <a href="introduction.html">Home</a>
+  <!--<a href="#news">News</a>-->
+  <div class="dropdown">
+    <button class="dropbtn">Create
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="add_member.html">Member</a>
+      <a href="add_product.html">Product</a>
+      <a href="add_invoice.html">Invoice</a>
+    </div>
+  </div>
+
+  <div class="dropdown">
+  <button class="dropbtn">Edit
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="edit_member.html">Member</a>
+      <a href="edit_product.html">Product</a>
+      <a href="edit_invoice.html">Invoice</a>
+    </div>
+  </div>
+
+<div class="dropdown">
+  <button class="dropbtn">View
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="view_member.html">Member</a>
+      <a href="view_product.html">Product</a>
+      <a href="view_invoice.html">Invoice</a>
+    </div>
+  </div>
+
+  <div class="dropdown">
+  <button class="dropbtn">Reports
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="introduction.html">TBA</a>
+    </div>
+  </div>
+
+</div>
+</nav>
+
+<section id="section1">
+  <img src="images/invoice.png" alt="order now"/> <br />
+  <div class="row">
+     <div class="col-25"><label for="orderid">Order ID <label for="order_id"> <label for="order_id"><span style="color: #ff0000;">*</span></label>:</label></label></div>
+     <div class="col-75"><input id="orderid" maxlength="25" name="orderid" pattern="[a-z]{1,25}" required="required" size="10" type="text" /></div>
+  </div>
+  <div class="row">
+     <div class="col-25"><label for="orderdate">Order Date <label for="order_date"> <label for="orderdate"><span style="color: #ff0000;">*</span></label>:</label></label></div>
+     <div class="col-75"><input id="orderdate" maxlength="25" name="orderdate" pattern="[a-z]{1,25}" required="required" size="10" type="text" /></div>
+  </div>
+  <div class="row">
+     <div class="col-25"><label for="memberid">Member ID <label for="memberid"> <label for="memberid"><span style="color: #ff0000;">*</span></label>:</label></label></div>
+     <div class="col-75"><input id="memberid" maxlength="25" name="memberid" pattern="[a-z]{1,25}" required="required" size="10" type="text" /></div>
+  </div>
+  <div class="row">
+     <div class="col-25"><label for="membername">Member Name <label for="memberename"> <label for="membername"><span style="color: #ff0000;">*</span></label>:</label></label></div>
+     <div class="col-75"><input id="membername" maxlength="25" name="membername" pattern="[a-z]{1,25}" required="required" size="10" type="text" /></div>
+  </div>
+<!--Thank you for submitting the form-->
+<input type="submit" id="myThankYou" value="Submit">
+
+<div id="myThankYouModal" class="thank_modal">
+
+  <div class="thank_modal-content">
+    <span class="thank_close">&times;</span>
+    <div class="bgc_modal-content">
+      <p><h2>Your invoice has been successfully amended.</h2></p>
+    </div>
+    <p><h1>Please close this window to go back to the Home Page</h1></p>
+    <p><h1>Thank you</h1></p>
+  </div>
+
+</div>
+<style>
+
+/* The Modal (background) */
+.thank_modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 70%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+.bgc_modal-content{background-color: #adebad; font-family:'Love Ya Like A Sister', arial;}
+/* Modal Content */
+.thank_modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+
+}
+
+/* The Close Button */
+.thank_close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.thank_close:hover,
+.thank_close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+</style>
+<script>
+// Get the modal
+var thankModal = document.getElementById('myThankYouModal');
+
+// Get the button that opens the modal
+var thankBtn = document.getElementById("myThankYou");
+
+// Get the <span> element that closes the modal
+var thankSpan = document.getElementsByClassName("thank_close")[0];
+
+// When the user clicks the button, open the modal
+thankBtn.onclick = function() {
+    thankModal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+thankSpan.onclick = function() {
+    thankModal.style.display = "none";
+    window.open ('introduction.html','_self',false)
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == thankModal) {
+        thankModal.style.display = "none";
+        window.open ('introduction.html','_self',false)
+    }
+}
+</script>
+<!--END Thank you for submitting the form-->
+
+</section>
+
+<section id="section4">
+<table>
+  <tr>
+    <td nowrap="nowrap" style="width: 64px; height: 21px;">
+    <p><span style="white-space: normal;">Item#</span></p>
+    </td>
+    <td nowrap="nowrap" style="width: 76px; height: 21px;">
+    <p><span style="white-space: normal;">Item ID</span></p>
+    </td>
+    <td nowrap="nowrap" style="width: 143px; height: 21px;">
+    <p><span style="white-space: normal;">Item Description</span></p>
+    </td>
+    <td nowrap="nowrap" style="width: 64px; height: 21px;">
+    <p><span style="white-space: normal;">Qty</span></p>
+    </td>
+    <td nowrap="nowrap" style="width: 64px; height: 21px;">
+    <p><span style="white-space: normal;">Price</span></p>
+    </td>
+    <td nowrap="nowrap" style="width: 64px; height: 21px;">
+    <p><span style="white-space: normal;">GST</span></p>
+    </td>
+    <td nowrap="nowrap" style="width: 64px; height: 21px;">
+    <p><span style="white-space: normal;">Total</span></p>
+    </td>
+    <td nowrap="nowrap" style="width: 97px; height: 21px;">&nbsp;</td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap" style="width: 64px; height: 21px;">
+    <p><span style="white-space: normal;">1</span></p>
+    </td>
+    <td nowrap="nowrap" style="width: 76px; height: 21px;"><input name="ItemID1" size="10" type="text" /></td>
+    <td nowrap="nowrap" style="width: 143px; height: 21px;"><span style="white-space: normal;"><input name="ItemDescr1" size="50" type="text" /></span></td>
+    <td nowrap="nowrap" style="width: 64px; height: 21px;"><span style="white-space: normal;"><input name="Qty1" size="6" type="text" /></span></td>
+    <td nowrap="nowrap" style="width: 64px; height: 21px;"><span style="white-space: normal;"><input name="Price1" size="6" type="text" /></span></td>
+    <td nowrap="nowrap" style="width: 64px; height: 21px;"><span style="white-space: normal;"><input name="GST1" size="6" type="text" /></span></td>
+    <td nowrap="nowrap" style="width: 64px; height: 21px;">
+    <p><span style="white-space: normal;"><input name="Total2" size="8" type="text" /></span></p>
+    </td>
+    <td nowrap="nowrap" style="width: 97px; height: 21px;">
+  <!--  <p><input name="AddRow1" type="button" value="Add" /></p> -->
+    </td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap" style="width: 64px; height: 21px;">
+    <p><span style="white-space: normal;">2</span></p>
+    </td>
+    <td nowrap="nowrap" style="width: 76px; height: 21px;"><input name="ItemID2" size="10" type="text" /></td>
+    <td nowrap="nowrap" style="width: 143px; height: 21px;"><span style="white-space: normal;"><input name="ItemDescr2" size="50" type="text" /></span></td>
+    <td nowrap="nowrap" style="width: 64px; height: 21px;"><span style="white-space: normal;"><input name="Qty2" size="6" type="text" /></span></td>
+    <td nowrap="nowrap" style="width: 64px; height: 21px;"><span style="white-space: normal;"><input name="Price2" size="6" type="text" /></span></td>
+    <td nowrap="nowrap" style="width: 64px; height: 21px;"><span style="white-space: normal;"><input name="GST2" size="6" type="text" /></span></td>
+    <td nowrap="nowrap" style="width: 64px; height: 21px;">
+    <p><span style="white-space: normal;"><input name="Total2" size="8" type="text" /></span></p>
+    </td>
+    <td nowrap="nowrap" style="width: 97px; height: 21px;">
+    <!--<p><input name="AddRow2" type="button" value="Add" /></p>-->
+    </td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap" style="width: 64px; height: 21px;">
+    <p><span style="white-space: normal;">3</span></p>
+    </td>
+    <td nowrap="nowrap" style="width: 76px; height: 21px;"><input name="ItemID3" size="10" type="text" /></td>
+    <td nowrap="nowrap" style="width: 143px; height: 21px;"><span style="white-space: normal;"><input name="ItemDescr3" size="50" type="text" /></span></td>
+    <td nowrap="nowrap" style="width: 64px; height: 21px;"><span style="white-space: normal;"><input name="Qty3" size="6" type="text" /></span></td>
+    <td nowrap="nowrap" style="width: 64px; height: 21px;"><span style="white-space: normal;"><input name="Price3" size="6" type="text" /></span></td>
+    <td nowrap="nowrap" style="width: 64px; height: 21px;"><span style="white-space: normal;"><input name="GST3" size="6" type="text" /></span></td>
+    <td nowrap="nowrap" style="width: 64px; height: 21px;">
+    <p><span style="white-space: normal;"><input name="Total3" size="8" type="text" /></span></p>
+    </td>
+    <td nowrap="nowrap" style="width: 97px; height: 21px;">
+    <!--<p><input name="AddRow3" type="button" value="Add" /></p>-->
+    </td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap" style="width: 64px; height: 21px;">
+    <p><span style="white-space: normal;">4</span></p>
+    </td>
+    <td nowrap="nowrap" style="width: 76px; height: 21px;"><input name="ItemID4" size="10" type="text" /></td>
+    <td nowrap="nowrap" style="width: 143px; height: 21px;"><span style="white-space: normal;"><input name="ItemDescr4" size="50" type="text" /></span></td>
+    <td nowrap="nowrap" style="width: 64px; height: 21px;"><span style="white-space: normal;"><input name="Qty4" size="6" type="text" /></span></td>
+    <td nowrap="nowrap" style="width: 64px; height: 21px;"><span style="white-space: normal;"><input name="Price4" size="6" type="text" /></span></td>
+    <td nowrap="nowrap" style="width: 64px; height: 21px;"><span style="white-space: normal;"><input name="GST4" size="6" type="text" /></span></td>
+    <td nowrap="nowrap" style="width: 64px; height: 21px;">
+    <p><span style="white-space: normal;"><input name="Total4" size="8" type="text" /></span></p>
+    </td>
+    <td nowrap="nowrap" style="width: 97px; height: 21px;">
+    <!--<p><input name="AddRow4" type="button" value="Add" /></p>-->
+    </td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap" style="width: 64px; height: 21px;">
+    <p><span style="white-space: normal;">5</span></p>
+    </td>
+    <td nowrap="nowrap" style="width: 76px; height: 21px;"><input name="ItemID5" size="10" type="text" /></td>
+    <td nowrap="nowrap" style="width: 143px; height: 21px;"><span style="white-space: normal;"><input name="ItemDescr5" size="50" type="text" /></span></td>
+    <td nowrap="nowrap" style="width: 64px; height: 21px;"><span style="white-space: normal;"><input name="Qty5" size="6" type="text" /></span></td>
+    <td nowrap="nowrap" style="width: 64px; height: 21px;"><span style="white-space: normal;"><input name="Price5" size="6" type="text" /></span></td>
+    <td nowrap="nowrap" style="width: 64px; height: 21px;"><span style="white-space: normal;"><input name="GST5" size="6" type="text" /></span></td>
+    <td nowrap="nowrap" style="width: 64px; height: 21px;">
+    <p><span style="white-space: normal;"><input name="Total5" size="8" type="text" /></span></p>
+    </td>
+    <td nowrap="nowrap" style="width: 97px; height: 21px;">
+     <!--<p><input name="AddRow5" type="button" value="Add" /></p>-->
+    </td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap" style="width: 64px; height: 21px;">
+    <p><span style="white-space: normal;">6</span></p>
+    </td>
+    <td nowrap="nowrap" style="width: 76px; height: 21px;"><input name="ItemID6" size="10" type="text" /></td>
+    <td nowrap="nowrap" style="width: 143px; height: 21px;"><span style="white-space: normal;"><input name="ItemDescr6" size="50" type="text" /></span></td>
+    <td nowrap="nowrap" style="width: 64px; height: 21px;"><span style="white-space: normal;"><input name="Qty6" size="6" type="text" /></span></td>
+    <td nowrap="nowrap" style="width: 64px; height: 21px;"><span style="white-space: normal;"><input name="Price6" size="6" type="text" /></span></td>
+    <td nowrap="nowrap" style="width: 64px; height: 21px;"><span style="white-space: normal;"><input name="GST6" size="6" type="text" /></span></td>
+    <td nowrap="nowrap" style="width: 64px; height: 21px;">
+    <p><span style="white-space: normal;"><input name="Total6" size="8" type="text" /></span></p>
+    </td>
+    <td nowrap="nowrap" style="width: 97px; height: 21px;">
+    <!--<p><input name="AddRow6" type="button" value="Add" /></p>-->
+    </td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap" style="width: 64px; height: 21px;">
+    <p><span style="white-space: normal;">7</span></p>
+    </td>
+    <td nowrap="nowrap" style="width: 76px; height: 21px;"><input name="ItemID7" size="10" type="text" /></td>
+    <td nowrap="nowrap" style="width: 143px; height: 21px;"><span style="white-space: normal;"><input name="ItemDescr7" size="50" type="text" /></span></td>
+    <td nowrap="nowrap" style="width: 64px; height: 21px;"><span style="white-space: normal;"><input name="Qty8" size="6" type="text" /></span></td>
+    <td nowrap="nowrap" style="width: 64px; height: 21px;"><span style="white-space: normal;"><input name="Price7" size="6" type="text" /></span></td>
+    <td nowrap="nowrap" style="width: 64px; height: 21px;"><span style="white-space: normal;"><input name="GST7" size="6" type="text" /></span></td>
+    <td nowrap="nowrap" style="width: 64px; height: 21px;">
+    <p><span style="white-space: normal;"><input name="Total7" size="8" type="text" /></span></p>
+    </td>
+    <td nowrap="nowrap" style="width: 97px; height: 21px;">
+    <!--<p><input name="Addrow7" type="button" value="Add" /></p>-->
+    </td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap" style="width: 64px; height: 21px;">
+    <p><span style="white-space: normal;">8</span></p>
+    </td>
+    <td nowrap="nowrap" style="width: 76px; height: 21px;"><input name="ItemID8" size="10" type="text" /></td>
+    <td nowrap="nowrap" style="width: 143px; height: 21px;"><span style="white-space: normal;"><input name="ItemDescr8" size="50" type="text" /></span></td>
+    <td nowrap="nowrap" style="width: 64px; height: 21px;"><span style="white-space: normal;"><input name="Qty9" size="6" type="text" /></span></td>
+    <td nowrap="nowrap" style="width: 64px; height: 21px;"><span style="white-space: normal;"><input name="Price8" size="6" type="text" /></span></td>
+    <td nowrap="nowrap" style="width: 64px; height: 21px;"><span style="white-space: normal;"><input name="GST8" size="6" type="text" /></span></td>
+    <td nowrap="nowrap" style="width: 64px; height: 21px;">
+    <p><span style="white-space: normal;"><input name="Total8" size="8" type="text" /></span></p>
+    </td>
+    <td nowrap="nowrap" style="width: 97px; height: 21px;">
+    <!--<p><input name="AddRow8" type="button" value="Add" /></p>-->
+    </td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap" style="width: 64px; height: 21px;">
+    <p><span style="white-space: normal;">9</span></p>
+    </td>
+    <td nowrap="nowrap" style="width: 76px; height: 21px;"><input name="ItemID9" size="10" type="text" /></td>
+    <td nowrap="nowrap" style="width: 143px; height: 21px;"><span style="white-space: normal;"><input name="ItemDescr9" size="50" type="text" /></span></td>
+    <td nowrap="nowrap" style="width: 64px; height: 21px;"><span style="white-space: normal;"><input name="Qty9" size="6" type="text" /></span></td>
+    <td nowrap="nowrap" style="width: 64px; height: 21px;"><span style="white-space: normal;"><input name="Price9" size="6" type="text" /></span></td>
+    <td nowrap="nowrap" style="width: 64px; height: 21px;"><span style="white-space: normal;"><input name="GST9" size="6" type="text" /></span></td>
+    <td nowrap="nowrap" style="width: 64px; height: 21px;">
+    <p><span style="white-space: normal;"><input name="Total9" size="8" type="text" /></span></p>
+    </td>
+    <td nowrap="nowrap" style="width: 97px; height: 21px;">
+    <!--<p><input name="Addrow9" type="button" value="Add" /></p>-->
+    </td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap" style="width: 64px; height: 21px;">
+    <p><span style="white-space: normal;">10</span></p>
+    </td>
+    <td nowrap="nowrap" style="width: 76px; height: 21px;">
+    <p><input name="ItemID10" size="10" type="text" /></p>
+    </td>
+    <td nowrap="nowrap" style="width: 143px; height: 21px;">
+    <p><span style="white-space: normal;"><input name="ItemDescr10" size="50" type="text" /></span></p>
+    </td>
+    <td nowrap="nowrap" style="width: 64px; height: 21px;">
+    <p><span style="white-space: normal;"><input name="Qty10" size="6" type="text" /></span></p>
+    </td>
+    <td nowrap="nowrap" style="width: 64px; height: 21px;">
+    <p><span style="white-space: normal;"><input name="Price10" size="6" type="text" /></span></p>
+    </td>
+    <td nowrap="nowrap" style="width: 64px; height: 21px;">
+    <p><span style="white-space: normal;"><input name="GST10" size="6" type="text" /></span></p>
+    </td>
+    <td nowrap="nowrap" style="width: 64px; height: 21px;">
+    <p><span style="white-space: normal;"><input name="Total10" size="8" type="text" /></span></p>
+    </td>
+    <td nowrap="nowrap" style="width: 97px; height: 21px;">
+    <p>&nbsp;</p>
+  <!--  <br><div class="col-75"><input type="submit" value="Submit" /></di-->
+    </td>
+  </tr>
+
+</table>
+
+</section>
+
+<footer>
+  <h3>Create Invoice </h3>
+</footer>
+
+</article>
+</body>
+</html>
