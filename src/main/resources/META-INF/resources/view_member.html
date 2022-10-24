@@ -29,6 +29,15 @@
             //Initialize page with default data which is blank in this example
             $scope.members = [];
 
+            // $scope.analyse = {
+
+            //   memberID: -1,
+            //   memberName: "",
+            //   favouriteProduct: "",
+            //   totalMoneySpent: 0.0
+            // };
+            $scope.analyse = [];
+
             $scope.form = {
               id: -1,
               name: "",
@@ -173,7 +182,18 @@
               $scope.form.id = -1;
             }
 
-            
+            function download(filename, text) {
+            var element = document.createElement('a');
+            element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+            element.setAttribute('download', filename);
+
+            element.style.display = 'none';
+            document.body.appendChild(element);
+
+            element.click();
+
+            document.body.removeChild(element);
+          }
 
           });
 
