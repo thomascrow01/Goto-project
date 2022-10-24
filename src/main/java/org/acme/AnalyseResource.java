@@ -22,6 +22,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
 
+import org.acme.hibernate.orm.panache.entity.InvoiceProductEntity;
 import org.jboss.logging.Logger;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -35,9 +36,10 @@ import io.quarkus.panache.common.Sort;
 @Consumes("application/json")
 public class AnalyseResource {
 
+    /*
     @GET
     public List get() {
 
         return InvoiceProductEntity.list("invoiceID", Sort.by("id").and("quantity"), 1);
-    }
+    }*/
 }
