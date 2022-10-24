@@ -13,11 +13,11 @@ article{max-width:1220px;
 }
 
 header{ 
-  background: url("image/background.jpg");
-  background-repeat:repeat-x;
-  background-position:bottom;
-  height:118px;
-  width:100%
+  background: url("images/background.jpg");
+  background-repeat: repeat-x;
+  background-position: center;
+  height: 118px;
+  width: 100%;
 }
 
 header h1{

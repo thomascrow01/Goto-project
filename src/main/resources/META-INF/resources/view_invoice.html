@@ -1,136 +1,180 @@
 <!DOCTYPE html>
 <html lang="en">
 <html>
-    <head>
+<head>
 
-        <title>GoTo Grocery Online</title>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        
-        <link href="styles/main.css" rel="stylesheet"/>
+    <title>GoTo Grocery Online</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-        <link href="styles/responsive.css" rel="stylesheet" media="screen and (max-width:1024px)"/>
+    <link href="styles/main.css" rel="stylesheet" />
 
-        <!-- References to external font 'Love Ya Like A Sister' -->
-        <link href='http://fonts.googleapis.com/css?family=Love+Ya+Like+A+Sister' rel='stylesheet'/>
-    
-            <!-- Load AngularJS -->
-        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-        <script type="text/javascript">
-            var app = angular.module("InvoiceManagement", []);
+    <link href="styles/responsive.css" rel="stylesheet" media="screen and (max-width:1024px)" />
 
-            //Controller Part
-            app.controller("InvoiceManagementController", function ($scope, $http) {
+    <!-- References to external font 'Love Ya Like A Sister' -->
+    <link href='http://fonts.googleapis.com/css?family=Love+Ya+Like+A+Sister' rel='stylesheet' />
 
-                //Initialize page with default data which is blank in this example
-                $scope.invoice = [];
+    <!-- Load AngularJS -->
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script type="text/javascript">
+        var app = angular.module("InvoiceManagement", []);
 
-                $scope.form = {
-                    id: -1,
-                    memberid,
-                    membername,
-                    orderdate
-                };
+        //Controller Part
+        app.controller("InvoiceManagementController", function ($scope, $http) {
 
-                //Now load the data from server
-                _refreshPageData();
+            const queryString = window.location.search;
+            const urlParams = new URLSearchParams(queryString);
 
-                //HTTP POST/PUT methods for add/edit invoices
-                $scope.update = function () {
-                    var method = "";
-                    var url = "";
-                    var data = {};
-                    if ($scope.form.id == -1) {
-                        //Id is absent so add invoices - POST operation
-                        method = "POST";
-                        url = '/entity/invoice';
-                        data.name = $scope.form.ProductName;
-                        data.description = $scope.form.ProductDesc;
-                        
-                    } else {
-                        //If Id is present, it's edit operation - PUT operation
-                        method = "PUT";
-                        url = '/entity/product/' + $scope.form.id;
-                        data.name = $scope.form.ProductName;
-                        data.description = $scope.form.ProductDesc;
-                    }
+            //Initialize page with default data which is blank in this example
+            $scope.invoices = [];
+            $scope.members = [];
 
-                    $http({
-                        method: method,
-                        url: url,
-                        data: angular.toJson(data),
-                        headers: {
+            $scope.form = {
+                id: -1,
+                memberid: -1,
+                memberName: "",
+                date: ""
+            };
+
+            //Now load the data from server
+            _refreshPageData();
+
+            //HTTP POST/PUT methods for add/edit invoices
+            $scope.update = function () {
+                var method = "";
+                var url = "";
+                var data = {};
+                if ($scope.form.id == -1) {
+                    //Id is absent so add invoices - POST operation
+                    method = "POST";
+                    url = '/entity/invoice';
+                    data.memberid = $scope.form.memberid;
+                    data.membername = $scope.form.membername;
+                    data.orderdate = $scope.form.orderdate;
+
+                } else {
+                    //If Id is present, it's edit operation - PUT operation
+                    method = "PUT";
+                    url = '/entity/invoice/' + $scope.form.id;
+                    data.memberid = $scope.form.memberid;
+                    data.membername = $scope.form.membername;
+                    data.orderdate = $scope.form.orderdate;
+                }
+
+                $http({
+                    method: method,
+                    url: url,
+                    data: angular.toJson(data),
+                    headers: {
                         'Content-Type': 'application/json'
-                        }
-                    }).then(_success, _error);
-                };
+                    }
+                }).then(_success, _error);
+            };
 
-                //HTTP DELETE- delete product by id
-                $scope.remove = function (product) {
-                    $http({
-                        method: 'DELETE',
-                        url: '/entity/product/' + product.id
-                    }).then(_success, _error);
-                };
+            //HTTP DELETE- delete product by id
+            $scope.remove = function (invoice) {
+                $http({
+                    method: 'DELETE',
+                    url: '/entity/invoice/' + invoice.id
+                }).then(_success, _error);
+            };
 
-                //In case of edit products, populate form with product data
-                $scope.edit = function (product) {
-                    $scope.form.id = product.id;
-                    $scope.form.ProductName = product.name;
-                    $scope.form.ProductDesc = product.description
-                };
+            //In case of edit products, populate form with product data
+            $scope.edit = function (invoice) {
+                $scope.form.id = invoice.id;
+                $scope.form.memberid = invoice.memberid;
+                $scope.form.membername = invoice.membername;
+                $scope.form.orderdate = invoice.orderdate;
+            };
 
-                /* Private Methods */
-                //HTTP GET- get all products collection
-                function _refreshPageData() {
-                    $http({
-                        method: 'GET',
-                        url: '/entity/product/'
-                    }).then(function successCallback(response) {
-                        $scope.products = response.data;
-                    }, function errorCallback(response) {
-                        console.log(response.statusText);
-                    });
+            /* Private Methods */
+            //HTTP GET- get all products collection
+            function _refreshPageData() {
+                var endpointValue = '/entity/invoice/';
+                if (urlParams.get('memberid') !== null) {
+                    endpointValue = '/entity/invoice/memberID=' + urlParams.get('memberid');
+                    console.log("test");
+                }
+                if (urlParams.get('name') !== null) {
+                    endpointValue = '/entity/member/name=' + urlParams.get('name');
+                }
+                if (urlParams.get('date') !== null) {
+                    endpointValue = '/entity/invoice/date=' + urlParams.get('date');
                 }
 
-                function _success(response) {
-                    _refreshPageData();
-                    _clearForm()
+                $http({
+                    method: 'GET',
+                    url: endpointValue
+                }).then(function successCallback(response) {
+                    $scope.invoices = response.data;
+                }, function errorCallback(response) {
+                    console.log(response.statusText);
+                });
+
+                $http({
+                    method: 'GET',
+                    url: 'entity/member/'
+                }).then(function successCallback(response) {
+                    $scope.members = response.data;
+                }, function errorCallback(response) {
+                    console.log(response.statusText);
+                });
+            }
+
+            function _success(response) {
+                _refreshPageData();
+                _clearForm()
+            }
+
+            function _error(response) {
+                alert(response.data.message || response.statusText);
+            }
+
+            //Clear the form
+            function _clearForm() {
+                $scope.form.id = -1;
+                $scope.form.memberid = "";
+                $scope.form.membername = "";
+                $scope.form.orderdate = "";
+            }
+
+            $scope.findName = function (id) {
+                memberName = "";
+                loopCheck = false;
+                index = 0;
+
+                while (loopCheck == false) {
+                    if (id == $scope.members[index].id) {
+                        memberName = $scope.members[index].name;
+                        loopCheck = true;
+                    }
+                    index++;
                 }
+                return memberName;
+            }
+        });
+    </script>
+</head>
 
-                function _error(response) {
-                    alert(response.data.message || response.statusText);
-                }
+<body ng-app="InvoiceManagement" ng-controller="InvoiceManagementController">
+    <article>
 
-                //Clear the form
-                function _clearForm() {
-                    $scope.form.ProductDesc = "";
-                    $scope.form.ProductName = "";
-                    $scope.form.id = -1;
-                }
-            });
-        </script>
-    </head>
+        <header><h1><a href="index.html" id="home">Welcome to GoTo Grocery Online</a></h1></header>
 
-    <body ng-app="ProductManagement" ng-controller="ProductManagementController">
-        <article>
-            
-            <header><h1><a href="index.html" id="home">Welcome to GoTo Grocery Online</a></h1></header>
-            
-            <nav>
-                <ul>
-                    <li><a href="add_member.html">Add Member</a></li>
-                    <li><a href="view_member.html">View Members</a></li>
-                    <li><a href="add_product.html">Add Product</a></li>
-                    <li><a href="view_product.html">View Products</a></li>
-                    <li><a href="add_invoice.html">Add Invoice</a></li>
-                    <li><a class="active" href="view_invoice.html">View Invoice</a></li>
-                </ul>
-            </nav>
+        <nav>
+            <ul>
+                <li><a href="add_member.html">Add Member</a></li>
+                <li><a href="view_member.html">View Members</a></li>
+                <li><a href="add_product.html">Add Product</a></li>
+                <li><a href="view_product.html">View Products</a></li>
+                <li><a href="add_invoice.html">Add Invoice</a></li>
+                <li><a class="active" href="view_invoice.html">View Invoice</a></li>
+            </ul>
+        </nav>
 
-            <br>
-            <h3>Product List</h3>
-            <table>
+        <br>
+        <h3>View Invoice</h3>
+        <table>
             <tr>
                 <th>Invoice ID</th>
                 <th>Member ID</th>
@@ -139,19 +183,18 @@
                 <th>Remove</th>
                 <th>Edit</th>
             </tr>
-            <tr ng-repeat="product in products">
-                <td>{{ product.name }}</td>
-                <td>{{ product.description }}</td>
-
-                <td><input id="btnRemoveEdit" type="button" ng-click="remove (product)" value="Remove" /></td>
-                <td><a href="edit_product.html?id={{ product.id }}"><input id="btnRemoveEdit" type="button" value="Edit" /></a></td>
+            <tr ng-repeat="invoice in invoices">
+                <td>{{ invoice.id }}</td>
+                <td>{{ memberId = invoice.memberID }}</td>
+                <td>{{ findName(memberId) }}</td>
+                <td>{{ invoice.date }}</td>
+                <td><input id="btnRemoveEdit" type="button" ng-click="remove (invoice)" value="Remove" /></td>
+                <td><a href="edit_product.html?id={{ invoice.id }}"><input id="btnRemoveEdit" type="button" value="Edit" /></a></td>
             </tr>
-            </table>
-
-
-            <footer>
+        </table>
+        <footer>
             <h3>View Products</h3>
-            </footer>
-        </article>
-    </body>
+        </footer>
+    </article>
+</body>
 </html>
