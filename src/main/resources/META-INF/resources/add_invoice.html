@@ -30,10 +30,16 @@
         $scope.form = {
           id: -1,
           date: "",
-          memberid: "",
+          memberid: -1,
           products: [],
           qty: []
         };
+
+        $scope.invoices = {
+          id: -1,
+          date: "",
+          memberID: -1
+        }
 
         //Now load the data from server
         _refreshPageData();
@@ -58,7 +64,6 @@
           }, function errorCallback(response) {
             console.log(response.statusText);
           });
-
           
 
           for(let i = 0; i < $scope.form.products.length; i++){
@@ -254,17 +259,17 @@
     <td nowrap="nowrap" style="width: 64px; height: 21px;">
     <p><span style="white-space: normal;">2</span></p>
     </td>
-    <td nowrap="nowrap" style="width: 76px; height: 21px;">{{ productSelected2.id }}</td>
+    <td nowrap="nowrap" style="width: 76px; height: 21px;">{{ form.products[1].id }}</td>
     <td nowrap="nowrap" style="width: 143px; height: 21px;"><span style="white-space: normal;">
-      <select name="product2" ng-options="product.name for product in products" ng-model="productSelected2">
+      <select name="products[1]" ng-options="product.name for product in products" ng-model="form.products[1]">
         <option value="">--Select Product--</option>
       </select>
     </span></td>
-    <td nowrap="nowrap" style="width: 64px; height: 21px;"><span style="white-space: normal;"><input name="Qty2" size="6" type="text" ng-model="productQty2" /></span></td>
-    <td nowrap="nowrap" style="width: 64px; height: 21px;">${{ productSelected2.price }}</td>
+    <td nowrap="nowrap" style="width: 64px; height: 21px;"><span style="white-space: normal;"><input name="Qty2" size="6" type="text" ng-model="form.qty[1]" /></span></td>
+    <td nowrap="nowrap" style="width: 64px; height: 21px;">${{ form.products[1].price }}</td>
     
     <td nowrap="nowrap" style="width: 64px; height: 21px;">
-    <p><span style="white-space: normal;">${{ productTotal2 = calculate(productSelected2.price, productQty2) }}</span></p>
+    <p><span style="white-space: normal;">${{ productTotal2 = calculate(form.products[1].price, form.qty[1]) }}</span></p>
     </td>
     
   </tr>
@@ -272,17 +277,17 @@
     <td nowrap="nowrap" style="width: 64px; height: 21px;">
     <p><span style="white-space: normal;">3</span></p>
     </td>
-    <td nowrap="nowrap" style="width: 76px; height: 21px;">{{ productSelected3.id }}</td>
+    <td nowrap="nowrap" style="width: 76px; height: 21px;">{{ form.products[2].id }}</td>
     <td nowrap="nowrap" style="width: 143px; height: 21px;"><span style="white-space: normal;">
-      <select name="product2" ng-options="product.name for product in products" ng-model="productSelected3">
+      <select name="products[2]" ng-options="product.name for product in products" ng-model="form.products[2]">
         <option value="">--Select Product--</option>
       </select>
     </span></td>
-    <td nowrap="nowrap" style="width: 64px; height: 21px;"><span style="white-space: normal;"><input name="Qty3" size="6" type="text" ng-model="productQty3" /></span></td>
-    <td nowrap="nowrap" style="width: 64px; height: 21px;"><span style="white-space: normal;">${{ productSelected3.price }}</span></td>
+    <td nowrap="nowrap" style="width: 64px; height: 21px;"><span style="white-space: normal;"><input name="Qty3" size="6" type="text" ng-model="form.qty[2]" /></span></td>
+    <td nowrap="nowrap" style="width: 64px; height: 21px;"><span style="white-space: normal;">${{ form.products[2].price }}</span></td>
     
     <td nowrap="nowrap" style="width: 64px; height: 21px;">
-    <p><span style="white-space: normal;">${{ productTotal3 = calculate(productSelected3.price, productQty3) }}</span></p>
+    <p><span style="white-space: normal;">${{ productTotal3 = calculate(form.products[2].price, form.qty[2]) }}</span></p>
     </td>
     
   </tr>
@@ -290,17 +295,17 @@
     <td nowrap="nowrap" style="width: 64px; height: 21px;">
     <p><span style="white-space: normal;">4</span></p>
     </td>
-    <td nowrap="nowrap" style="width: 76px; height: 21px;">{{ productSelected4.id }}</td>
+    <td nowrap="nowrap" style="width: 76px; height: 21px;">{{ form.products[3].id }}</td>
     <td nowrap="nowrap" style="width: 143px; height: 21px;"><span style="white-space: normal;">
-      <select name="product2" ng-options="product.name for product in products" ng-model="productSelected4">
+      <select name="products[3]" ng-options="product.name for product in products" ng-model="form.products[3]">
         <option value="">--Select Product--</option>
       </select>
     </span></td>
-    <td nowrap="nowrap" style="width: 64px; height: 21px;"><span style="white-space: normal;"><input name="Qty4" size="6" type="text" ng-model="productQty4" /></span></td>
-    <td nowrap="nowrap" style="width: 64px; height: 21px;"><span style="white-space: normal;">${{ productSelected4.price }}</span></td>
+    <td nowrap="nowrap" style="width: 64px; height: 21px;"><span style="white-space: normal;"><input name="Qty4" size="6" type="text" ng-model="form.qty[3]" /></span></td>
+    <td nowrap="nowrap" style="width: 64px; height: 21px;"><span style="white-space: normal;">${{ form.products[3].price }}</span></td>
    
     <td nowrap="nowrap" style="width: 64px; height: 21px;">
-    <p><span style="white-space: normal;">${{ productTotal4 = calculate(productSelected4.price, productQty4) }}</span></p>
+    <p><span style="white-space: normal;">${{ productTotal4 = calculate(form.products[3].price, form.qty[3]) }}</span></p>
     </td>
     
   </tr>
@@ -308,17 +313,17 @@
     <td nowrap="nowrap" style="width: 64px; height: 21px;">
     <p><span style="white-space: normal;">5</span></p>
     </td>
-    <td nowrap="nowrap" style="width: 76px; height: 21px;">{{ productSelected5.id }}</td>
+    <td nowrap="nowrap" style="width: 76px; height: 21px;">{{ form.products[4].id }}</td>
     <td nowrap="nowrap" style="width: 143px; height: 21px;"><span style="white-space: normal;">
-      <select name="product2" ng-options="product.name for product in products" ng-model="productSelected5">
+      <select name="products[4]" ng-options="product.name for product in products" ng-model="form.products[4]">
         <option value="">--Select Product--</option>
       </select>
     </span></td>
-    <td nowrap="nowrap" style="width: 64px; height: 21px;"><span style="white-space: normal;"><input name="Qty5" size="6" type="text" ng-model="productQty5" /></span></td>
-    <td nowrap="nowrap" style="width: 64px; height: 21px;"><span style="white-space: normal;">${{ productSelected5.price }}</span></td>
+    <td nowrap="nowrap" style="width: 64px; height: 21px;"><span style="white-space: normal;"><input name="Qty5" size="6" type="text" ng-model="form.qty[4]" /></span></td>
+    <td nowrap="nowrap" style="width: 64px; height: 21px;"><span style="white-space: normal;">${{ form.products[4].price }}</span></td>
     
     <td nowrap="nowrap" style="width: 64px; height: 21px;">
-    <p><span style="white-space: normal;">${{ productTotal5 = calculate(productSelected5.price, productQty5) }}</span></p>
+    <p><span style="white-space: normal;">${{ productTotal5 = calculate(form.products[4].price, form.qty[4]) }}</span></p>
     </td>
     
   </tr>
@@ -326,34 +331,34 @@
     <td nowrap="nowrap" style="width: 64px; height: 21px;">
     <p><span style="white-space: normal;">6</span></p>
     </td>
-    <td nowrap="nowrap" style="width: 76px; height: 21px;">{{ productSelected6.id }}</td>
+    <td nowrap="nowrap" style="width: 76px; height: 21px;">{{ form.products[5].id }}</td>
     <td nowrap="nowrap" style="width: 143px; height: 21px;"><span style="white-space: normal;">
-      <select name="product2" ng-options="product.name for product in products" ng-model="productSelected6">
+      <select name="products[5]" ng-options="product.name for product in products" ng-model="form.products[5]">
         <option value="">--Select Product--</option>
       </select>
     </span></td>
-    <td nowrap="nowrap" style="width: 64px; height: 21px;"><span style="white-space: normal;"><input name="Qty6" size="6" type="text" ng-model="productQty6" /></span></td>
-    <td nowrap="nowrap" style="width: 64px; height: 21px;"><span style="white-space: normal;">${{ productSelected6.price }}</span></td>
+    <td nowrap="nowrap" style="width: 64px; height: 21px;"><span style="white-space: normal;"><input name="Qty6" size="6" type="text" ng-model="form.qty[5]" /></span></td>
+    <td nowrap="nowrap" style="width: 64px; height: 21px;"><span style="white-space: normal;">${{ form.products[5].price }}</span></td>
     
     <td nowrap="nowrap" style="width: 64px; height: 21px;">
-    <p><span style="white-space: normal;">${{ productTotal6 = calculate(productSelected6.price, productQty6) }}</span></p>
+    <p><span style="white-space: normal;">${{ productTotal6 = calculate(form.products[5].price, form.qty[5]) }}</span></p>
     </td>
   </tr>
   <tr>
     <td nowrap="nowrap" style="width: 64px; height: 21px;">
     <p><span style="white-space: normal;">7</span></p>
     </td>
-    <td nowrap="nowrap" style="width: 76px; height: 21px;">{{ productSelected7.id }}</td>
+    <td nowrap="nowrap" style="width: 76px; height: 21px;">{{ form.products[6].id }}</td>
     <td nowrap="nowrap" style="width: 143px; height: 21px;"><span style="white-space: normal;">
-      <select name="product2" ng-options="product.name for product in products" ng-model="productSelected7">
+      <select name="products[6]" ng-options="product.name for product in products" ng-model="form.products[6]">
         <option value="">--Select Product--</option>
       </select>
     </span></td>
-    <td nowrap="nowrap" style="width: 64px; height: 21px;"><span style="white-space: normal;"><input name="Qty8" size="6" type="text" ng-model="productQty7" /></span></td>
-    <td nowrap="nowrap" style="width: 64px; height: 21px;">${{ productSelected7.price }}</td>
+    <td nowrap="nowrap" style="width: 64px; height: 21px;"><span style="white-space: normal;"><input name="Qty8" size="6" type="text" ng-model="form.qty[6]" /></span></td>
+    <td nowrap="nowrap" style="width: 64px; height: 21px;">${{ form.products[6].price }}</td>
     
     <td nowrap="nowrap" style="width: 64px; height: 21px;">
-    <p><span style="white-space: normal;">${{ productTotal7 = calculate(productSelected7.price, productQty7) }}</span></p>
+    <p><span style="white-space: normal;">${{ productTotal7 = calculate(form.products[6].price, form.qty[6]) }}</span></p>
     </td>
     
   </tr>
@@ -361,17 +366,17 @@
     <td nowrap="nowrap" style="width: 64px; height: 21px;">
     <p><span style="white-space: normal;">8</span></p>
     </td>
-    <td nowrap="nowrap" style="width: 76px; height: 21px;">{{ productSelected8.id }}</td>
+    <td nowrap="nowrap" style="width: 76px; height: 21px;">{{ form.products[7].id }}</td>
     <td nowrap="nowrap" style="width: 143px; height: 21px;"><span style="white-space: normal;">
-      <select name="product2" ng-options="product.name for product in products" ng-model="productSelected8">
+      <select name="products[7]" ng-options="product.name for product in products" ng-model="form.products[7]">
         <option value="">--Select Product--</option>
       </select>
     </span></td>
-    <td nowrap="nowrap" style="width: 64px; height: 21px;"><span style="white-space: normal;"><input name="Qty9" size="6" type="text" ng-model="productQty8" /></span></td>
-    <td nowrap="nowrap" style="width: 64px; height: 21px;">${{ productSelected8.price }}</td>
+    <td nowrap="nowrap" style="width: 64px; height: 21px;"><span style="white-space: normal;"><input name="Qty9" size="6" type="text" ng-model="form.qty[7]" /></span></td>
+    <td nowrap="nowrap" style="width: 64px; height: 21px;">${{ form.products[7].price }}</td>
     
     <td nowrap="nowrap" style="width: 64px; height: 21px;">
-    <p><span style="white-space: normal;">${{ productTotal8 = calculate(productSelected8.price, productQty8) }}</span></p>
+    <p><span style="white-space: normal;">${{ productTotal8 = calculate(form.products[7].price, form.qty[7]) }}</span></p>
     </td>
     
   </tr>
@@ -379,17 +384,17 @@
     <td nowrap="nowrap" style="width: 64px; height: 21px;">
     <p><span style="white-space: normal;">9</span></p>
     </td>
-    <td nowrap="nowrap" style="width: 76px; height: 21px;">{{ productSelected9.id }}</td>
+    <td nowrap="nowrap" style="width: 76px; height: 21px;">{{ form.products[8].id }}</td>
     <td nowrap="nowrap" style="width: 143px; height: 21px;"><span style="white-space: normal;">
-      <select name="product2" ng-options="product.name for product in products" ng-model="productSelected9">
+      <select name="products[8]" ng-options="product.name for product in products" ng-model="form.products[8]">
         <option value="">--Select Product--</option>
       </select>
     </span></td>
-    <td nowrap="nowrap" style="width: 64px; height: 21px;"><span style="white-space: normal;"><input name="Qty9" size="6" type="text" ng-model="productQty9" /></span></td>
-    <td nowrap="nowrap" style="width: 64px; height: 21px;">${{ productSelected9.price }}</td>
+    <td nowrap="nowrap" style="width: 64px; height: 21px;"><span style="white-space: normal;"><input name="Qty9" size="6" type="text" ng-model="form.qty[8]" /></span></td>
+    <td nowrap="nowrap" style="width: 64px; height: 21px;">${{ form.products[8].price }}</td>
     
     <td nowrap="nowrap" style="width: 64px; height: 21px;">
-    <p><span style="white-space: normal;">${{ productTotal9 = calculate(productSelected9.price, productQty9) }}</span></p>
+    <p><span style="white-space: normal;">${{ productTotal9 = calculate(form.products[8].price, form.qty[8]) }}</span></p>
     </td>
     
   </tr>
@@ -397,23 +402,21 @@
     <td nowrap="nowrap" style="width: 64px; height: 21px;">
     <p><span style="white-space: normal;">10</span></p>
     </td>
-    <td nowrap="nowrap" style="width: 76px; height: 21px;">
-        <p>{{ productSelected10.id }}</p>
-    </td>
+    <td nowrap="nowrap" style="width: 76px; height: 21px;">{{ form.products[9].id }}</td>
     <td nowrap="nowrap" style="width: 143px; height: 21px;"><span style="white-space: normal;">
-      <select name="product2" ng-options="product.name for product in products" ng-model="productSelected10">
+      <select name="products[9]" ng-options="product.name for product in products" ng-model="form.products[9]">
         <option value="">--Select Product--</option>
       </select>
     </span></td>
     <td nowrap="nowrap" style="width: 64px; height: 21px;">
-    <p><span style="white-space: normal;"><input name="Qty10" size="6" type="text" ng-model="productQty10" /></span></p>
+    <p><span style="white-space: normal;"><input name="Qty10" size="6" type="text" ng-model="form.qty[9]" /></span></p>
     </td>
     <td nowrap="nowrap" style="width: 64px; height: 21px;">
-    <p><span style="white-space: normal;">${{ productSelected10.price }}</span></p>
+    <p><span style="white-space: normal;">${{ form.products[9].price }}</span></p>
     </td>
     
     <td nowrap="nowrap" style="width: 64px; height: 21px;">
-    <p><span style="white-space: normal;">${{ productTotal10 = calculate(productSelected10.price, productQty10) }}</span></p>
+    <p><span style="white-space: normal;">${{ productTotal10 = calculate(form.products[9].price, form.qty10) }}</span></p>
     </td>
     
     <p>&nbsp;</p>
