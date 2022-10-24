@@ -4,7 +4,6 @@ import org.acme.hibernate.orm.panache.entity.MemberEntity;
 public class Analyse {
     public int memberID;
     public String memberName;
-    public String favouriteProduct;
     public long totalMoneySpent;
 
     public int favouriteProductID;

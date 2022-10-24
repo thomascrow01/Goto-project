@@ -28,24 +28,25 @@ public class AnalyseResource {
 
     @GET
     @Path("{id}")
-    public Analyse get(Long id) {
+    public Analyse[] get(Long id) {
 
-        Analyse output = new Analyse(id);
+        Analyse[] output = new Analyse[1];
+        output[0] = new Analyse(id);
         
         HashMap<Integer, Integer> tally = new HashMap<Integer, Integer>();
         int currentMax = -1; // hoping this doesnt break the csv thing if this runs without any invoices or anything
 
         long totalMoneySpent = 0;
 
-        List<InvoiceEntity> invoices = InvoiceEntity.list("memberID", Sort.by("id"), id);
+        List<InvoiceEntity> invoices = InvoiceEntity.list("memberID", Sort.by("id"), id.intValue());
 
         for(InvoiceEntity invoice : invoices){
 
-            List<InvoiceProductEntity> products = InvoiceProductEntity.list("invoiceID", Sort.by("id").and("quantity"), invoice.id);
+            List<InvoiceProductEntity> products = InvoiceProductEntity.list("invoiceID", Sort.by("id").and("quantity"), invoice.id.intValue());
 
             for(InvoiceProductEntity invoiceProduct : products){
 
-                ProductEntity product = ProductEntity.findById(invoiceProduct.productID);
+                ProductEntity product = ProductEntity.findById(Long.valueOf(invoiceProduct.productID));
 
                 totalMoneySpent += product.price * invoiceProduct.quantity;
 
@@ -58,10 +59,10 @@ public class AnalyseResource {
 
         }
 
-        output.totalMoneySpent = totalMoneySpent;
-        output.favouriteProductID = currentMax;
-        ProductEntity product = ProductEntity.findById(currentMax);
-        output.favouriteProductName = product.name;
+        output[0].totalMoneySpent = totalMoneySpent;
+        output[0].favouriteProductID = currentMax;
+        //ProductEntity product = ProductEntity.findById(Long.valueOf(currentMax));
+        //output.favouriteProductName = product.name;
 
         return output;
 
