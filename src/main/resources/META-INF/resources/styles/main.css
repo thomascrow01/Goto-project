@@ -156,12 +156,12 @@ th {
 }
 
 .input-wrapper {
-  display: inline-block;
+  display: block;
   background: white;
-  padding: 1rem;
-  border-radius: 0.7rem;
+  padding: 0.5rem;
+  border-radius: 1rem;
   color: black;
-  box-shadow: 0.25rem 0.25rem 0rem #f0b2a8;
+  box-shadow: 0.2rem 0.2rem 1rem #f0b2a8;
  }
  
 

@@ -214,10 +214,27 @@
             <a ng-click="remove( member )" class="buttons"><button style="background-color: rgb(133, 157, 133); text-decoration-color: aliceblue; font-family: 'Times New Roman', Times, serif;border-radius: 5px; font-size: 20px;" type="button">Remove</button></a>
         </div>
       </div>-->
+
       <form method="GET" action="view_member.html">
         <div class="input-wrapper">
           <div class="fa fa-search"></div>
-          <b><input name="name" type="text" placeholder="Search Member" /></b>
+          <b><input name="name" type="text" placeholder="Search Member's Name" /></b>
+          <div class="fa fa-times"></div>
+          <input type="submit" value="Submit" />
+        </div>
+      </form>
+      <form method="GET" action="view_member.html">
+        <div class="input-wrapper">
+          <div class="fa fa-search"></div>
+          <b><input name="email" type="text" placeholder="Search Member's Email ID" /></b>
+          <div class="fa fa-times"></div>
+          <input type="submit" value="Submit" />
+        </div>
+      </form>
+      <form method="GET" action="view_member.html">
+        <div class="input-wrapper">
+          <div class="fa fa-search"></div>
+          <b><input name="mobile" type="text" placeholder="Search Member's Number" /></b>
           <div class="fa fa-times"></div>
           <input type="submit" value="Submit" />
         </div>

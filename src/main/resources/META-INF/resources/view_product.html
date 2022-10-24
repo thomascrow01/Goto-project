@@ -37,6 +37,8 @@
                 //Now load the data from server
                 _refreshPageData();
 
+                
+
                 //HTTP POST/PUT methods for add/edit products
                 $scope.update = function () {
                     var method = "";
@@ -89,7 +91,7 @@
                 function _refreshPageData() {
 
                     var endpointValue = '/entity/product/';
-                    if( urlParams.get('email') !== null ){
+                    if( urlParams.get('name') !== null ){
                         endpointValue = '/entity/product/name=' + urlParams.get('name');
                     }
 
@@ -136,6 +138,14 @@
                     <li><a href="view_invoice.html">View Invoice</a></li>
                 </ul>
             </nav>
+            <form method="GET" action="view_product.html">
+                <div class="input-wrapper">
+                  <div class="fa fa-search"></div>
+                  <b><input name="name" type="text" placeholder="Search Product" /></b>
+                  <div class="fa fa-times"></div>
+                  <input type="submit" value="Submit" />
+                </div>
+              </form>
 
             <br>
             <h3>Product List</h3>
