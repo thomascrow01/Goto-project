@@ -5,7 +5,7 @@
          <title>GoTo Grocery Online</title>
          <meta charset="utf-8" />
          <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-   
+
          <link href="styles/main.css" rel="stylesheet"/>
          <link href="styles/responsive.css" rel="stylesheet" media="screen and (max-width:1024px)"/>
          <!-- References to external font 'Love Ya Like A Sister' -->
@@ -14,23 +14,23 @@
 
          <script type="text/javascript">
             var app = angular.module("ProductManagement", []);
-   
+
             //Controller Part
             app.controller("ProductManagementController", function ($scope, $http) {
-   
+
                //Initialize page with default data which is blank in this example
                $scope.products = [];
-   
+
                $scope.form = {
                   id: -1,
                   productName: "",
                   productDesc: "",
                   productPrice: 0.0
                };
-   
+
                //Now load the data from server
                _refreshPageData();
-      
+
                //HTTP POST/PUT methods for add/edit products
                $scope.update = function () {
                   var method = "";
@@ -62,7 +62,7 @@
                   url: '/entity/product/' + product.id
                   }).then(_success, _error);
                };
-      
+
                //In case of edit products, populate form with product data
                $scope.edit = function (product) {
                   $scope.form.productPrice = product.price;
@@ -70,7 +70,7 @@
                   $scope.form.productName = product.name;
                   $scope.form.id = product.id;
                };
-   
+
                /* Private Methods */
                //HTTP GET- get all products collection
                function _refreshPageData() {
@@ -83,12 +83,12 @@
                   console.log(response.statusText);
                   });
                }
-      
+
                function _success(response) {
                   _refreshPageData();
                   _clearForm()
                }
-      
+
                //Clear the form
                function _clearForm() {
                   $scope.form.productPrice = 0.0;
@@ -105,19 +105,149 @@
       </head>
       <body ng-app="ProductManagement" ng-controller="ProductManagementController">
          <article>
-            
+
                <header><h1><a href="index.html" id="home">Welcome to GoTo Grocery Online</a></h1></header>
-            
-            <nav>
-               <ul>
-                  
-                  <li><a href="add_member.html">Add Member</a></li>
-                  <li><a href="view_member.html">View Members</a></li>
-                  <li><a class="active" href="add_product.html">Add Product</a></li>
-                  <li><a href="view_product.html">View Products</a></li>
-                  <li><a href="add_invoice.html">Add Invoice</a></li>
-                  <li><a href="view_invoice.html">View Invoice</a></li>
-                </ul>
+
+               <!---beginning navigation changes---->
+               <nav>
+               			<!--<ul>
+               		            <li><a href="add_member.html">Add Member</a></li>
+                                 	<li><a href="edit_member.html">Edit Member</a></li>
+                                 	<li><a href="view_member.html">View Member</a></li>
+                                   <li><a class="active" href="add_invoice.html">New Invoice</a></li>
+                                 	<li><a href="add_product.html">Add Product</a></li>
+                                 	<li><a href="edit_product.html">Edit Product</a></li>
+                                 	<li><a href="index.html">Home</a></li>
+               			</ul>-->
+               					<style>
+               body {
+                 font-family: Arial, Helvetica, sans-serif;
+               }
+
+               .navbar {
+                 overflow: hidden;
+                 font-weight: bold;
+                }
+
+               .navbar a {
+                 float: left;
+                 font-size: 16px;
+                 color: black;
+                 text-align: center;
+                 padding: 14px 96px;
+                 text-decoration: none;
+               }
+
+               .dropdown {
+                 float: left;
+                 overflow: hidden;
+               }
+
+               .dropdown .dropbtn {
+                 font-size: 16px;
+                 border: none;
+                 outline: none;
+                 color: black;
+                 font-weight: bold;
+                 padding: 14px 96px;
+                 background-color: inherit;
+                 font-family: inherit;
+                 margin: 0;
+               }
+               .edit_dropdown .edit_dropbtn {
+                 font-size: 16px;
+                 border: none;
+                 outline: none;
+                 color: black;
+                 font-weight: bold;
+                 padding: 14px 96px;
+                 background-color: inherit;
+                 font-family: inherit;
+                 margin: 0;
+               }
+
+               .navbar a:hover, .dropdown:hover .dropbtn {
+                 background-color: #fefefe;
+               }
+
+               .dropdown-content {
+                 display: none;
+                 position: absolute;
+                 background-color: #f9f9f9;
+                 min-width: 160px;
+                 box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+                 z-index: 1;
+               }
+
+               .dropdown-content a {
+                 float: none;
+                 color: black;
+                 padding: 12px 16px;
+                 text-decoration: none;
+                 display: block;
+                 text-align: left;
+               }
+
+               .dropdown-content a:hover {
+                 background-color: #ddd;
+               }
+
+               .dropdown:hover .dropdown-content {
+                 display: block;
+               }
+               </style>
+               </head>
+               <body>
+
+               <div class="navbar">
+                 <a href="index.html">Home</a>
+                 <!--<a href="#news">News</a>-->
+                 <div class="dropdown">
+                   <button class="dropbtn">Create
+                     <i class="fa fa-caret-down"></i>
+                   </button>
+                   <div class="dropdown-content">
+                     <a href="add_member.html">Member</a>
+                     <a href="add_product.html">Product</a>
+                     <a href="add_invoice.html">Invoice</a>
+                   </div>
+                 </div>
+
+                 <div class="dropdown">
+                 <button class="dropbtn">Edit
+                     <i class="fa fa-caret-down"></i>
+                   </button>
+                   <div class="dropdown-content">
+                     <a href="edit_member.html">Member</a>
+                     <a href="edit_product.html">Product</a>
+                     <a href="edit_invoice.html">Invoice</a>
+                   </div>
+                 </div>
+
+               <div class="dropdown">
+                 <button class="dropbtn">View
+                     <i class="fa fa-caret-down"></i>
+                   </button>
+                   <div class="dropdown-content">
+                     <a href="view_member.html">Member</a>
+                     <a href="view_product.html">Product</a>
+                     <a href="view_invoice.html">Invoice</a>
+                   </div>
+                 </div>
+
+                 <div class="dropdown">
+                 <button class="dropbtn">Reports
+                     <i class="fa fa-caret-down"></i>
+                   </button>
+                   <div class="dropdown-content">
+                       <a href="analyse_member.html">Analyse Member</a>
+                         <a href="exportreport.html">Export Report</a>
+                   </div>
+                 </div>
+
+               </div>
+               </nav>
+               <!---end navigation changes---->
             </nav>
             <form ng-submit="update()">
                <section id="section1">
@@ -171,7 +301,97 @@
                      </fieldset>
                      <br>
                      <br>
-                     <div class="col-75"><input type="submit" value="Submit" /></div>
+                     <!--<br><div class="col-75"><input type="submit" value="Submit" /></div>-->
+                     <!--Start User Feedback--->
+                     <!--Thank you for submitting the form-->
+                     <div class="col-75"><input type="submit" id="myThankYou" value="Submit"></div>
+
+                     <div id="myThankYouModal" class="thank_modal">
+
+                       <div class="thank_modal-content">
+                         <span class="thank_close">&times;</span>
+                         <div class="bgc_modal-content">
+                           <p><h2>New Product has been successfully submitted.</h2></p>
+                         </div>
+                         <p><h1>Please close this window to go back to the Home Page</h1></p>
+                         <p><h1>Thank you</h1></p>
+                       </div>
+
+                     </div>
+                     <style>
+
+                     /* The Modal (background) */
+                     .thank_modal {
+                         display: none; /* Hidden by default */
+                         position: fixed; /* Stay in place */
+                         z-index: 1; /* Sit on top */
+                         padding-top: 100px; /* Location of the box */
+                         left: 0;
+                         top: 0;
+                         width: 70%; /* Full width */
+                         height: 100%; /* Full height */
+                         overflow: auto; /* Enable scroll if needed */
+                         background-color: rgb(0,0,0); /* Fallback color */
+                         background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+                     }
+                     .bgc_modal-content{background-color: #adebad; font-family:'Love Ya Like A Sister', arial;}
+                     /* Modal Content */
+                     .thank_modal-content {
+                         background-color: #fefefe;
+                         margin: auto;
+                         padding: 20px;
+                         border: 1px solid #888;
+                         width: 80%;
+
+                     }
+
+                     /* The Close Button */
+                     .thank_close {
+                         color: #aaaaaa;
+                         float: right;
+                         font-size: 28px;
+                         font-weight: bold;
+                     }
+
+                     .thank_close:hover,
+                     .thank_close:focus {
+                         color: #000;
+                         text-decoration: none;
+                         cursor: pointer;
+                     }
+                     </style>
+                     <script>
+                     // Get the modal
+                     var thankModal = document.getElementById('myThankYouModal');
+
+                     // Get the button that opens the modal
+                     var thankBtn = document.getElementById("myThankYou");
+
+                     // Get the <span> element that closes the modal
+                     var thankSpan = document.getElementsByClassName("thank_close")[0];
+
+                     // When the user clicks the button, open the modal
+                     thankBtn.onclick = function() {
+                         thankModal.style.display = "block";
+                     }
+
+                     // When the user clicks on <span> (x), close the modal
+                     thankSpan.onclick = function() {
+                         thankModal.style.display = "none";
+                         window.open ('index.html','_self',false)
+                     }
+
+                     // When the user clicks anywhere outside of the modal, close it
+                     window.onclick = function(event) {
+                         if (event.target == thankModal) {
+                             thankModal.style.display = "none";
+                             window.open ('index.html','_self',false)
+                         }
+                     }
+                     </script>
+                     <!--END Thank you for submitting the form-->
+                     <!--End User Input-->
+
                   </div>
                </section>
             </form>

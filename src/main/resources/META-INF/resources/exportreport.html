@@ -9,28 +9,28 @@
       <link href="styles/responsive.css" rel="stylesheet" media="screen and (max-width:1024px)"/>
       <!-- References to external font 'Love Ya Like A Sister' -->
       <link href='http://fonts.googleapis.com/css?family=Love+Ya+Like+A+Sister' rel='stylesheet'/>
-    
+
       <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
       <script type="text/javascript">
         var app = angular.module("ExportReport", []);
-  
+
         //Controller Part
         app.controller("ExportReportController", function ($scope, $http) {
-  
+
           //Initialize page with default data which is blank in this example
           $scope.members = [];
-  
+
           $scope.form = {
             id: -1,
             dataType: ""
           };
-  
+
           //HTTP POST/PUT methods for add/edit members
           $scope.update = function () {
             var method = "GET";
             var url = "";
-            
-            if ($scope.form.dataType == "product" || $scope.form.dataType == "member" || $scope.form.dataType == "invoice") { 
+
+            if ($scope.form.dataType == "product" || $scope.form.dataType == "member" || $scope.form.dataType == "invoice") {
               url = "/entity/" + $scope.form.dataType;
 
               $http({
@@ -52,7 +52,7 @@
                   }
                   i++;
                 }
-                
+
                 download("report-" + new Date().toLocaleDateString().padStart(10, '0') + ".csv", responseCSV);
 
               }, function errorCallback(response) {
@@ -66,7 +66,7 @@
           $scope.edit = function (exportData) {
             $scope.form.dataType = exportData.dataType;
           };
-  
+
           //Clear the form
           function _clearForm() {
             $scope.form.dataType = "";
@@ -89,19 +89,149 @@
     </head>
     <body ng-app="ExportReport" ng-controller="ExportReportController">
       <article>
-        
+
           <header><h1><a href="index.html" id="home">Welcome to GoTo Grocery Online</a></h1></header>
-        
-        <nav>
-          <ul>
-            <li><a class="active" href="add_member.html">Add Member</a></li>
-            <li><a href="view_member.html">View Members</a></li>
-            <li><a href="add_product.html">Add Product</a></li>
-            <li><a href="view_product.html">View Products</a></li>
-            <li><a href="add_invoice.html">Add Invoice</a></li>
-            <li><a href="view_invoice.html">View Invoice</a></li>
-          </ul>
-        </nav>
+
+          <!---beginning navigation changes---->
+          <nav>
+               <!--<ul>
+                         <li><a href="add_member.html">Add Member</a></li>
+                             <li><a href="edit_member.html">Edit Member</a></li>
+                             <li><a href="view_member.html">View Member</a></li>
+                              <li><a class="active" href="add_invoice.html">New Invoice</a></li>
+                             <li><a href="add_product.html">Add Product</a></li>
+                             <li><a href="edit_product.html">Edit Product</a></li>
+                             <li><a href="index.html">Home</a></li>
+               </ul>-->
+                   <style>
+          body {
+            font-family: Arial, Helvetica, sans-serif;
+          }
+
+          .navbar {
+            overflow: hidden;
+            font-weight: bold;
+           }
+
+          .navbar a {
+            float: left;
+            font-size: 16px;
+            color: black;
+            text-align: center;
+            padding: 14px 96px;
+            text-decoration: none;
+          }
+
+          .dropdown {
+            float: left;
+            overflow: hidden;
+          }
+
+          .dropdown .dropbtn {
+            font-size: 16px;
+            border: none;
+            outline: none;
+            color: black;
+            font-weight: bold;
+            padding: 14px 96px;
+            background-color: inherit;
+            font-family: inherit;
+            margin: 0;
+          }
+          .edit_dropdown .edit_dropbtn {
+            font-size: 16px;
+            border: none;
+            outline: none;
+            color: black;
+            font-weight: bold;
+            padding: 14px 96px;
+            background-color: inherit;
+            font-family: inherit;
+            margin: 0;
+          }
+
+          .navbar a:hover, .dropdown:hover .dropbtn {
+            background-color: #fefefe;
+          }
+
+          .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+          }
+
+          .dropdown-content a {
+            float: none;
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            text-align: left;
+          }
+
+          .dropdown-content a:hover {
+            background-color: #ddd;
+          }
+
+          .dropdown:hover .dropdown-content {
+            display: block;
+          }
+          </style>
+          </head>
+          <body>
+
+          <div class="navbar">
+            <a href="index.html">Home</a>
+            <!--<a href="#news">News</a>-->
+            <div class="dropdown">
+              <button class="dropbtn">Create
+                <i class="fa fa-caret-down"></i>
+              </button>
+              <div class="dropdown-content">
+                <a href="add_member.html">Member</a>
+                <a href="add_product.html">Product</a>
+                <a href="add_invoice.html">Invoice</a>
+              </div>
+            </div>
+
+            <div class="dropdown">
+            <button class="dropbtn">Edit
+                <i class="fa fa-caret-down"></i>
+              </button>
+              <div class="dropdown-content">
+                <a href="edit_member.html">Member</a>
+                <a href="edit_product.html">Product</a>
+                <a href="edit_invoice.html">Invoice</a>
+              </div>
+            </div>
+
+          <div class="dropdown">
+            <button class="dropbtn">View
+                <i class="fa fa-caret-down"></i>
+              </button>
+              <div class="dropdown-content">
+                <a href="view_member.html">Member</a>
+                <a href="view_product.html">Product</a>
+                <a href="view_invoice.html">Invoice</a>
+              </div>
+            </div>
+
+            <div class="dropdown">
+            <button class="dropbtn">Reports
+                <i class="fa fa-caret-down"></i>
+              </button>
+              <div class="dropdown-content">
+                <a href="analyse_member.html">Analyse Member</a>
+                <a href="exportreport.html">Export Report</a>
+              </div>
+            </div>
+
+          </div>
+          </nav>
+          <!---end navigation changes---->
 
         <form ng-submit="update()">
           <section>
@@ -120,7 +250,7 @@
                         <input id="btnSubmit" type="submit" value="Export" />
                       </div>
                       </div>
-                    </div> 
+                    </div>
                 </fieldset>
                 <br>
               </div>

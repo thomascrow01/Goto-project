@@ -6,14 +6,14 @@
       <title>GoTo Grocery Online</title>
       <meta charset="utf-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-      
+
       <link href="styles/main.css" rel="stylesheet"/>
 
       <link href="styles/responsive.css" rel="stylesheet" media="screen and (max-width:1024px)"/>
 
       <!-- References to external font 'Love Ya Like A Sister' -->
       <link href='http://fonts.googleapis.com/css?family=Love+Ya+Like+A+Sister' rel='stylesheet'/>
-    
+
       <!-- Load AngularJS -->
       <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
       <script type="text/javascript">
@@ -53,7 +53,7 @@
                 data.address = $scope.form.address;
                 data.mobile = $scope.form.mobile;
                 data.email = $scope.form.email;
-                
+
               } else {
                 //If Id is present, it's edit operation - PUT operation
                 method = "PUT";
@@ -137,37 +137,167 @@
             }
           });
         </script>
-    
+
     </head>
 
   <body ng-app="MemberManagement" ng-controller="MemberManagementController">
     <article>
       <header><h1><a href="index.html" id="home">Welcome to GoTo Grocery Online</a></h1></header>
+      <!---beginning navigation changes---->
       <nav>
-        <ul>
-          
-          <li><a href="add_member.html">Add Member</a></li>
-          <li><a class="active" href="view_member.html">View Members</a></li>
-          <li><a href="add_product.html">Add Product</a></li>
-          <li><a href="view_product.html">View Products</a></li>
-          <li><a href="add_invoice.html">Add Invoice</a></li>
-          <li><a href="view_invoice.html">View Invoice</a></li>
-        </ul>
+      			<!--<ul>
+      		            <li><a href="add_member.html">Add Member</a></li>
+                        	<li><a href="edit_member.html">Edit Member</a></li>
+                        	<li><a href="view_member.html">View Member</a></li>
+                          <li><a class="active" href="add_invoice.html">New Invoice</a></li>
+                        	<li><a href="add_product.html">Add Product</a></li>
+                        	<li><a href="edit_product.html">Edit Product</a></li>
+                        	<li><a href="index.html">Home</a></li>
+      			</ul>-->
+      					<style>
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      .navbar {
+        overflow: hidden;
+        font-weight: bold;
+       }
+
+      .navbar a {
+        float: left;
+        font-size: 16px;
+        color: black;
+        text-align: center;
+        padding: 14px 96px;
+        text-decoration: none;
+      }
+
+      .dropdown {
+        float: left;
+        overflow: hidden;
+      }
+
+      .dropdown .dropbtn {
+        font-size: 16px;
+        border: none;
+        outline: none;
+        color: black;
+        font-weight: bold;
+        padding: 14px 96px;
+        background-color: inherit;
+        font-family: inherit;
+        margin: 0;
+      }
+      .edit_dropdown .edit_dropbtn {
+        font-size: 16px;
+        border: none;
+        outline: none;
+        color: black;
+        font-weight: bold;
+        padding: 14px 96px;
+        background-color: inherit;
+        font-family: inherit;
+        margin: 0;
+      }
+
+      .navbar a:hover, .dropdown:hover .dropbtn {
+        background-color: #fefefe;
+      }
+
+      .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+      }
+
+      .dropdown-content a {
+        float: none;
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+        text-align: left;
+      }
+
+      .dropdown-content a:hover {
+        background-color: #ddd;
+      }
+
+      .dropdown:hover .dropdown-content {
+        display: block;
+      }
+      </style>
+
+      <body>
+
+      <div class="navbar">
+        <a href="index.html">Home</a>
+        <!--<a href="#news">News</a>-->
+        <div class="dropdown">
+          <button class="dropbtn">Create
+            <i class="fa fa-caret-down"></i>
+          </button>
+          <div class="dropdown-content">
+            <a href="add_member.html">Member</a>
+            <a href="add_product.html">Product</a>
+            <a href="add_invoice.html">Invoice</a>
+          </div>
+        </div>
+
+        <div class="dropdown">
+        <button class="dropbtn">Edit
+            <i class="fa fa-caret-down"></i>
+          </button>
+          <div class="dropdown-content">
+            <a href="edit_member.html">Member</a>
+            <a href="edit_product.html">Product</a>
+            <a href="edit_invoice.html">Invoice</a>
+          </div>
+        </div>
+
+      <div class="dropdown">
+        <button class="dropbtn">View
+            <i class="fa fa-caret-down"></i>
+          </button>
+          <div class="dropdown-content">
+            <a href="view_member.html">Member</a>
+            <a href="view_product.html">Product</a>
+            <a href="view_invoice.html">Invoice</a>
+          </div>
+        </div>
+
+        <div class="dropdown">
+        <button class="dropbtn">Reports
+            <i class="fa fa-caret-down"></i>
+          </button>
+          <div class="dropdown-content">
+              <a href="analyse_member.html">Analyse Member</a>
+                <a href="exportreport.html">Export Report</a>
+          </div>
+        </div>
+
+      </div>
       </nav>
+      <!---end navigation changes---->
 
 
-      
+
+
 
       <!--<h3>
-        
+
         <div class="row" ng-repeat="member in members">
           <div class="col-25">Name : {{ member.name }}</div>
           <div class="col-25">Address : {{ member.address}}</div>
           <div class="col-25">Email : {{ member.email}}</div>
           <div class="col-25">Mobile : {{ member.mobile}}</div>
-          
-      
-          <div class="col-25"><a href="edit_member.html?id={{ member.id }}" class="btn"><button style="background-color: lightgreen; text-decoration-color: aliceblue; font-family: 'Times New Roman', Times, serif;border-radius: 5px; font-size: 20px;" type="button">Edit</button></a> 
+
+
+          <div class="col-25"><a href="edit_member.html?id={{ member.id }}" class="btn"><button style="background-color: lightgreen; text-decoration-color: aliceblue; font-family: 'Times New Roman', Times, serif;border-radius: 5px; font-size: 20px;" type="button">Edit</button></a>
             <a ng-click="remove( member )" class="buttons"><button style="background-color: rgb(133, 157, 133); text-decoration-color: aliceblue; font-family: 'Times New Roman', Times, serif;border-radius: 5px; font-size: 20px;" type="button">Remove</button></a>
         </div>
       </div>-->
