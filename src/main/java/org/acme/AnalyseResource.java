@@ -1,31 +1,22 @@
 package org.acme;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
-import java.util.List;
-import java.util.regex.Pattern;
+
 
 import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-import javax.transaction.Transactional;
 import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
-import javax.ws.rs.Path;
+
 import javax.ws.rs.Produces;
-import javax.ws.rs.WebApplicationException;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.ext.ExceptionMapper;
-import javax.ws.rs.ext.Provider;
 
-import org.jboss.logging.Logger;
+import org.acme.hibernate.orm.panache.entity.InvoiceEntity;
+import org.acme.hibernate.orm.panache.entity.ProductEntity;
+import org.acme.hibernate.orm.panache.entity.InvoiceProductEntity;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
+
 
 import io.quarkus.panache.common.Sort;
 
@@ -36,8 +27,44 @@ import io.quarkus.panache.common.Sort;
 public class AnalyseResource {
 
     @GET
-    public List get() {
+    @Path("{id}")
+    public Analyse[] get(Long id) {
 
-        return InvoiceProductEntity.list("invoiceID", Sort.by("id").and("quantity"), 1);
+        Analyse[] output = new Analyse[1];
+        output[0] = new Analyse(id);
+        
+        HashMap<Integer, Integer> tally = new HashMap<Integer, Integer>();
+        int currentMax = -1; // hoping this doesnt break the csv thing if this runs without any invoices or anything
+
+        long totalMoneySpent = 0;
+
+        List<InvoiceEntity> invoices = InvoiceEntity.list("memberID", Sort.by("id"), id.intValue());
+
+        for(InvoiceEntity invoice : invoices){
+
+            List<InvoiceProductEntity> products = InvoiceProductEntity.list("invoiceID", Sort.by("id").and("quantity"), invoice.id.intValue());
+
+            for(InvoiceProductEntity invoiceProduct : products){
+
+                ProductEntity product = ProductEntity.findById(Long.valueOf(invoiceProduct.productID));
+
+                totalMoneySpent += product.price * invoiceProduct.quantity;
+
+                // should just cache here, maybe ill do it later
+                tally.put(invoiceProduct.productID, tally.get(invoiceProduct.productID) != null ? tally.get(invoiceProduct.productID) + 1 : 0 );
+
+                currentMax = tally.get(currentMax) == null || tally.get(invoiceProduct.productID) > tally.get(currentMax) ? tally.get(invoiceProduct.productID) : tally.get(currentMax);
+
+            }
+
+        }
+
+        output[0].totalMoneySpent = totalMoneySpent;
+        output[0].favouriteProductID = currentMax;
+        //ProductEntity product = ProductEntity.findById(Long.valueOf(currentMax));
+        //output.favouriteProductName = product.name;
+
+        return output;
+
     }
 }
